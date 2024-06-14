@@ -30,7 +30,7 @@ export class Board {
             const row = [];
             for (let j = 0; j < this.cols; j++) {
                 // Utilise 1 pour les cases de l'échiquier et `value` pour les autres
-                row.push((i + j) % 2 === 0 ? value : 1);
+                row.push(value);
             }
             grid.push(row);
         }

@@ -66,10 +66,15 @@ class Window {
         this.border = false;
         this.valueAdd = 0;
         this.typeAdd = "";
+        this.history = false;
+
         this.move = false;
         this.lines = false;
 
+        this.saves = {}
+
         this.animation = 2;
+        this.step = 1;
         this.rhythm = "continue";
         this.isPlaying = false;
 
@@ -206,7 +211,14 @@ class Window {
             }
             this.writeInGrid(j, i);
             this.boardCanvas.drawGrid();
+            this.updateBottomNav();
         }
+    }
+
+    updateBottomNav() {
+        console.log(this.board.generation);
+        document.getElementById("generation").text = this.board.generation;
+        document.getElementById("livingCells").textContent = this.board.isAlive;
     }
 
     writeInGrid(j, i) {
@@ -227,7 +239,6 @@ class Window {
                 this.board.gridHistory[j][i] = 0;
             }
         }
-        console.log(2)
         this.boardCanvas.drawGrid();
     }
 
@@ -274,3 +285,20 @@ class Window {
 
 const window = new Window();
 window.initialize();
+
+
+const paletteButton = document.getElementById('paletteButton');
+const colorButtons = document.getElementById('colorButtons');
+
+paletteButton.addEventListener('click', () => {
+    colorButtons.style.display = colorButtons.style.display === 'none' ? 'flex' : 'none';
+});
+
+colorButtons.addEventListener('click', (event) => {
+    if (event.target.classList.contains('color-btn')) {
+        const selectedColor = event.target.getAttribute('data-color');
+        paletteButton.style.backgroundColor = selectedColor;
+        document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('selected'));
+        event.target.classList.add('selected');
+    }
+});

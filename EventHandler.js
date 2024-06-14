@@ -73,7 +73,21 @@ export class EventHandler {
         const saveButton = document.querySelector('#enregistrerModal .btn-primary');
 
         saveButton.addEventListener('click', () => {
-            // Fonction à remplir
+            const saveName = saveNameInput.value;
+
+            this.myWindow.saves[saveName] = this.myWindow.board.grid;
+            saveNameInput.input = "";
+
+            const loadConfig = document.getElementById('loadConfig');
+            loadConfig.innerHTML = '';
+
+            Object.keys(this.myWindow.saves).forEach(save => {
+                const option = document.createElement('option');
+                option.value = save;
+                option.textContent = save;
+                loadConfig.appendChild(option);
+            });
+
         });
     }
 
@@ -141,6 +155,21 @@ export class EventHandler {
         });
     }
 
+    updateStartButton() {
+        const playIcon = document.getElementById('startIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+
+        if (playIcon.style.display === 'none') {
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            this.title = 'Démarrer';
+        } else {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            this.title = 'Pause';
+        }
+    }
+
     // Initialiser les événements pour les icônes de la barre d'outils
     initializeIconEvents() {
         const newSimulationButton = document.querySelector('.icon-bar .btn[title="Nouvelle Simulation"]');
@@ -158,19 +187,8 @@ export class EventHandler {
         });
 
         startButton.addEventListener('click', () => {
-            const playIcon = document.getElementById('startIcon');
-            const pauseIcon = document.getElementById('pauseIcon');
             this.myWindow.toggleAnimation();
-
-            if (playIcon.style.display === 'none') {
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
-                this.title = 'Démarrer';
-            } else {
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'block';
-                this.title = 'Pause';
-            }
+            this.updateStartButton();
         });
 
         stepButton.addEventListener('click', () => {
@@ -179,14 +197,14 @@ export class EventHandler {
         });
 
         slowButton.addEventListener('click', () => {
-            this.myWindow.animation -= 1 ;
+            this.myWindow.animation -= 1;
             if (this.myWindow.animation < 1) this.myWindow.animation = 1;
             this.myWindow.stopAnimation();
             this.myWindow.startAnimation();
         });
 
         fastButton.addEventListener('click', () => {
-            this.myWindow.animation += 1 ;
+            this.myWindow.animation += 1;
             if (this.myWindow.animation > 100) this.myWindow.animation = 100;
             this.myWindow.stopAnimation();
             this.myWindow.startAnimation();
@@ -194,6 +212,8 @@ export class EventHandler {
 
         trashButton.addEventListener("click", () => {
             this.myWindow.clearGrid();
+            this.myWindow.stopAnimation();
+            this.updateStartButton();
         });
 
         gridButton.addEventListener('click', () => {
@@ -216,8 +236,8 @@ export class EventHandler {
 
         historyButton.addEventListener('click', () => {
             historyButton.classList.toggle('active');
-            this.myWindow.lines = !this.myWindow.lines;
-            if (!this.myWindow.lines) {
+            this.myWindow.history = !this.myWindow.history;
+            if (!this.myWindow.history) {
                 this.myWindow.boardCanvas.clearCanvas();
             }
             this.myWindow.boardCanvas.drawGrid();

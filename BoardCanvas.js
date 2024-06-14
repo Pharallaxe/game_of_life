@@ -69,25 +69,26 @@ export class BoardCanvas {
 
 
     getColorFromIndex(value, j, i) {
-
+        let color = 100 - 0.2 * this.myWindow.board.gridHistory[j][i];
+        if (color < 10) color = 10;
 
         if (value === 0) {
             return `hsl(0, 0%, 0%)`; // Noir
         }
         if (value === 1) {
-            return `hsl(200, 100%, 50%)`; // Bleu
+            return `hsl(200, ${color}%, 50%)`; // Bleu
         }
         else if (value === 2) {
-            return `hsl(0, 100%, 50%)`; // Rouge
+            return `hsl(0, ${color}%, 50%)`; // Rouge
         }
         else if (value === 3) {
-            return `hsl(100, 100%, 50%)`; // Vert
+            return `hsl(100, ${color}%, 50%)`; // Vert
         }
         else if (value === 4) {
-            return `hsl(60, 100%, 50%)`; // Jaune
+            return `hsl(60, ${color}%, 50%)`; // Jaune
         }
         else if (value === 9) {
-            return `hsl(320, 100%, 100%)`; // Blanc
+            return `hsl(320, ${color}%, 100%)`; // Blanc
         }
 
     }
