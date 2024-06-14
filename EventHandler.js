@@ -18,6 +18,37 @@ export class EventHandler {
         }
     }
 
+    toggleVisibilityWithDelay(element, show, delay, timeoutId) {
+        clearTimeout(timeoutId); // Annule tout timeout précédent
+
+        if (show) {
+            element.style.display = 'flex'; // Affiche immédiatement
+            return null; // Pas de nouveau timeout à gérer pour l'affichage
+        } else {
+            return setTimeout(() => {
+                element.style.display = 'none';
+            }, delay); // Masque avec délai
+        }
+    }
+
+    updateStartButton(forceStop = false) {
+        const playIcon = document.getElementById('startIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+
+        const isPlaying = playIcon.style.display === 'none';
+
+        if (forceStop && !isPlaying) {
+            return;
+        }
+
+        playIcon.style.display = isPlaying ? 'block' : 'none';
+        pauseIcon.style.display = isPlaying ? 'none' : 'block';
+        this.title = isPlaying ? 'Démarrer' : 'Pause';
+
+        // Appelle toggleAnimation si l'état change
+        this.myWindow.toggleAnimation();
+    }
+
     // Fonction principale pour initialiser tous les événements
     initialize() {
         this.initializeConfigurerModal();
@@ -30,6 +61,8 @@ export class EventHandler {
         this.initializeVitesseModal();
         this.initializeIconEvents();
         this.initializeCanvasEvents();
+        this.initializeIconRapidity();
+        this.initializeIconColor();
     }
 
     // Initialiser les événements pour la modale Configurer Plateau
@@ -111,7 +144,7 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Règles Prédéfinies
     initializePredefiniesModal() {
-        const predefinedRulesSelect = document.querySelector('#predefiniesModal #predefinedRules');
+        const predefinedRulesSelect = document.querySelector('#predefinedRules');
         const applyButton = document.querySelector('#predefiniesModal .btn-primary');
 
         applyButton.addEventListener('click', () => {
@@ -137,10 +170,11 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Pas à Pas
     initializePasAPasModal() {
-        const okButton = document.querySelector('#pasAPasModal .btn-primary');
+        const applyButton = document.querySelector('#pasAPasModal .btn-primary');
+        const stepSelect = document.querySelector('#stepSelect');
 
-        okButton.addEventListener('change', () => {
-            // Fonction à remplir
+        applyButton.addEventListener('click', () => {
+            this.myWindow.step = stepSelect.value;
         });
     }
 
@@ -155,59 +189,153 @@ export class EventHandler {
         });
     }
 
-    updateStartButton() {
-        const playIcon = document.getElementById('startIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
+    initializeIconRapidity() {
+        const rapidityButton = document.querySelector('.btn[title="Rapidité"]');
+        const speedDiv = document.querySelector('#rapidityButtons');
+        const speedButtons = document.querySelectorAll('#rapidityButtons button');
+        const rapidityParent = document.querySelector('#rapidityParent');
 
-        if (playIcon.style.display === 'none') {
-            playIcon.style.display = 'block';
-            pauseIcon.style.display = 'none';
-            this.title = 'Démarrer';
-        } else {
-            playIcon.style.display = 'none';
-            pauseIcon.style.display = 'block';
-            this.title = 'Pause';
-        }
+        let speedHideTimeout; // Variable pour stocker le timeout
+
+        // Fonction pour afficher ou masquer la div des boutons avec un délai
+        const toggleSpeedDiv = (show) => {
+            speedHideTimeout = this.toggleVisibilityWithDelay(speedDiv, show, 300, speedHideTimeout);
+        };
+
+        // Affiche la div lorsque le bouton "Rapidité" est survolé
+        rapidityButton.addEventListener('mouseover', () => toggleSpeedDiv(true));
+
+        // Affiche la div lorsque la souris est sur la div entière
+        rapidityParent.addEventListener('mouseover', () => toggleSpeedDiv(true));
+
+        // Ferme la div avec un délai lorsque la souris quitte la div entière
+        rapidityParent.addEventListener('mouseout', (event) => {
+            if (!rapidityParent.contains(event.relatedTarget)) {
+                toggleSpeedDiv(false);
+            }
+        });
+
+        // Gère le clic sur les boutons de rapidité
+        speedButtons.forEach(speedButton => {
+            speedButton.addEventListener('click', () => {
+                // Met à jour les classes des boutons pour indiquer la sélection
+                speedButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
+                speedButton.classList.add('bg-success', 'text-light');
+
+                // Met à jour la vitesse dans myWindow
+                this.myWindow.speed = speedButton.dataset.speed;
+
+                // Ferme la div immédiatement après le clic
+                speedDiv.style.display = 'none';
+
+                // Appelle updateStartButton pour mettre à jour l'état
+                this.updateStartButton(true);
+            });
+        });
+    }
+
+    initializeIconColor() {
+        const paletteButton = document.querySelector('.btn[title="Couleur"]');
+        const colorDiv = document.querySelector('#colorButtons');
+        const colorButtons = document.querySelectorAll('#colorButtons button');
+        const paletteParent = document.querySelector('#colorParent');
+
+        let colorHideTimeout; // Variable pour stocker le timeout
+
+        const toggleColorDiv = (show) => {
+            colorHideTimeout = this.toggleVisibilityWithDelay(colorDiv, show, 300, colorHideTimeout);
+        };
+
+        // Affiche la div lorsque le bouton "Couleur" est survolé
+        paletteButton.addEventListener('mouseover', () => toggleColorDiv(true));
+
+        // Affiche la div lorsque la souris est sur la div entière
+        paletteParent.addEventListener('mouseover', () => toggleColorDiv(true));
+
+        // Ferme la div avec un délai lorsque la souris quitte la div entière
+        paletteParent.addEventListener('mouseout', (event) => {
+            if (!paletteParent.contains(event.relatedTarget)) {
+                toggleColorDiv(false);
+            }
+        });
+
+
+        // Gère le clic sur les boutons de couleur
+        colorButtons.forEach(colorButton => {
+            colorButton.addEventListener('click', () => {
+                paletteButton.classList.remove('blue', 'green', 'yellow', 'red');
+                let className = colorButton.dataset.color;
+                this.myWindow.typeAdd = colorButton.dataset.value;
+                paletteButton.classList.add(className);
+
+                // Ferme la div immédiatement après le clic
+                colorDiv.style.display = 'none';
+            });
+        });
+
+    }
+
+    initializeIconStep() {
+        const jumpButton = document.querySelector('.btn[title="Pas à Pas"]');
+        const stepDiv = document.querySelector('#stepButtons');
+        const stepButtons = document.querySelectorAll('#stepButtons button');
+        const jumpParent = document.querySelector('#stepParent');
+
+        let stepHideTimeout; // Variable pour stocker le timeout
+
+        const toggleStepDiv = (show) => {
+            stepHideTimeout = this.toggleVisibilityWithDelay(stepDiv, show, 300, stepHideTimeout);
+        };
+
+        // Affiche la div lorsque le bouton "Pas à Pas" est survolé
+        jumpButton.addEventListener('mouseover', () => toggleStepDiv(true));
+
+        // Affiche la div lorsque la souris est sur la div entière
+        jumpParent.addEventListener('mouseover', () => toggleStepDiv(true));
+
+        // Ferme la div avec un délai lorsque la souris quitte la div entière
+        jumpParent.addEventListener('mouseout', (event) => {
+            if (!jumpParent.contains(event.relatedTarget)) {
+                toggleStepDiv(false);
+            }
+        });
+
+
+        // Gère le clic sur les boutons de pas à pas.
+        stepButtons.forEach(stepButton => {
+            stepButton.addEventListener('click', () => {
+                // Met à jour les classes des boutons pour indiquer la sélection
+                stepButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
+                stepButton.classList.add('bg-success', 'text-light');
+                
+                // Met à jour le pas dans myWindow
+                this.myWindow.step = stepButton.dataset.step;
+
+                // Ferme la div immédiatement après le clic
+                stepDiv.style.display = 'none';
+            });
+        });
+
     }
 
     // Initialiser les événements pour les icônes de la barre d'outils
     initializeIconEvents() {
+
         const newSimulationButton = document.querySelector('.icon-bar .btn[title="Nouvelle Simulation"]');
         const startButton = document.querySelector('.icon-bar .btn[title="Démarrer"]');
-        const stepButton = document.querySelector('.icon-bar .btn[title="Pas à Pas"]');
-        const slowButton = document.querySelector('.icon-bar .btn[title="Décélération"]');
-        const fastButton = document.querySelector('.icon-bar .btn[title="Accélération"]');
         const trashButton = document.querySelector('.icon-bar .btn[title="Corbeille"]');
         const gridButton = document.querySelector('.icon-bar .btn[title="Grille"]');
         const arrowsButton = document.querySelector('.icon-bar .btn[title="Flèches"]');
         const historyButton = document.querySelector('.icon-bar .btn[title="Historique"]');
 
+        const drawButton = document.querySelector('.icon-bar .btn[title="Dessiner"]');
+
         newSimulationButton.addEventListener('click', () => {
-            // Fonction à remplir
+            this.updateStartButton(true)
         });
 
         startButton.addEventListener('click', () => {
-            this.myWindow.toggleAnimation();
             this.updateStartButton();
-        });
-
-        stepButton.addEventListener('click', () => {
-            this.myWindow.stopAnimation();
-            this.myWindow.calculateNextGeneration();
-        });
-
-        slowButton.addEventListener('click', () => {
-            this.myWindow.animation -= 1;
-            if (this.myWindow.animation < 1) this.myWindow.animation = 1;
-            this.myWindow.stopAnimation();
-            this.myWindow.startAnimation();
-        });
-
-        fastButton.addEventListener('click', () => {
-            this.myWindow.animation += 1;
-            if (this.myWindow.animation > 100) this.myWindow.animation = 100;
-            this.myWindow.stopAnimation();
-            this.myWindow.startAnimation();
         });
 
         trashButton.addEventListener("click", () => {

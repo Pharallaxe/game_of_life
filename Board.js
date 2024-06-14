@@ -22,20 +22,30 @@ export class Board {
         this.gridEnableDraw = this.createGrid(true)
     }
 
-    // Méthode pour initialiser la grille avec des cellules mortes
-    createGrid(value = this.DEAD) {
-        const grid = [];
-
-        for (let i = 0; i < this.rows; i++) {
-            const row = [];
-            for (let j = 0; j < this.cols; j++) {
-                // Utilise 1 pour les cases de l'échiquier et `value` pour les autres
-                row.push(value);
+    getRandomCellState(weights) {
+        // Génère un nombre aléatoire entre 0 et 1
+        const random = Math.random();
+    
+        // Calcule la distribution cumulative
+        let cumulativeProbability = 0;
+        for (let i = 0; i < weights.length; i++) {
+            cumulativeProbability += weights[i];
+            if (random <= cumulativeProbability) {
+                return i;
             }
-            grid.push(row);
         }
+    
+        // Retourne DEAD par défaut (ne devrait pas se produire)
+        return this.DEAD;
+    }
 
-        return grid;
+    // Méthode pour initialiser la grille avec des cellules mortes
+    createGrid(randomize = true, weights = [0.7, 0.1, 0.1, 0.5, 0.5 ]) {
+        return Array.from({ length: this.rows }, () => 
+            Array.from({ length: this.cols }, () => 
+                randomize ? this.getRandomCellState(weights) : this.DEAD
+            )
+        );
     }
 
     applyPattern(pattern, startY, startX, state = this.ALIVE1) {

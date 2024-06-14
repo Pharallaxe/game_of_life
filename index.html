@@ -9,160 +9,8 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
   <!-- JavaScript pour gérer l'exclusivité des sélections -->
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    .canvas-container {
-      overflow: auto;
-      position: relative;
-      background-color: #171718;
-      border: 1px solid #dee2e6;
-      width: 500px;
-      height: 500px;
-
-    }
-
-    .canvas-container canvas {
-      display: block;
-      margin: auto;
-    }
-
-    .icon-bar {
-      text-align: center;
-    }
-
-    .icon-bar .btn {
-      margin: 0 2px;
-    }
-
-    .status-bar {
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-top: 1px solid #dee2e6;
-      text-align: center;
-    }
-
-    .boolean-btn.active {
-      background-color: #6c757d;
-      /* Changez cette couleur pour ce que vous préférez */
-      color: white;
-    }
-
-    .game-life {
-      margin-top: 20px;
-      align-self: center;
-      display: grid;
-      grid-template-columns: 40px 1fr 40px;
-      grid-template-rows: 40px 1fr 40px;
-      justify-content: center;
-      justify-items: center;
-      align-items: center;
-      gap: 5px;
-
-      --sizeInputCanvasMin: 12px;
-      --sizeInputCanvasMax: 25px;
-      --sizeInputCanvasMargin: 10px;
-    }
-
-    .input-top,
-    .input-left,
-    .input-right,
-    .input-bottom {
-      display: none;
-      cursor: pointer;
-      transition: 0.2s;
-      background-color: darkred;
-      border-radius: 5px;
-      transition: 0.2s;
-
-
-    }
-
-    .input-top:hover,
-    .input-left:hover,
-    .input-right:hover,
-    .input-bottom:hover {
-      transform: scale(1.20);
-      background-color: darkred;
-      transition: 0.2s;
-    }
-
-    .input-left,
-    .input-right {
-      width: var(--sizeInputCanvasMin);
-      height: var(--sizeInputCanvasMax);
-    }
-
-    .input-left {
-      grid-column: 1 / 2;
-      grid-row: 2 / 3;
-      clip-path: polygon(0 50%, 100% 100%, 100% 0);
-      margin-right: var(--sizeInputCanvasMargin);
-    }
-
-    .input-right {
-      grid-column: 3 / 4;
-      grid-row: 2 / 3;
-      clip-path: polygon(0 0, 0 100%, 100% 50%);
-      margin-left: var(--sizeInputCanvasMargin);
-    }
-
-    .input-top,
-    .input-bottom {
-      height: var(--sizeInputCanvasMin);
-      width: var(--sizeInputCanvasMax);
-    }
-
-    .input-top {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-      clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-      margin-bottom: var(--sizeInputCanvasMargin);
-
-    }
-
-    .input-bottom {
-      grid-column: 2 / 3;
-      grid-row: 3 / 4;
-      clip-path: polygon(0 0, 50% 100%, 100% 0);
-      margin-top: var(--sizeInputCanvasMargin);
-    }
-
-    canvas {
-      border: solid 1px rgba(255, 255, 255, 0.436);
-      grid-column: 2 / 3;
-      grid-row: 2 / 3;
-    }
-
-    canvas.border {
-      border: solid 3px rgba(255, 255, 255, 0.436);
-
-    }
-
-    #colorButtons {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      margin-top: 5px;
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 5px;
-  }
-  
-  .color-btn {
-      width: 30px;
-      height: 30px;
-      margin-bottom: 5px;
-  }
-  
-  .color-btn.selected {
-      opacity: 0.7;
-  }
-  </style>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -218,8 +66,6 @@
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#ajoutRapideModal">Ajout
                         Rapide</a></li>
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                        data-bs-target="#effacerModal">Effacer</a></li>
                     <li><a class="dropdown-item" href="#">Zoomer</a></li>
                     <li><a class="dropdown-item" href="#">Dézoomer</a></li>
                   </ul>
@@ -243,22 +89,70 @@
           <div>
             <!-- Icon List -->
             <div class="d-flex icon-bar">
-              <button class="btn btn-outline-secondary" type="button" title="Nouvelle Simulation">
+              <button class="btn btn-outline-secondary" data-bs-toggle="modal"
+              data-bs-target="#configurerModal" type="button" title="Nouvelle Simulation">
                 <i class="bi bi-plus-circle"></i>
               </button>
               <button class="btn btn-outline-secondary" type="button" title="Démarrer">
                 <i id="startIcon" class="bi bi-play-fill"></i>
                 <i id="pauseIcon" class="bi bi-pause-fill" style="display: none"></i>
               </button>
-              <button class="btn btn-outline-secondary" type="button" title="Pas à Pas">
-                <i class="bi bi-arrow-right-circle"></i>
-              </button>
-              <button class="btn btn-outline-secondary" type="button" title="Décélération">
-                <i class="bi bi-rewind-fill"></i>
-              </button>
-              <button class="btn btn-outline-secondary" type="button" title="Accélération">
-                <i class="bi bi-fast-forward-fill"></i>
-              </button>
+              
+              <div class="position-relative" id="stepParent">
+                <button class="btn btn-outline-secondary" type="button" title="Pas à Pas">
+                  <i class="bi bi-arrow-right-circle"></i>
+                </button>
+                <div id="stepButtons"
+                  class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
+                  <button class="btn btn-outline-secondary bg-success text-light color-btn" data-step="1">
+                    <span>+   1</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-step="10">
+                    <span>+  10</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-step="50">
+                    <span>+  50</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-step="100">
+                    <span>+ 100</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-step="500">
+                    <span>+ 500</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-step="1000">
+                    <span>+1000</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-step="9999">
+                    <span>+9999</span>
+                  </button>
+                </div>
+              </div>
+              <div class="position-relative" id="rapidityParent">
+                <button class="btn btn-outline-secondary" type="button" title="Rapidité">
+                  <i class="bi bi-fast-forward-fill"></i>
+                </button>
+                <div id="rapidityButtons"
+                  class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
+                  <button class="btn btn-outline-secondary bg-success text-light color-btn" data-speed="1">
+                    <span>x 1</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-speed="2">
+                    <span>x 2</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-speed="5">
+                    <span>x 5</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-speed="10">
+                    <span>x10</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-speed="20">
+                    <span>x20</span>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-speed="50">
+                    <span>x50</span>
+                  </button>
+                </div>
+              </div>
               <button class="btn btn-outline-secondary" type="button" title="Corbeille">
                 <i class="bi bi-trash"></i>
               </button>
@@ -271,20 +165,29 @@
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Historique">
                 <i class="bi bi-hourglass"></i>
               </button>
-              <button id="paletteButton" class="btn btn-outline-secondary " type="button" title="Palette"
-                style="background-color: blue;">
-                <i class="bi bi-palette-fill"></i>
-              </button>
-              <div id="colorButtons" class="color-buttons button-primary">
-                <button class="btn btn-outline-secondary color-btn" data-color="blue"
-                  style="background-color: blue;"></button>
-                <button class="btn btn-outline-secondary color-btn" data-color="red"
-                  style="background-color: red;"></button>
-                <button class="btn btn-outline-secondary color-btn" data-color="yellow"
-                  style="background-color: yellow;"></button>
-                <button class="btn btn-outline-secondary color-btn" data-color="orange"
-                  style="background-color: orange;"></button>
+              <div class="position-relative" id="colorParent">
+                <button id="paletteButton" class="btn btn-outline-secondary blue" type="button" title="Couleur">
+                  <i class="bi bi-palette-fill"></i>
+                </button>
+                <div id="colorButtons"
+                  class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
+                  <button class="btn btn-outline-secondary color-btn blue" data-color="blue" data-value="1">
+                    <i class="bi bi-palette-fill"></i>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn red" data-color="red" data-value="2">
+                    <i class="bi bi-palette-fill"></i>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn yellow" data-color="yellow" data-value="3">
+                    <i class="bi bi-palette-fill"></i>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn green" data-color="green" data-value="4">
+                    <i class="bi bi-palette-fill"></i>
+                  </button>
+                </div>
               </div>
+              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
+                <i class="bi bi-pencil"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -544,33 +447,6 @@
         </div>
         <div class="modal-body">
           <form>
-            <!-- Sélection de Couleur -->
-            <div class="mb-3">
-              <label class="form-label">Couleur</label>
-              <div class="d-flex flex-wrap gap-2">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="colorOptions" id="colorYellow" value="yellow">
-                  <label class="form-check-label" for="colorYellow">Jaune</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="colorOptions" id="colorRed" value="red">
-                  <label class="form-check-label" for="colorRed">Rouge</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="colorOptions" id="colorBlue" value="blue">
-                  <label class="form-check-label" for="colorBlue">Bleu</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="colorOptions" id="colorGreen" value="green">
-                  <label class="form-check-label" for="colorGreen">Vert</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="colorOptions" id="colorWall" value="wall">
-                  <label class="form-check-label" for="colorWall">Mur</label>
-                </div>
-              </div>
-            </div>
-
             <!-- Sélection de la Taille du Carré ou Patron -->
             <div class="mb-3">
               <label class="form-label">Ajouter</label>
@@ -623,25 +499,6 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ajouter</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Effacer Modal -->
-  <div class="modal fade" id="effacerModal" tabindex="-1" aria-labelledby="effacerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="effacerModalLabel">Effacer</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Voulez-vous vraiment effacer le plateau actuel ?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Effacer</button>
         </div>
       </div>
     </div>
@@ -708,30 +565,7 @@
 
   <!-- Bootstrap JS and Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Optionally, include Bootstrap Icons for icons -->
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const addSquareRadio = document.getElementById('addSquare');
-      const addPatternRadio = document.getElementById('addPattern');
-      const squareSizes = document.getElementById('squareSizes');
-      const patternSelect = document.getElementById('patternSelect');
-
-      addSquareRadio.addEventListener('change', function () {
-        if (this.checked) {
-          squareSizes.style.display = 'block';
-          patternSelect.style.display = 'none';
-        }
-      });
-
-      addPatternRadio.addEventListener('change', function () {
-        if (this.checked) {
-          patternSelect.style.display = 'block';
-          squareSizes.style.display = 'none';
-        }
-      });
-    });
-  </script>
+  <!-- Optionally, a Bootstrap Icons for icons -->
 
 </body>
 

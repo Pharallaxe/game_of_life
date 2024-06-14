@@ -55,7 +55,7 @@ class Window {
 
         this.birth = new Set([2, 3]);
         this.survival = new Set([3]);
-        this.verifyInputRules()
+        this.verifyInputRules();
 
         this.board = undefined;
         this.boardCanvas = undefined;
@@ -73,12 +73,15 @@ class Window {
 
         this.saves = {}
 
-        this.animation = 2;
+        this.speed = 1;
+        this.verifySpeed();
+
         this.step = 1;
         this.rhythm = "continue";
         this.isPlaying = false;
 
         this.isDrawing = false;
+        this.enableDrawing;
 
         this.eventHandler = this.createEventHandler();
 
@@ -103,6 +106,10 @@ class Window {
         }
     }
 
+    verifySpeed() {
+        
+    }
+
     initialize() {
         this.createGame();
         this.createCanvas();
@@ -118,7 +125,7 @@ class Window {
         parentCanvas.removeChild(existingCanvases)
 
         let canvas = document.createElement("canvas");
-
+        console.log(this.board.grid)
         parentCanvas.appendChild(canvas);
         this.boardCanvas = new BoardCanvas(this);
         this.boardCanvas.drawGrid();
@@ -128,28 +135,32 @@ class Window {
         let result = `${this.board.generation} (${this.board.isAlive})`;
     }
 
-    calculateNextGeneration() {
-        this.board.getNextGeneration();
-        this.board.updateHistoryGrid();
-        this.board.countAliveCells();
+    calculateNextGeneration(isAnimating = false) {
+        const numberGeneration = isAnimating ? 1 : this.step;
+        for (let i = 0; i < numberGeneration ; i++) {
+            this.board.getNextGeneration();
+            this.board.updateHistoryGrid();
+            this.board.countAliveCells();
+        }
         this.boardCanvas.drawGrid();
         this.displayGeneration();
+        console.log(this.board.generation)
     }
 
     toggleAnimation() {
         this.isPlaying = !this.isPlaying;
         if (this.isPlaying) {
-            this.startAnimation(this.animation);
+            this.startAnimation(this.speed);
         } else {
             this.stopAnimation();
         }
     }
 
     startAnimation() {
-        const millisecondsPerAnimation = 1000 / this.animation;
+        const millisecondsPerAnimation = 1000 / this.speed;
 
         this.intervalId = setInterval(() => {
-            this.calculateNextGeneration();
+            this.calculateNextGeneration(true);
         }, millisecondsPerAnimation);
     }
 
@@ -159,7 +170,7 @@ class Window {
     }
 
     toggleDrawingEvents() {
-        if (this.add) {
+        if (this.enableDraw) {
             this.removeDrawingEvent();
         } else {
             this.addDrawingEvent();
@@ -173,13 +184,14 @@ class Window {
     }
 
     removeDrawingEvent() {
-        this.boardCanvas.canvas.removeEventListener('mousedown', this.startDrawing.bind(this));
+        this.boardCanvas.canvas.removeEventListener('mousepres', this.startDrawing.bind(this));
         this.boardCanvas.canvas.removeEventListener('mouseup', this.stopDrawing.bind(this));
         this.boardCanvas.canvas.removeEventListener('mousemove', this.drawIfDrawing.bind(this));
     }
 
     startDrawing(event) {
-        if (this.add) {
+        if (this.enableDraw) {
+
             this.isDrawing = true;
             this.draw(event);
         }
@@ -207,16 +219,17 @@ class Window {
                 this.board.gridEnableDraw[j][i] = true;
                 setTimeout(() => {
                     this.board.gridEnableDraw = false;
-                }, 1000);
+                }, 300);
             }
             this.writeInGrid(j, i);
             this.boardCanvas.drawGrid();
             this.updateBottomNav();
+
+            console.log(2)
         }
     }
 
     updateBottomNav() {
-        console.log(this.board.generation);
         document.getElementById("generation").text = this.board.generation;
         document.getElementById("livingCells").textContent = this.board.isAlive;
     }
@@ -244,7 +257,6 @@ class Window {
 
     showMoveArrow() {
         const moveArrows = document.querySelectorAll('.input-arrow');
-        console.log(moveArrows)
         moveArrows.forEach(arrow => {
             arrow.style.display = "none";
         });
@@ -252,7 +264,6 @@ class Window {
 
     hideMoveArrow() {
         const moveArrows = document.querySelectorAll('.input-arrow');
-        console.log(moveArrows)
         moveArrows.forEach(arrow => {
             arrow.style.display = "block";
         });
@@ -283,22 +294,26 @@ class Window {
 }
 
 
-const window = new Window();
-window.initialize();
+document.addEventListener('DOMContentLoaded', function () {
+    const window = new Window();
 
+    const addSquareRadio = document.getElementById('addSquare');
+    const addPatternRadio = document.getElementById('addPattern');
+    const squareSizes = document.getElementById('squareSizes');
+    const patternSelect = document.getElementById('patternSelect');
 
-const paletteButton = document.getElementById('paletteButton');
-const colorButtons = document.getElementById('colorButtons');
+    addSquareRadio.addEventListener('change', function () {
+      if (this.checked) {
+        squareSizes.style.display = 'block';
+        patternSelect.style.display = 'none';
+      }
+    });
 
-paletteButton.addEventListener('click', () => {
-    colorButtons.style.display = colorButtons.style.display === 'none' ? 'flex' : 'none';
-});
+    addPatternRadio.addEventListener('change', function () {
+      if (this.checked) {
+        patternSelect.style.display = 'block';
+        squareSizes.style.display = 'none';
+      }
+    });
+  });
 
-colorButtons.addEventListener('click', (event) => {
-    if (event.target.classList.contains('color-btn')) {
-        const selectedColor = event.target.getAttribute('data-color');
-        paletteButton.style.backgroundColor = selectedColor;
-        document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('selected'));
-        event.target.classList.add('selected');
-    }
-});
