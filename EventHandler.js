@@ -1,6 +1,14 @@
+import { conf } from './configuration.js';
+
+
 export class EventHandler {
-    constructor(myWindow) {
-        this.myWindow = myWindow;
+    
+    #app;
+
+    getApp() { return this.#app; }
+
+    constructor(app) {
+        this.#app = app;
 
         // Initialisation globale
         this.initialize();
@@ -46,12 +54,14 @@ export class EventHandler {
         this.title = isPlaying ? 'Démarrer' : 'Pause';
 
         // Appelle toggleAnimation si l'état change
-        this.myWindow.toggleAnimation();
+        this.getApp().toggleAnimation();
     }
 
     // Fonction principale pour initialiser tous les événements
     initialize() {
+        // MODALES
         this.initializeConfigurerModal();
+        this.initializeWeightModal();
         this.initializeChargerModal();
         this.initializeEnregistrerModal();
         this.initializeDefinirReglesModal();
@@ -59,40 +69,123 @@ export class EventHandler {
         this.initializeAjoutRapideModal();
         this.initializePasAPasModal();
         this.initializeVitesseModal();
-        this.initializeIconEvents();
+
+        // ICONES
+        this.initializeSimulationIcon();
+        this.initializeStepIcon();
+        this.initializeStartIcon();
+        this.initializeRapidityIcon();
+        this.initializeTrashIcon();
+        this.initializeGridIcon();
+        this.initializeBordureIcon();
+        this.initializeArrowsIcon();
+        this.initializeHistoryIcon();
+        this.initializeColorIcon();
+        this.initializeDrawIcon();
+
+        // CANVAS
         this.initializeCanvasEvents();
-        this.initializeIconRapidity();
-        this.initializeIconColor();
     }
+
+    /******************************************
+     * 
+     * EVENEMENTS POUR LES MODALES
+     * 
+    *******************************************/
 
     // Initialiser les événements pour la modale Configurer Plateau
     initializeConfigurerModal() {
-        const rowsInput = document.querySelector('#configurerModal #rows');
-        const columnsInput = document.querySelector('#configurerModal #columns');
-        const cellSizeInput = document.querySelector('#configurerModal #cellSize');
-        const applyButton = document.querySelector('#configurerModal .btn-primary');
+        const hasardInput = document.querySelector('#hasard');
+        const rowsInput = document.querySelector('#rows');
+        const columnsInput = document.querySelector('#columns');
+        const cellSizeInput = document.querySelector('#cellSize');
+        const applyConfigureButton = document.querySelector('#applyConfigure');
 
-        applyButton.addEventListener('click', () => {
+        applyConfigureButton.addEventListener('click', () => {
             this.validateInput(
-                rowsInput, this.myWindow.MIN_COL, this.myWindow.MAX_COL);
+                rowsInput, conf.MIN_COL, conf.MAX_COL);
             this.validateInput(
-                columnsInput, this.myWindow.MIN_COL, this.myWindow.MAX_COL);
+                columnsInput, conf.MIN_COL, conf.MAX_COL);
             this.validateInput(
-                cellSizeInput, this.myWindow.MIN_CELL_SIZE, this.myWindow.MAX_CELL_SIZE);
+                cellSizeInput, conf.MIN_CELL_SIZE, conf.MAX_CELL_SIZE);
 
-            this.myWindow.columnCanvas = rowsInput.value;
-            this.myWindow.rowCanvas = columnsInput.value;
-            this.myWindow.cellSize = cellSizeInput.value;
+            this.getApp().setColumnCanvas(rowsInput.value);
+            this.getApp().setRowCanvas(columnsInput.value);
+            this.getApp().setCellSize(cellSizeInput.value);
 
-            // this.myWindow.removeDrawingEvent();
-            this.myWindow.initialize();
-            // this.myWindow.addDrawingEvent();
+            this.getApp().setRandomize(hasardInput.checked);
+            this.getApp().initializeSimplely();
         });
     }
 
+    initializeWeightModal() {
+        const weightEmpty = document.querySelector('#weight0');
+        const weightsInput = document.querySelectorAll('.weight');
+        const applyWeightButton = document.querySelector('#applyWeights');
+
+        const weightsSpan = [
+            document.querySelector('#spanWeight1'),
+            document.querySelector('#spanWeight2'),
+            document.querySelector('#spanWeight3'),
+            document.querySelector('#spanWeight4')
+        ];
+
+        const updateWeights = (changedInput) => {
+            const total = Array.from(weightsInput).reduce((acc, input) => acc + parseFloat(input.value), 0);
+
+            let totalZero = (1 - total).toFixed(2);
+            if (totalZero < 0) totalZero = 0;
+
+            document.querySelector('#spanWeight0').textContent = totalZero;
+            document.querySelector('#weight0').value = totalZero;
+
+            if (total > 1) {
+                const excess = total - 1;
+                const decreaseAmount = excess / (weightsInput.length - 1);
+
+                weightsInput.forEach(input => {
+                    if (input !== changedInput) {
+                        const newValue = parseFloat(input.value) - decreaseAmount;
+                        input.value = Math.max(newValue, 0);
+                    }
+                });
+            }
+        }
+
+        const displayWeights = () => {
+            weightsInput.forEach((input, index) => {
+                weightsSpan[index].textContent = `(${input.value})`;
+            });
+        }
+
+        // Affiche la valeur initiale des poids
+        weightsInput.forEach((input, index) => {
+            weightsSpan[index].textContent = `(${input.value})`;
+        });
+
+        weightsInput.forEach(input => {
+            input.addEventListener('input', () =>  {
+                updateWeights(input);
+                displayWeights();
+            });
+        });
+
+        applyWeightButton.addEventListener('click', () => {
+            const weights = [];
+            weights.push(weightEmpty.value);
+            weightsInput.forEach(weight => {
+                weights.push(weight.value);
+            });
+            this.getApp().setWeights(weights.map(Number));
+            document.querySelector('#hasard').checked = true;
+        })
+       
+    }
+
+
     // Initialiser les événements pour la modale Charger Plateau
     initializeChargerModal() {
-        const loadConfigSelect = document.querySelector('#chargerModal #loadConfig');
+        const loadConfigSelect = document.querySelector('#loadConfig');
         const loadButton = document.querySelector('#chargerModal .btn-primary');
 
         loadButton.addEventListener('click', () => {
@@ -102,19 +195,19 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Enregistrer Plateau
     initializeEnregistrerModal() {
-        const saveNameInput = document.querySelector('#enregistrerModal #saveName');
+        const saveNameInput = document.querySelector('#saveName');
         const saveButton = document.querySelector('#enregistrerModal .btn-primary');
 
         saveButton.addEventListener('click', () => {
             const saveName = saveNameInput.value;
 
-            this.myWindow.saves[saveName] = this.myWindow.board.grid;
-            saveNameInput.input = "";
+            this.getApp().setSaves([saveName], this.getApp().getBoard().getGrid());
+            saveNameInput.input = '';
 
             const loadConfig = document.getElementById('loadConfig');
             loadConfig.innerHTML = '';
 
-            Object.keys(this.myWindow.saves).forEach(save => {
+            Object.keys(this.getApp().getSaves()).forEach(save => {
                 const option = document.createElement('option');
                 option.value = save;
                 option.textContent = save;
@@ -131,14 +224,14 @@ export class EventHandler {
         const applyButton = document.querySelector('#definirReglesModal .btn-primary');
 
         applyButton.addEventListener('click', () => {
-            this.myWindow.alive = new Set(Array.from(birthRulesCheckboxes)
+            this.getApp().setBirth(new Set(Array.from(birthRulesCheckboxes)
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => parseInt(checkbox.value))
-            );
-            this.myWindow.dead = new Set(Array.from(survivalRulesCheckboxes)
+            ));
+            this.getApp().setSurvival(new Set(Array.from(survivalRulesCheckboxes)
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => parseInt(checkbox.value))
-            );
+            ));
         });
     }
 
@@ -148,20 +241,23 @@ export class EventHandler {
         const applyButton = document.querySelector('#predefiniesModal .btn-primary');
 
         applyButton.addEventListener('click', () => {
-            [this.myWindow.birth, this.myWindow.survival] = predefinedRulesSelect.value
-                .split("/")
-                .map(valeurs => new Set(valeurs.split("").map(Number)));
-            this.myWindow.verifyInputRules()
+
+            const [births, survivals] = predefinedRulesSelect.value
+                .split('/')
+                .map(valeurs => new Set(valeurs.split('').map(Number)));
+            this.getApp().verifyInputRules();
+            this.getApp().setBirth(births);
+            this.getApp().setSurvival(survivals);
         });
     }
 
     // Initialiser les événements pour la modale Ajout Rapide
     initializeAjoutRapideModal() {
         const colorRadios = document.querySelectorAll('#ajoutRapideModal input[name="colorOptions"]');
-        const addSquareRadio = document.querySelector('#ajoutRapideModal #addSquare');
-        const addPatternRadio = document.querySelector('#ajoutRapideModal #addPattern');
+        const addSquareRadio = document.querySelector('#addSquare');
+        const addPatternRadio = document.querySelector('#addPattern');
         const sizeRadios = document.querySelectorAll('#ajoutRapideModal input[name="squareSize"]');
-        const patternSelect = document.querySelector('#ajoutRapideModal #patternSelect');
+        const patternSelect = document.querySelector('#patternSelect');
         const addButton = document.querySelector('#ajoutRapideModal .btn-primary');
 
         addButton.addEventListener('click', () => {
@@ -174,22 +270,59 @@ export class EventHandler {
         const stepSelect = document.querySelector('#stepSelect');
 
         applyButton.addEventListener('click', () => {
-            this.myWindow.step = stepSelect.value;
+            this.getApp().setStep(stepSelect.value);
         });
     }
-
 
     // Initialiser les événements pour la modale Vitesse
     initializeVitesseModal() {
-        const speedRange = document.querySelector('#vitesseModal #animationSpeed');
+        const animationSpeedInput = document.querySelector('#animationSpeed');
+        const speedValueLabel = document.querySelector('#speedValueLabel');
         const applyButton = document.querySelector('#vitesseModal .btn-primary');
 
+
+        animationSpeedInput.addEventListener('input', () => {
+            speedValueLabel.textContent = animationSpeedInput.value;
+        });
+
         applyButton.addEventListener('click', () => {
-            // Fonction à remplir
+            const speedValue = animationSpeedInput.value;
+            this.getApp().setSpeed(speedValue);
+            console.log(`Vitesse d'animation définie à : ${speedValue}`);
         });
     }
 
-    initializeIconRapidity() {
+    /******************************************
+     * 
+     * EVENEMENTS POUR LES ICONES
+     * 
+    *******************************************/
+
+    initializeSimulationIcon() {
+        const newSimulationButton = document.querySelector('.icon-bar .btn[title="Nouvelle Simulation"]');
+
+        newSimulationButton.addEventListener('click', () => {
+            this.updateStartButton(true)
+        });
+    }
+
+    initializeStepIcon() {
+        const stepButton = document.querySelector('.btn[title="Pas à Pas"]');
+
+        stepButton.addEventListener('click', () => {
+            this.getApp().calculateNextGeneration();
+        });
+    }
+
+    initializeStartIcon() {
+        const startButton = document.querySelector('.btn[title="Démarrer"]');
+
+        startButton.addEventListener('click', () => {
+            this.updateStartButton();
+        });
+    }
+
+    initializeRapidityIcon() {
         const rapidityButton = document.querySelector('.btn[title="Rapidité"]');
         const speedDiv = document.querySelector('#rapidityButtons');
         const speedButtons = document.querySelectorAll('#rapidityButtons button');
@@ -222,8 +355,8 @@ export class EventHandler {
                 speedButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
                 speedButton.classList.add('bg-success', 'text-light');
 
-                // Met à jour la vitesse dans myWindow
-                this.myWindow.speed = speedButton.dataset.speed;
+                // Met à jour la vitesse dans app
+                this.getApp().setSpeed(speedButton.dataset.speed);
 
                 // Ferme la div immédiatement après le clic
                 speedDiv.style.display = 'none';
@@ -234,7 +367,69 @@ export class EventHandler {
         });
     }
 
-    initializeIconColor() {
+    initializeTrashIcon() {
+        const trashButton = document.querySelector('.btn[title="Corbeille"]');
+
+        trashButton.addEventListener('click', () => {
+            this.getApp().clearGrid();
+            this.getApp().stopAnimation();
+            this.updateStartButton();
+        });
+
+    }
+
+    initializeBordureIcon() {
+        const borderButton = document.querySelector('.btn[title="Bordures"]');
+
+        borderButton.addEventListener('click', () => {
+            borderButton.classList.toggle('active');
+            this.getApp().setBorder(!this.getApp().getBorder());
+            document.querySelector('canvas').classList.toggle('canvas-border');
+        });
+    }
+
+    initializeGridIcon() {
+        const gridButton = document.querySelector('.btn[title="Grille"]');
+
+        gridButton.addEventListener('click', () => {
+            gridButton.classList.toggle('active');
+            this.getApp().setLines(!this.getApp().getLines());
+            if (!this.getApp().getLines()) {
+                this.getApp().getBoardCanvas().clearCanvas();
+            }
+            this.getApp().getBoardCanvas().drawGrid();
+
+        });
+    }
+
+    initializeArrowsIcon() {
+        const arrowsButton = document.querySelector('.btn[title="Flèches"]');
+        arrowsButton.addEventListener('click', () => {
+            arrowsButton.classList.toggle('active');
+            this.getApp().move = !this.getApp().move;
+            this.app[this.getApp().move ?
+                'hideMoveArrow' :
+                'showMoveArrow']();
+        });
+    }
+
+    initializeHistoryIcon() {
+        const historyButton = document.querySelector('.btn[title="Historique"]');
+
+        historyButton.addEventListener('click', () => {
+            historyButton.classList.toggle('active');
+            this.getApp().setHistory(!this.getApp().getHistory());
+            if (!this.getApp().getHistory()) {
+                this.getApp().getBoardCanvas().clearCanvas();
+            }
+            this.getApp().getBoardCanvas().drawGrid();
+
+        });
+    }
+
+    initializeColorIcon() {
+        const paletteIcon = document.getElementById('paletteIcon');
+        const wallIcon = document.getElementById('wallIcon');
         const paletteButton = document.querySelector('.btn[title="Couleur"]');
         const colorDiv = document.querySelector('#colorButtons');
         const colorButtons = document.querySelectorAll('#colorButtons button');
@@ -263,117 +458,50 @@ export class EventHandler {
         // Gère le clic sur les boutons de couleur
         colorButtons.forEach(colorButton => {
             colorButton.addEventListener('click', () => {
+
                 paletteButton.classList.remove('blue', 'green', 'yellow', 'red');
                 let className = colorButton.dataset.color;
-                this.myWindow.typeAdd = colorButton.dataset.value;
+                this.getApp().setValueAdd(parseInt(colorButton.dataset.value));
+
                 paletteButton.classList.add(className);
 
                 // Ferme la div immédiatement après le clic
                 colorDiv.style.display = 'none';
+
+                if (colorButton.dataset.color === 'wall') {
+                    paletteIcon.style.display = 'none'
+                    wallIcon.style.display = 'block'
+                }
+                else {
+                    paletteIcon.style.display = 'block'
+                    wallIcon.style.display = 'none'
+                }
             });
         });
 
     }
 
-    initializeIconStep() {
-        const jumpButton = document.querySelector('.btn[title="Pas à Pas"]');
-        const stepDiv = document.querySelector('#stepButtons');
-        const stepButtons = document.querySelectorAll('#stepButtons button');
-        const jumpParent = document.querySelector('#stepParent');
-
-        let stepHideTimeout; // Variable pour stocker le timeout
-
-        const toggleStepDiv = (show) => {
-            stepHideTimeout = this.toggleVisibilityWithDelay(stepDiv, show, 300, stepHideTimeout);
-        };
-
-        // Affiche la div lorsque le bouton "Pas à Pas" est survolé
-        jumpButton.addEventListener('mouseover', () => toggleStepDiv(true));
-
-        // Affiche la div lorsque la souris est sur la div entière
-        jumpParent.addEventListener('mouseover', () => toggleStepDiv(true));
-
-        // Ferme la div avec un délai lorsque la souris quitte la div entière
-        jumpParent.addEventListener('mouseout', (event) => {
-            if (!jumpParent.contains(event.relatedTarget)) {
-                toggleStepDiv(false);
-            }
-        });
-
-
-        // Gère le clic sur les boutons de pas à pas.
-        stepButtons.forEach(stepButton => {
-            stepButton.addEventListener('click', () => {
-                // Met à jour les classes des boutons pour indiquer la sélection
-                stepButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
-                stepButton.classList.add('bg-success', 'text-light');
-                
-                // Met à jour le pas dans myWindow
-                this.myWindow.step = stepButton.dataset.step;
-
-                // Ferme la div immédiatement après le clic
-                stepDiv.style.display = 'none';
-            });
-        });
-
-    }
-
-    // Initialiser les événements pour les icônes de la barre d'outils
-    initializeIconEvents() {
-
-        const newSimulationButton = document.querySelector('.icon-bar .btn[title="Nouvelle Simulation"]');
-        const startButton = document.querySelector('.icon-bar .btn[title="Démarrer"]');
-        const trashButton = document.querySelector('.icon-bar .btn[title="Corbeille"]');
-        const gridButton = document.querySelector('.icon-bar .btn[title="Grille"]');
-        const arrowsButton = document.querySelector('.icon-bar .btn[title="Flèches"]');
-        const historyButton = document.querySelector('.icon-bar .btn[title="Historique"]');
+    initializeDrawIcon() {
 
         const drawButton = document.querySelector('.icon-bar .btn[title="Dessiner"]');
 
-        newSimulationButton.addEventListener('click', () => {
-            this.updateStartButton(true)
+
+
+        drawButton.addEventListener('click', () => {
+            drawButton.classList.toggle('active');
+            this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
+            this.getApp().toggleDrawingEvents();
         });
 
-        startButton.addEventListener('click', () => {
-            this.updateStartButton();
-        });
-
-        trashButton.addEventListener("click", () => {
-            this.myWindow.clearGrid();
-            this.myWindow.stopAnimation();
-            this.updateStartButton();
-        });
-
-        gridButton.addEventListener('click', () => {
-            gridButton.classList.toggle('active');
-            this.myWindow.lines = !this.myWindow.lines;
-            if (!this.myWindow.lines) {
-                this.myWindow.boardCanvas.clearCanvas();
-            }
-            this.myWindow.boardCanvas.drawGrid();
-
-        });
-
-        arrowsButton.addEventListener('click', () => {
-            arrowsButton.classList.toggle('active');
-            this.myWindow.move = !this.myWindow.move;
-            this.myWindow[this.myWindow.move ?
-                'hideMoveArrow' :
-                'showMoveArrow']();
-        });
-
-        historyButton.addEventListener('click', () => {
-            historyButton.classList.toggle('active');
-            this.myWindow.history = !this.myWindow.history;
-            if (!this.myWindow.history) {
-                this.myWindow.boardCanvas.clearCanvas();
-            }
-            this.myWindow.boardCanvas.drawGrid();
-
-        });
     }
 
-    // Initialiser les événements pour le canvas
+    /******************************************
+     * 
+     * EVENEMENTS POUR LES CANVAS
+     * 
+    *******************************************/
+
+
     initializeCanvasEvents() {
         const canvas = document.querySelector('#gameCanvas');
 
@@ -393,4 +521,13 @@ export class EventHandler {
             // Fonction à remplir
         });
     }
+
+
+    /******************************************
+     * 
+     * EVENEMENTS POUR LE DESSIN
+     * 
+    *******************************************/
+
+
 }

@@ -1,9 +1,9 @@
-export const CELL_SELECTOR = "cell";
+export const CELL_SELECTOR = 'cell';
 export const MIN_CELL_SIZE = 2;
 export const MAX_CELL_SIZE = 50;
-export const NAME = "gameCanvas";
-export const DASHBOARD_NAME = "dashboard-gameLife";
-export const ARROW_NAME = "inputArrow";
+export const NAME = 'gameCanvas';
+export const DASHBOARD_NAME = 'dashboard-gameLife';
+export const ARROW_NAME = 'inputArrow';
 export const MIDDLE = {
     "Désert": [
         { name: 'N', x: 0, y: -1 },
@@ -21,7 +21,7 @@ export const MIDDLE = {
         { name: 'O-1', x: -1, y: 0 },
         { name: 'O-2', x: -2, y: 0 },
     ],
-    "Plaine": [
+    'Plaine': [
         { name: 'N', x: 0, y: -1 },
         { name: 'NE', x: 1, y: -1 },
         { name: 'E', x: 1, y: 0 },
@@ -31,7 +31,7 @@ export const MIDDLE = {
         { name: 'O', x: -1, y: 0 },
         { name: 'NO', x: -1, y: -1 }
     ],
-    "Forêt": [
+    'Forêt': [
         { name: 'N-1', x: 0, y: -1 },
         { name: 'N-2', x: 0, y: -2 },
         { name: 'NE', x: 1, y: -1 },
@@ -45,7 +45,7 @@ export const MIDDLE = {
         { name: 'O-2', x: -2, y: 0 },
         { name: 'NO', x: -1, y: -1 }
     ],
-    "Mer": [
+    'Mer': [
         { name: 'N-1', x: 0, y: -1 },
         { name: 'N-2', x: 0, y: -2 },
         { name: 'NE-1', x: 1, y: -1 },

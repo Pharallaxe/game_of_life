@@ -1,167 +1,175 @@
-import { EventHandler } from "./EventHandler.js";
-import { Board } from "./Board.js";
-import { BoardCanvas } from "./BoardCanvas.js";
+import { EventHandler } from './EventHandler.js';
+import { Board } from './Board.js';
+import { BoardCanvas } from './BoardCanvas.js';
 
-import {
-    MIDDLE,
-    NAME
-} from "./Variables.js";
-
-class Variable {
-    constructor() {
-
-    }
-}
+import { conf } from './configuration.js';
 
 class Window {
 
+    #board;
+    #boardCanvas;
+    #rowCanvas;
+    #columnCanvas;
+    #cellSize;
+    #valueAdd;
+    #birth;
+    #survival;
+    #randomize;
+    #weights;
+    #border;
+    #history;
+    #lines;
+    #saves;
+    #speed ;
+    #step;
+    #isPlaying;
+    #enableDraw;
+    #isDrawing;
+
+
+    getBoard() { return this.#board; }
+    setBoard(value) { this.#board = value; }
+
+    getBoardCanvas() { return this.#boardCanvas; }
+    setBoardCanvas(value) { this.#boardCanvas = value; }
+
+    getRowCanvas() { return this.#rowCanvas; }
+    setRowCanvas(value) { this.#rowCanvas = value; }
+
+    getColumnCanvas() { return this.#columnCanvas; }
+    setColumnCanvas(value) { this.#columnCanvas = value; }
+
+    getCellSize() { return this.#cellSize; }
+    setCellSize(value) { this.#cellSize = value; }
+
+    getValueAdd() { return this.#valueAdd; }
+    setValueAdd(value) { this.#valueAdd = value; }
+
+    getBirth() { return this.#birth; }
+    setBirth(value) { this.#birth = value; }
+
+    getSurvival() { return this.#survival; }
+    setSurvival(value) { this.#survival = value; }
+
+    getRandomize() { return this.#randomize; }
+    setRandomize(value) { this.#randomize = value; }
+
+    getWeights() { return this.#weights; }
+    setWeights(value) { this.#weights = value; }
+
+    getBorder() { return this.#border; }
+    setBorder(value) { this.#border = value; }
+
+    getHistory() { return this.#history; }
+    setHistory(value) { this.#history = value; }
+
+    getLines() { return this.#lines; }
+    setLines(value) { this.#lines = value; }
+
+    getSaves() { return this.#saves; }
+    setSaves(key, value) { this.#saves[key] = value; }
+
+    getSpeed() { return this.#speed; }
+    setSpeed(value) { this.#speed = value; }
+
+    getStep() { return this.#step; }
+    setStep(value) { this.#step = value; }
+
+    getIsPlaying() { return this.#isPlaying; }
+    setIsPlaying(value) { this.#isPlaying = value; }
+
+    getEnableDraw() { return this.#enableDraw; }
+    setEnableDraw(value) { this.#enableDraw = value; }
+
+    getIsDrawing() { return this.#isDrawing; }
+    setIsDrawing(value) { this.#isDrawing = value; }
+
 
     constructor() {
-        this.MIN_CELL_SIZE = 2;
-        this.MAX_CELL_SIZE = 50;
+        this.#board = undefined;
+        this.#boardCanvas = undefined;
+        this.#rowCanvas = 20;                 // Le nombre de lignes par défaut pour un canvas
+        this.#columnCanvas = 20;              // Le nombre de colonnes par défault pour un canvas
+        this.#cellSize = 12;                  // La taille de cellule par défaut
+        this.#valueAdd = 1;                   // La cellule d'ajout par défaut est la 1
+        this.#birth = new Set([2, 3]); // Le nombre de cellules requises pour naitre
+        this.#survival = new Set([3]); // Le nombre de cellules reqyuse
+        this.#randomize = false;              // La création randomisée n'est pas activée.
+        this.#weights = [.9, .1, 0, 0, 0];    // Les poids par défaut dans la création randomisée
+        this.#border = false;                 // Les bordures du canvas ne sont pas activées.
+        this.#history = false;                // L'historique n'est pas activé
+        this.#lines = false;                  // Les lignes ne sont pas activées.
+        this.#saves = {};                     // Ensemble des sauvegardes
+        this.#speed = 5;                      // Rapidité d'animation
+        this.#step = 1;                       // Nombre de génération entre pas
+        this.#isPlaying = false;              // L'animation n'est pas activée
+        this.#enableDraw = false;             // Le dessin n'est pas activé
+        this.#isDrawing = false;              // ON n'est pas en train de dessiner
 
-        this.MIN_COL = 2
-        this.MAX_COL = 50
-
-        this.gameOfLifeRules = {
-            classic: {
-                birthRule: [3],
-                survivalRule: [2, 3]
-            },
-            highlife: {
-                birthRule: [3, 6],
-                survivalRule: [2, 3]
-            },
-            daynight: {
-                birthRule: [3, 6, 7, 8],
-                survivalRule: [3, 4, 6, 7, 8]
-            },
-            seeds: {
-                birthRule: [2],
-                survivalRule: []
-            }
-        };
-
-        this.MIDDLE = [
-            { name: 'N', x: 0, y: -1 },
-            { name: 'NE', x: 1, y: -1 },
-            { name: 'E', x: 1, y: 0 },
-            { name: 'SE', x: 1, y: 1 },
-            { name: 'S', x: 0, y: 1 },
-            { name: 'SO', x: -1, y: 1 },
-            { name: 'O', x: -1, y: 0 },
-            { name: 'NO', x: -1, y: -1 }
-        ],
-
-        this.birth = new Set([2, 3]);
-        this.survival = new Set([3]);
-        this.verifyInputRules();
-
-        this.board = undefined;
-        this.boardCanvas = undefined;
-
-        this.rowCanvas = 20;
-        this.columnCanvas = 20;
-        this.cellSize = 12;
-        this.border = false;
-        this.valueAdd = 0;
-        this.typeAdd = "";
-        this.history = false;
-
-        this.move = false;
-        this.lines = false;
-
-        this.saves = {}
-
-        this.speed = 1;
-        this.verifySpeed();
-
-        this.step = 1;
-        this.rhythm = "continue";
-        this.isPlaying = false;
-
-        this.isDrawing = false;
-        this.enableDrawing;
-
-        this.eventHandler = this.createEventHandler();
-
-        this.handleMoveArrowEvents()
         this.initialize();
-
-        this.toggleDrawingEvents();
-    }
-
-    createEventHandler() {
-        let eventHandler = new EventHandler(this);
-        return eventHandler;
     }
 
     verifyInputRules() {
-        for (let i = 0; i < 9 ; i++) {
+        for (let i = 0; i < 9; i++) {
             const birthCheckbox = document.getElementById(`birthRule${i}`);
-            birthCheckbox.checked = this.birth.has(parseInt(birthCheckbox.value));
+            birthCheckbox.checked = this.getBirth().has(parseInt(birthCheckbox.value));
 
             const survivalCheckbox = document.getElementById(`survivalRule${i}`);
-            survivalCheckbox.checked = this.survival.has(parseInt(survivalCheckbox.value));
+            survivalCheckbox.checked = this.getSurvival().has(parseInt(survivalCheckbox.value));
         }
-    }
-
-    verifySpeed() {
-        
     }
 
     initialize() {
-        this.createGame();
-        this.createCanvas();
+        this.verifyInputRules();
+        new EventHandler(this);
+        this.handleMoveArrowEvents()
+        this.initializeSimplely()
+        this.toggleDrawingEvents();
     }
 
-    createGame() {
-        this.board = new Board(this);
-    }
+    initializeSimplely() {
+        // Création d'un tableau
+        this.setBoard(new Board(this));
 
-    createCanvas() {
-        const existingCanvases = document.querySelector("canvas");
+        // Création du canvas
+        const existingCanvases = document.querySelector('canvas');
         const parentCanvas = existingCanvases.parentNode
         parentCanvas.removeChild(existingCanvases)
 
-        let canvas = document.createElement("canvas");
-        console.log(this.board.grid)
+        let canvas = document.createElement('canvas');
         parentCanvas.appendChild(canvas);
-        this.boardCanvas = new BoardCanvas(this);
-        this.boardCanvas.drawGrid();
-    }
-
-    displayGeneration() {
-        let result = `${this.board.generation} (${this.board.isAlive})`;
+        this.setBoardCanvas(new BoardCanvas(this));
+        this.getBoardCanvas().drawGrid();
     }
 
     calculateNextGeneration(isAnimating = false) {
-        const numberGeneration = isAnimating ? 1 : this.step;
-        for (let i = 0; i < numberGeneration ; i++) {
-            this.board.getNextGeneration();
-            this.board.updateHistoryGrid();
-            this.board.countAliveCells();
+        const numberGeneration = isAnimating ? 1 : this.getStep();
+        for (let i = 0; i < numberGeneration; i++) {
+            this.getBoard().getNextGeneration();
+            this.getBoard().updateHistoryGrid();
+            this.getBoard().countAliveCells();
+            this.updateBottomNav();
         }
-        this.boardCanvas.drawGrid();
-        this.displayGeneration();
-        console.log(this.board.generation)
+        this.getBoardCanvas().drawGrid();
+    }
+
+    updateBottomNav() {
+        document.getElementById('generation').textContent = this.getBoard().generation;
+        document.getElementById('livingCells').textContent = this.getBoard().isAlive;
+        document.getElementById('totalCells').textContent = this.getBoard().totalAlive;
+
     }
 
     toggleAnimation() {
-        this.isPlaying = !this.isPlaying;
-        if (this.isPlaying) {
-            this.startAnimation(this.speed);
-        } else {
-            this.stopAnimation();
-        }
+        this.setIsPlaying(!this.getIsPlaying());
+        if (this.getIsPlaying()) this.startAnimation(this.getSpeed());
+        else this.stopAnimation();
     }
 
     startAnimation() {
-        const millisecondsPerAnimation = 1000 / this.speed;
-
         this.intervalId = setInterval(() => {
             this.calculateNextGeneration(true);
-        }, millisecondsPerAnimation);
+        }, 1000 / this.getSpeed());
     }
 
     stopAnimation() {
@@ -170,150 +178,90 @@ class Window {
     }
 
     toggleDrawingEvents() {
-        if (this.enableDraw) {
-            this.removeDrawingEvent();
-        } else {
-            this.addDrawingEvent();
-        }
+        if (this.getEnableDraw()) this.addDrawingEvent();
+        else this.removeDrawingEvent();
     }
 
     addDrawingEvent() {
-        this.boardCanvas.canvas.addEventListener('mousedown', this.startDrawing.bind(this));
-        this.boardCanvas.canvas.addEventListener('mouseup', this.stopDrawing.bind(this));
-        this.boardCanvas.canvas.addEventListener('mousemove', this.drawIfDrawing.bind(this));
+        this.getBoardCanvas().getCanvas().addEventListener('mousedown', this.startDrawing.bind(this));
+        this.getBoardCanvas().getCanvas().addEventListener('mouseup', this.stopDrawing.bind(this));
+        this.getBoardCanvas().getCanvas().addEventListener('mousemove', this.drawIfDrawing.bind(this));
     }
 
     removeDrawingEvent() {
-        this.boardCanvas.canvas.removeEventListener('mousepres', this.startDrawing.bind(this));
-        this.boardCanvas.canvas.removeEventListener('mouseup', this.stopDrawing.bind(this));
-        this.boardCanvas.canvas.removeEventListener('mousemove', this.drawIfDrawing.bind(this));
+        this.getBoardCanvas().getCanvas().removeEventListener('mousedown', this.startDrawing.bind(this));
+        this.getBoardCanvas().getCanvas().removeEventListener('mouseup', this.stopDrawing.bind(this));
+        this.getBoardCanvas().getCanvas().removeEventListener('mousemove', this.drawIfDrawing.bind(this));
     }
 
     startDrawing(event) {
-        if (this.enableDraw) {
-
-            this.isDrawing = true;
+        if (this.getEnableDraw()) {
+            this.setIsDrawing(true);
             this.draw(event);
         }
     }
 
     stopDrawing() {
-        this.isDrawing = false;
+        this.setIsDrawing(false);
     }
 
     drawIfDrawing(event) {
-        if (this.isDrawing) {
-            this.draw(event);
-        }
+        if (this.getIsDrawing()) this.draw(event);
     }
 
     draw(event) {
-        const i = Math.floor(event.offsetX / this.cellSize);
-        const j = Math.floor(event.offsetY / this.cellSize);
-        if (j >= 0 && j < this.board.gridEnableDraw.length && i >= 0 && i < this.board.gridEnableDraw[j].length) {
-
-            if (!this.board.gridEnableDraw[j][i]) {
-                this.writeInGrid(j, i);
-                this.boardCanvas.drawGrid();
-
-                this.board.gridEnableDraw[j][i] = true;
-                setTimeout(() => {
-                    this.board.gridEnableDraw = false;
-                }, 300);
-            }
+        const i = Math.floor(event.offsetX / this.getCellSize());
+        const j = Math.floor(event.offsetY / this.getCellSize());
+        if (j >= 0 && j < this.getBoard().gridEnableDraw.length && i >= 0 && i < this.getBoard().gridEnableDraw[j].length) {
             this.writeInGrid(j, i);
-            this.boardCanvas.drawGrid();
-            this.updateBottomNav();
-
-            console.log(2)
+            this.getBoardCanvas().drawGrid();
         }
-    }
-
-    updateBottomNav() {
-        document.getElementById("generation").text = this.board.generation;
-        document.getElementById("livingCells").textContent = this.board.isAlive;
     }
 
     writeInGrid(j, i) {
-        if (this.board.grid[j][i] === this.valueAdd) {
-            this.board.grid[j][i] = 0;
-            this.board.gridHistory[j][i] = 0;
-        }
-
-        else {
-            this.board.grid[j][i] = this.valueAdd
-        };
+        this.getBoard().grid[j][i] = (this.getBoard().grid[j][i] === this.getValueAdd()) ? 0 : this.getValueAdd();
+        if (this.getBoard().grid[j][i] === 0) this.getBoard().gridHistory[j][i] = 0;
     }
 
     clearGrid() {
-        for (let j = 0; j < this.rowCanvas; j++) {
-            for (let i = 0; i < this.columnCanvas; i++) {
-                this.board.grid[j][i] = 0;
-                this.board.gridHistory[j][i] = 0;
+        for (let j = 0; j < this.getRowCanvas(); j++) {
+            for (let i = 0; i < this.getColumnCanvas(); i++) {
+                this.getBoard().grid[j][i] = 0;
+                this.getBoard().gridHistory[j][i] = 0;
             }
         }
-        this.boardCanvas.drawGrid();
+        this.getBoardCanvas().drawGrid();
     }
 
     showMoveArrow() {
         const moveArrows = document.querySelectorAll('.input-arrow');
-        moveArrows.forEach(arrow => {
-            arrow.style.display = "none";
-        });
+        moveArrows.forEach(arrow => { arrow.style.display = 'none'; });
     }
 
     hideMoveArrow() {
         const moveArrows = document.querySelectorAll('.input-arrow');
-        moveArrows.forEach(arrow => {
-            arrow.style.display = "block";
-        });
+        moveArrows.forEach(arrow => { arrow.style.display = 'block'; });
     }
 
     handleMoveArrowEvents() {
         const moveArrows = document.querySelectorAll('.input-arrow');
         moveArrows.forEach(arrow => {
-            arrow.addEventListener("click", () => {
-                let direction = arrow.classList[1].split("-")[1];
-                if (direction === "top") {
-                    this.board.moveTop();
+            arrow.addEventListener('click', () => {
+                let direction = arrow.classList[1].split('-')[1];
+                switch (direction) {
+                    case "top": this.getBoard().moveTop(); break;
+                    case 'bottom': this.getBoard().moveBottom(); break;
+                    case 'right': this.getBoard().moveBottom(); break;
+                    case 'left': this.getBoard().moveLeft(); break;
                 }
-                else if (direction === "bottom") {
-                    this.board.moveBottom();
-                }
-                else if (direction === "right") {
-                    this.board.moveRight();
-                }
-                else if (direction === "left") {
-                    this.board.moveLeft();
-                }
-                this.boardCanvas.drawGrid();
+                this.getBoardCanvas().drawGrid();
             })
         })
     }
-
 }
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    const window = new Window();
-
-    const addSquareRadio = document.getElementById('addSquare');
-    const addPatternRadio = document.getElementById('addPattern');
-    const squareSizes = document.getElementById('squareSizes');
-    const patternSelect = document.getElementById('patternSelect');
-
-    addSquareRadio.addEventListener('change', function () {
-      if (this.checked) {
-        squareSizes.style.display = 'block';
-        patternSelect.style.display = 'none';
-      }
-    });
-
-    addPatternRadio.addEventListener('change', function () {
-      if (this.checked) {
-        patternSelect.style.display = 'block';
-        squareSizes.style.display = 'none';
-      }
-    });
-  });
+    new Window();
+});
 

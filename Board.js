@@ -1,103 +1,145 @@
+import { conf } from './configuration.js';
+
+
 export class Board {
-    constructor(myWindow) {
-        this.myWindow = myWindow;
-        this.rows = myWindow.rowCanvas;
-        this.cols = myWindow.columnCanvas;
-        this.DEAD = 0;
-        this.ALIVE1 = 1;
-        this.ALIVE2 = 2;
-        this.ALIVE3 = 3;
-        this.ALIVE4 = 4;
-        this.WALL = 9;
+    #app;
+    #isAlive;
+    #generation;
+    #totalAlive;
 
-        this.valueSet = new Set([this.ALIVE1, this.ALIVE2, this.ALIVE3, this.ALIVE4])
+    #grid;
+    #gridHistory;
+    #gridNumberNeighbors;
+    #gridTypeNeighbors;
+    #gridEnableDraw;
 
+    getApp() { return this.#app; }
+
+    getIsAlive() { return this.#isAlive; }
+    setIsAlive(value) { this.#isAlive = value; }
+
+    getGeneration() { return this.#generation; }
+    setGeneration(value) { this.#generation = value; }
+
+    getTotalAlive() { return this.#totalAlive; }
+    setTotalAlive(value) { this.#totalAlive = value; }
+
+    // Grille principale
+    getGrid() { return this.#grid; }
+    setGrid(value) { this.#grid = value; }
+    getGridValue(y, x) { return this.#grid[y][x]; }
+    setGridValue(y, x, value) { this.#grid[y][x] = value; }
+
+    // Historique de la grille
+    getGridHistory() { return this.#gridHistory; }
+    setGridHistory(value) { this.#gridHistory = value; }
+    getGridHistoryValue(y, x) { return this.#gridHistory[y][x]; }
+    setGridHistoryValue(y, x, value) { this.#gridHistory[y][x] = value; }
+
+    // Nombre de voisins dans la grille
+    getGridNumberNeighbors() { return this.#gridNumberNeighbors; }
+    setGridNumberNeighbors(value) { this.#gridNumberNeighbors = value; }
+    getGridNumberNeighborsValue(y, x) { return this.#gridNumberNeighbors[y][x]; }
+    setGridNumberNeighborsValue(y, x, value) { this.#gridNumberNeighbors[y][x] = value; }
+
+    // Type de voisins dans la grille
+    getGridTypeNeighbors() { return this.#gridTypeNeighbors; }
+    setGridTypeNeighbors(value) { this.#gridTypeNeighbors = value; }
+    getGridTypeNeighborsValue(y, x) { return this.#gridTypeNeighbors[y][x]; }
+    setGridTypeNeighborsValue(y, x, value) { this.#gridTypeNeighbors[y][x] = value; }
+
+    // Activation du dessin sur la grille
+    getGridEnableDraw() { return this.#gridEnableDraw; }
+    setGridEnableDraw(value) { this.#gridEnableDraw = value; }
+    getGridEnableDrawValue(y, x) { return this.#gridEnableDraw[y][x]; }
+    setGridEnableDrawValue(y, x, value) { this.#gridEnableDraw[y][x] = value; }
+
+
+
+    constructor(app) {
+        this.#app = app;
         this.isAlive = 0;
         this.generation = 0;
+        this.totalAlive = 0
 
         this.grid = this.createGrid();
         this.gridHistory = this.createGrid();
         this.gridNumberNeighbors = this.createGrid();
         this.gridTypeNeighbors = this.createGrid();
-        this.gridEnableDraw = this.createGrid(true)
+        this.gridEnableDraw = this.createGrid();
     }
 
-    getRandomCellState(weights) {
+    getRandomCellState() {
         // Génère un nombre aléatoire entre 0 et 1
         const random = Math.random();
     
         // Calcule la distribution cumulative
         let cumulativeProbability = 0;
-        for (let i = 0; i < weights.length; i++) {
-            cumulativeProbability += weights[i];
+        for (let i = 0; i < this.getApp().getWeights().length; i++) {
+            cumulativeProbability += this.getApp().getWeights()[i];
             if (random <= cumulativeProbability) {
                 return i;
             }
         }
     
         // Retourne DEAD par défaut (ne devrait pas se produire)
-        return this.DEAD;
+        return conf.DEAD;
     }
 
     // Méthode pour initialiser la grille avec des cellules mortes
-    createGrid(randomize = true, weights = [0.7, 0.1, 0.1, 0.5, 0.5 ]) {
-        return Array.from({ length: this.rows }, () => 
-            Array.from({ length: this.cols }, () => 
-                randomize ? this.getRandomCellState(weights) : this.DEAD
+    createGrid() {
+        return Array.from({ length: this.getApp().getRowCanvas() }, () => 
+            Array.from({ length: this.getApp().getColumnCanvas() }, () =>
+                this.getApp().getRandomize() ? this.getRandomCellState() : conf.DEAD
             )
         );
     }
 
-    applyPattern(pattern, startY, startX, state = this.ALIVE1) {
+    applyPattern(pattern, startY, startX, state = conf.ALIVE1) {
         pattern.forEach(([dy, dx]) => {
             const y = startY + dy;
             const x = startX + dx;
-            if (y >= 0 && y < this.rows && x >= 0 && x < this.cols) {
-                this.grid[y][x] = state;
+            if (y >= 0 && y < this.getApp().getRowCanvas() && x >= 0 && x < this.getApp().getColumnCanvas()) {
+                this.setGridValue(y, x, state);
             }
         });
     }
 
     // Calcule la prochaine génération du jeu
     getNextGeneration() {
-        this.generation += 1;
+        this.setGeneration(this.getGeneration() + 1);
         this.calculateNeighbors();
         const nextGrid = this.createNextGrid();
-        this.updateGrid(nextGrid);
+        this.setGrid(nextGrid)
         this.updateHistoryGrid();
-    }
-
-    // Met à jour la grille principale avec la grille de la prochaine génération
-    updateGrid(nextGrid) {
-        this.grid = nextGrid;
     }
 
     // Met à jour la grille d'historique pour l'évaluation des tendances
     updateHistoryGrid() {
-        for (let j = 0; j < this.rows; j++) {
-            for (let i = 0; i < this.cols; i++) {
-                if (this.valueSet.has(this.grid[j][i])) {
-                    this.gridHistory[j][i] += 1;
+        for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
+            for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
+                if (conf.aliveValuesSet.has(this.getGridValue(j, i))) {
+                    this.setGridHistoryValue(j, i, this.getGridHistoryValue(j,i) + 1);
                 } else {
-                    this.gridHistory[j][i] = 0;
+                    this.setGridHistoryValue(j, i, 0)
                 }
             }
         }
     }
 
     isWithinGridBounds(j, i) {
-        return j >= 0 && j < this.rows && i >= 0 && i < this.cols;
+        return j >= 0 && j < this.getApp().getRowCanvas() && i >= 0 && i < this.getApp().getColumnCanvas();
     }
 
     applyBoundaryRules(j, i) {
-        if (j === -1) { j = this.rows - 1; }
-        if (j === this.rows) { j = 0; }
-        if (i === -1) { i = this.cols - 1; }
-        if (i === this.cols) { i = 0; }
-        if (j === -2) { j = this.rows - 2; }
-        if (j === this.rows + 1) { j = 1; }
-        if (i === -2) { i = this.cols - 2; }
-        if (i === this.cols + 1) { i = 1; }
+        if (j === -1) { j = this.getApp().getRowCanvas() - 1; }
+        if (j === this.getApp().getRowCanvas()) { j = 0; }
+        if (i === -1) { i = this.getApp().getColumnCanvas() - 1; }
+        if (i === this.getApp().getColumnCanvas()) { i = 0; }
+        if (j === -2) { j = this.getApp().getRowCanvas() - 2; }
+        if (j === this.getApp().getRowCanvas() + 1) { j = 1; }
+        if (i === -2) { i = this.getApp().getColumnCanvas() - 2; }
+        if (i === this.getApp().getColumnCanvas() + 1) { i = 1; }
 
         return [j, i];
     }
@@ -105,44 +147,43 @@ export class Board {
 
     // Compte les voisins d'une cellule donnée
     calculateNeighbors(y, x) {
-        for (let j = 0; j < this.rows; j++) {
-            for (let i = 0; i < this.cols; i++) {
+        for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
+            for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
                 const [
                     numberNeighbors,
                     typeNeighbors
-                ] = this.countNeighbors(j, i, this.myWindow.border);
-                this.gridNumberNeighbors[j][i] = numberNeighbors;
-                this.gridTypeNeighbors[j][i] = typeNeighbors;
+                ] = this.countNeighbors(j, i, this.getApp().getBorder());
+                this.setGridNumberNeighborsValue(j, i, numberNeighbors);
+                this.setGridTypeNeighborsValue(j, i, typeNeighbors);
             }
         }
     }
 
     countAliveCells() {
-        this.isAlive = 0; // Réinitialise le compteur
-        for (let j = 0; j < this.rows; j++) {
-            for (let i = 0; i < this.cols; i++) {
-                if (this.valueSet.has(this.grid[j][i])) {
-                    this.isAlive++; // Incrémente le compteur si la cellule est vivante
+        let isAlive = 0;
+        for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
+            for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
+                if (conf.aliveValuesSet.has(this.getGrid(j, i))) {
+                    isAlive++; // Incrémente le compteur si la cellule est vivante
                 }
             }
         }
+        this.setIsAlive(isAlive);
+        this.setTotalAlive(this.getTotalAlive() + isAlive);
     }
 
     countNeighbors(j, i, withBorder) {
         let neighborsAccount = 0;
         let neighborsTotal = 0;
 
-        this.myWindow.MIDDLE.forEach(direction => {
-            let y = j + direction.y;
-            let x = i + direction.x;
+        conf.MIDDLE.forEach(direction => {
+            let [y, x] = [j + direction.y, i + direction.x]
 
-            if (!withBorder) {
-                [y, x] = this.applyBoundaryRules(y, x);
-            }
+            if (!withBorder) [y, x] = this.applyBoundaryRules(y, x);
 
             if (this.isWithinGridBounds(y, x)) {
-                const currentValue = this.grid[y][x];
-                if (this.valueSet.has(currentValue)) {
+                const currentValue = this.getGrid(y, x);
+                if (conf.aliveValuesSet.has(currentValue)) {
                     neighborsAccount += 1;
                     neighborsTotal += currentValue;
                 }
@@ -154,12 +195,12 @@ export class Board {
 
     createNextGrid() {
         const nextGrid = [];
-        for (let j = 0; j < this.rows; j++) {
+        for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             const nextRow = [];
-            for (let i = 0; i < this.cols; i++) {
-                const typeNeighbors = this.gridTypeNeighbors[j][i];
-                const numberNeighbors = this.gridNumberNeighbors[j][i];
-                const currentValue = this.grid[j][i];
+            for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
+                const typeNeighbors = this.getGridTypeNeighborsValue(j, i);
+                const numberNeighbors = this.getGridNumberNeighborsValue(j, i);
+                const currentValue = this.getGrid(j, i);
                 const nextCellValue = this.determineNextCellValue(currentValue, typeNeighbors, numberNeighbors);
                 nextRow.push(nextCellValue);
             }
@@ -169,55 +210,55 @@ export class Board {
     }
 
     determineNextCellValue(currentValue, typeNeighbors, numberNeighbors) {
-        if (this.valueSet.has(currentValue)) {
-            if (this.myWindow.birth.has(numberNeighbors)) {
+        if (conf.aliveValuesSet.has(currentValue)) {
+            if (this.getApp().getBirth().has(numberNeighbors)) {
                 return currentValue;
             } else {
-                return this.DEAD;
+                return conf.DEAD;
             }
-        } else if (currentValue === this.DEAD) {
-            if (this.myWindow.survival.has(numberNeighbors)) {
+        } else if (currentValue === conf.DEAD) {
+            if (this.getApp().getSurvival().has(numberNeighbors)) {
                 return typeNeighbors;
             } else {
-                return this.DEAD;
+                return conf.DEAD;
             }
-        } else if (currentValue === this.WALL) {
-            return this.WALL;
+        } else if (currentValue === conf.WALL) {
+            return conf.WALL;
         }
     }
 
     // Déplace la grille vers le haut
     moveTop() {
-        let nextGrid = this.grid.slice(1);
-        nextGrid.push(Array(this.cols).fill(this.DEAD));
-        this.grid = nextGrid;
+        let nextGrid = this.getGrid().slice(1);
+        nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(conf.DEAD));
+        this.setGrid(nextGrid);
     }
 
     // Déplace la grille vers le bas
     moveBottom() {
         let nextGrid = [];
-        nextGrid.push(Array(this.cols).fill(this.DEAD));
-        nextGrid = nextGrid.concat(this.grid.slice(0, this.rows - 1));
-        this.grid = nextGrid;
+        nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(conf.DEAD));
+        nextGrid = nextGrid.concat(this.getGrid().slice(0, this.getApp().getRowCanvas() - 1));
+        this.setGrid(nextGrid);
     }
 
     // Déplace la grille vers la gauche
     moveLeft() {
-        for (let j = 0; j < this.rows; j++) {
-            for (let i = 0; i < this.cols - 1; i++) {
-                this.grid[j][i] = this.grid[j][i + 1];
+        for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
+            for (let i = 0; i < this.getApp().getColumnCanvas() - 1; i++) {
+                this.setGridValue(j, i, this.getGridValue(j, i + 1));
             }
-            this.grid[j][this.cols - 1] = this.DEAD;
+            this.setGridValue(j, this.getApp().getColumnCanvas() - 1, conf.DEAD);
         }
     }
 
     // Déplace la grille vers la droite
     moveRight() {
-        for (let j = 0; j < this.rows; j++) {
-            for (let i = this.cols - 1; i > 0; i--) {
-                this.grid[j][i] = this.grid[j][i - 1];
+        for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
+            for (let i = this.getApp().getColumnCanvas() - 1; i > 0; i--) {
+                this.setGridValue(j, i, this.getGridValue(j, i - 1));
             }
-            this.grid[j][0] = this.DEAD;
+            this.setGridValue(j, 0, conf.DEAD);
         }
     }
 }

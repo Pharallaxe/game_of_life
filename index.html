@@ -9,7 +9,7 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
   <!-- JavaScript pour gérer l'exclusivité des sélections -->
-  <link rel="stylesheet" href="normalize.css">
+  <!-- <link rel="stylesheet" href="normalize.css"> -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -89,44 +89,25 @@
           <div>
             <!-- Icon List -->
             <div class="d-flex icon-bar">
-              <button class="btn btn-outline-secondary" data-bs-toggle="modal"
-              data-bs-target="#configurerModal" type="button" title="Nouvelle Simulation">
+
+              <!-- Nouvelle simulation -->
+              <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#configurerModal"
+                type="button" title="Nouvelle Simulation">
                 <i class="bi bi-plus-circle"></i>
               </button>
+
+              <!-- Pas à pas -->
+              <button class="btn btn-outline-secondary" type="button" title="Pas à Pas">
+                <i class="bi bi-arrow-right-circle"></i>
+              </button>
+
+              <!-- Démarrer/Mettre en pause -->
               <button class="btn btn-outline-secondary" type="button" title="Démarrer">
                 <i id="startIcon" class="bi bi-play-fill"></i>
                 <i id="pauseIcon" class="bi bi-pause-fill" style="display: none"></i>
               </button>
-              
-              <div class="position-relative" id="stepParent">
-                <button class="btn btn-outline-secondary" type="button" title="Pas à Pas">
-                  <i class="bi bi-arrow-right-circle"></i>
-                </button>
-                <div id="stepButtons"
-                  class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
-                  <button class="btn btn-outline-secondary bg-success text-light color-btn" data-step="1">
-                    <span>+   1</span>
-                  </button>
-                  <button class="btn btn-outline-secondary color-btn" data-step="10">
-                    <span>+  10</span>
-                  </button>
-                  <button class="btn btn-outline-secondary color-btn" data-step="50">
-                    <span>+  50</span>
-                  </button>
-                  <button class="btn btn-outline-secondary color-btn" data-step="100">
-                    <span>+ 100</span>
-                  </button>
-                  <button class="btn btn-outline-secondary color-btn" data-step="500">
-                    <span>+ 500</span>
-                  </button>
-                  <button class="btn btn-outline-secondary color-btn" data-step="1000">
-                    <span>+1000</span>
-                  </button>
-                  <button class="btn btn-outline-secondary color-btn" data-step="9999">
-                    <span>+9999</span>
-                  </button>
-                </div>
-              </div>
+
+
               <div class="position-relative" id="rapidityParent">
                 <button class="btn btn-outline-secondary" type="button" title="Rapidité">
                   <i class="bi bi-fast-forward-fill"></i>
@@ -159,6 +140,9 @@
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Grille">
                 <i class="bi bi-border-all"></i>
               </button>
+              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Bordures">
+                <i class="bi bi-square"></i>
+              </button>
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Flèches">
                 <i class="bi bi-arrows-move"></i>
               </button>
@@ -167,7 +151,8 @@
               </button>
               <div class="position-relative" id="colorParent">
                 <button id="paletteButton" class="btn btn-outline-secondary blue" type="button" title="Couleur">
-                  <i class="bi bi-palette-fill"></i>
+                  <i id="paletteIcon" class="bi bi-palette-fill"></i>
+                  <i id="wallIcon" class="bi bi-bricks" style="display: none"></i>
                 </button>
                 <div id="colorButtons"
                   class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
@@ -182,6 +167,9 @@
                   </button>
                   <button class="btn btn-outline-secondary color-btn green" data-color="green" data-value="4">
                     <i class="bi bi-palette-fill"></i>
+                  </button>
+                  <button class="btn btn-outline-secondary color-btn" data-color="wall" data-value="9">
+                    <i class="bi bi-bricks"></i>
                   </button>
                 </div>
               </div>
@@ -205,7 +193,9 @@
 
       <!-- Status Bar -->
       <div class="status-bar border">
-        Génération : <span id="generation">0</span> | Cellules Vivantes : <span id="livingCells">0</span>
+        Génération : <span id="generation">0</span>
+        | Vivantes : <span id="livingCells">0</span>
+        | Total : <span id="totalCells">0</span>
       </div>
     </div>
   </div>
@@ -237,15 +227,69 @@
               <input type="number" class="form-control" value="10" min="3" max="50" id="cellSize"
                 placeholder="Entrez la taille des cellules">
             </div>
+            <div class="hasard-check">
+              <input class="hasard-check-input" type="checkbox" id="hasard">
+              <label class="hasard-check-label" for="hasard">Hasard</label>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Appliquer</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="applyConfigure">Appliquer</button>
+          <button type="button" class="btn btn-info" data-bs-toggle="modal"
+          data-bs-target="#calibrerPoidsModal" id="openCalibrerPoids">
+            Calibrer Poids
+          </button>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Calibrer Poids Modal -->
+  <div class="modal fade" id="calibrerPoidsModal" tabindex="-1" aria-labelledby="calibrerPoidsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="calibrerPoidsModalLabel">Calibrer Poids des Cellules</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="weightsForm">
+            <div class="mb-3">
+              <label for="weight0" class="form-label">Vide <span id="spanWeight0"></span></label>
+              <input type="range" class="form-range" id="weight0" min="0" max="1" step="0.01" value="0.90" disabled>
+            </div>
+            <div class="mb-3">
+              <label for="weight1" class="form-label">Vivante <span id="spanWeight1"></span></label>
+              <input type="range" class="form-range weight" id="weight1" min="0" max="1" step="0.01" value="0.1">
+            </div>
+            <div class="mb-3">
+              <label for="weight2" class="form-label">Vivante <span id="spanWeight2"></span></label>
+              <input type="range" class="form-range weight" id="weight2" min="0" max="1" step="0.01" value="0">
+            </div>
+            <div class="mb-3">
+              <label for="weight3" class="form-label">Vivante <span id="spanWeight3"></span></label>
+              <input type="range" class="form-range weight" id="weight3" min="0" max="1" step="0.01" value="0">
+            </div>
+            <div class="mb-3">
+              <label for="weight4" class="form-label">Vivante <span id="spanWeight4"></span></label>
+              <input type="range" class="form-range weight" id="weight4" min="0" max="1" step="0.01" value="0">
+            </div>
+            <p id="totalWeightError" class="text-danger d-none">La somme des poids ne doit pas dépasser 1.</p>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+          data-bs-target="#configurerModal">Annuler</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#configurerModal" id="applyWeights">Appliquer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- Charger Modal -->
   <div class="modal fade" id="chargerModal" tabindex="-1" aria-labelledby="chargerModalLabel" aria-hidden="true">
@@ -548,8 +592,8 @@
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="animationSpeed" class="form-label">Vitesse</label>
-              <input type="range" class="form-range" id="animationSpeed" min="1" max="10">
+              <label for="animationSpeed" class="form-label">Vitesse <span id="speedValueLabel">1</span></label>
+              <input type="range" class="form-range" id="animationSpeed" min="1" max="100" value="5">
             </div>
           </form>
         </div>
@@ -560,6 +604,7 @@
       </div>
     </div>
   </div>
+
 
   <script src="Window.js" type="module"></script>
 
