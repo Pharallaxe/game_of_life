@@ -37,7 +37,7 @@ export class BoardCanvas {
         this.clearCanvas();
         for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
-                const currentValueCell = this.getApp().getBoard().grid[j][i]
+                const currentValueCell = this.getApp().getBoard().getGridValue(j, i);
                 if (conf.notDeadValueSet.has(currentValueCell)) {
                     this.getCtx().fillStyle = this.getColorFromIndex(currentValueCell, j, i);
                     this.getCtx()

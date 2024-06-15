@@ -3,6 +3,7 @@ import { Board } from './Board.js';
 import { BoardCanvas } from './BoardCanvas.js';
 
 import { conf } from './configuration.js';
+import { $, $All } from './utils.js';
 
 class Window {
 
@@ -111,10 +112,10 @@ class Window {
 
     verifyInputRules() {
         for (let i = 0; i < 9; i++) {
-            const birthCheckbox = document.getElementById(`birthRule${i}`);
+            const birthCheckbox = $(`#birthRule${i}`);
             birthCheckbox.checked = this.getBirth().has(parseInt(birthCheckbox.value));
 
-            const survivalCheckbox = document.getElementById(`survivalRule${i}`);
+            const survivalCheckbox = $(`#survivalRule${i}`);
             survivalCheckbox.checked = this.getSurvival().has(parseInt(survivalCheckbox.value));
         }
     }
@@ -132,7 +133,7 @@ class Window {
         this.setBoard(new Board(this));
 
         // Création du canvas
-        const existingCanvases = document.querySelector('canvas');
+        const existingCanvases = $('canvas');
         const parentCanvas = existingCanvases.parentNode
         parentCanvas.removeChild(existingCanvases)
 
@@ -153,10 +154,10 @@ class Window {
         this.getBoardCanvas().drawGrid();
     }
 
-    updateBottomNav() {
-        document.getElementById('generation').textContent = this.getBoard().generation;
-        document.getElementById('livingCells').textContent = this.getBoard().isAlive;
-        document.getElementById('totalCells').textContent = this.getBoard().totalAlive;
+    updateBottomNav(reset = false) {
+        $('#generation').textContent = !reset ? this.getBoard().getGeneration() : "";
+        $('#livingCells').textContent = !reset ? this.getBoard().getIsAlive() : "";
+        $('#totalCells').textContent = !reset ? this.getBoard().getTotalAlive() : "";
 
     }
 
@@ -212,39 +213,50 @@ class Window {
     draw(event) {
         const i = Math.floor(event.offsetX / this.getCellSize());
         const j = Math.floor(event.offsetY / this.getCellSize());
-        if (j >= 0 && j < this.getBoard().gridEnableDraw.length && i >= 0 && i < this.getBoard().gridEnableDraw[j].length) {
+        if (
+            j >= 0 &&
+            j < this.getBoard().getGridEnableDraw().length &&
+            i >= 0 &&
+            i < this.getBoard().getGridEnableDraw()[j].length
+        ) {
             this.writeInGrid(j, i);
             this.getBoardCanvas().drawGrid();
         }
     }
 
     writeInGrid(j, i) {
-        this.getBoard().grid[j][i] = (this.getBoard().grid[j][i] === this.getValueAdd()) ? 0 : this.getValueAdd();
-        if (this.getBoard().grid[j][i] === 0) this.getBoard().gridHistory[j][i] = 0;
+        const currentValue = this.getBoard().getGridValue(j, i);
+        let newValue;
+
+        if (currentValue === this.getValueAdd()) newValue = 0;
+        else newValue = this.getValueAdd();
+
+        this.getBoard().setGridValue(j, i, newValue);
+        if (newValue === 0) this.getBoard().setGridHistoryValue(j, i, 0);
     }
 
     clearGrid() {
         for (let j = 0; j < this.getRowCanvas(); j++) {
             for (let i = 0; i < this.getColumnCanvas(); i++) {
-                this.getBoard().grid[j][i] = 0;
-                this.getBoard().gridHistory[j][i] = 0;
+                this.getBoard().setGridValue(j, i, 0);
+                this.getBoard().setGridHistoryValue(j, i, 0);
             }
         }
         this.getBoardCanvas().drawGrid();
     }
 
     showMoveArrow() {
-        const moveArrows = document.querySelectorAll('.input-arrow');
+        const moveArrows = $All('.input-arrow');
         moveArrows.forEach(arrow => { arrow.style.display = 'none'; });
     }
 
     hideMoveArrow() {
-        const moveArrows = document.querySelectorAll('.input-arrow');
+        const moveArrows = $All('.input-arrow');
         moveArrows.forEach(arrow => { arrow.style.display = 'block'; });
     }
 
     handleMoveArrowEvents() {
-        const moveArrows = document.querySelectorAll('.input-arrow');
+        const moveArrows = $All('.input-arrow');
         moveArrows.forEach(arrow => {
             arrow.addEventListener('click', () => {
                 let direction = arrow.classList[1].split('-')[1];

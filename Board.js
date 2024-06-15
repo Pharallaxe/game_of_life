@@ -55,24 +55,23 @@ export class Board {
     setGridEnableDrawValue(y, x, value) { this.#gridEnableDraw[y][x] = value; }
 
 
-
     constructor(app) {
         this.#app = app;
-        this.isAlive = 0;
-        this.generation = 0;
-        this.totalAlive = 0
+        this.#isAlive = 0;
+        this.#generation = 0;
+        this.#totalAlive = 0
 
-        this.grid = this.createGrid();
-        this.gridHistory = this.createGrid();
-        this.gridNumberNeighbors = this.createGrid();
-        this.gridTypeNeighbors = this.createGrid();
-        this.gridEnableDraw = this.createGrid();
+        this.#grid = this.createGrid();
+        this.#gridHistory = this.createGrid();
+        this.#gridNumberNeighbors = this.createGrid();
+        this.#gridTypeNeighbors = this.createGrid();
+        this.#gridEnableDraw = this.createGrid();
     }
 
     getRandomCellState() {
         // Génère un nombre aléatoire entre 0 et 1
         const random = Math.random();
-    
+
         // Calcule la distribution cumulative
         let cumulativeProbability = 0;
         for (let i = 0; i < this.getApp().getWeights().length; i++) {
@@ -81,14 +80,14 @@ export class Board {
                 return i;
             }
         }
-    
+
         // Retourne DEAD par défaut (ne devrait pas se produire)
         return conf.DEAD;
     }
 
     // Méthode pour initialiser la grille avec des cellules mortes
     createGrid() {
-        return Array.from({ length: this.getApp().getRowCanvas() }, () => 
+        return Array.from({ length: this.getApp().getRowCanvas() }, () =>
             Array.from({ length: this.getApp().getColumnCanvas() }, () =>
                 this.getApp().getRandomize() ? this.getRandomCellState() : conf.DEAD
             )
@@ -107,9 +106,11 @@ export class Board {
 
     // Calcule la prochaine génération du jeu
     getNextGeneration() {
+
         this.setGeneration(this.getGeneration() + 1);
         this.calculateNeighbors();
         const nextGrid = this.createNextGrid();
+
         this.setGrid(nextGrid)
         this.updateHistoryGrid();
     }
@@ -119,7 +120,7 @@ export class Board {
         for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
                 if (conf.aliveValuesSet.has(this.getGridValue(j, i))) {
-                    this.setGridHistoryValue(j, i, this.getGridHistoryValue(j,i) + 1);
+                    this.setGridHistoryValue(j, i, this.getGridHistoryValue(j, i) + 1);
                 } else {
                     this.setGridHistoryValue(j, i, 0)
                 }
@@ -132,14 +133,17 @@ export class Board {
     }
 
     applyBoundaryRules(j, i) {
-        if (j === -1) { j = this.getApp().getRowCanvas() - 1; }
-        if (j === this.getApp().getRowCanvas()) { j = 0; }
-        if (i === -1) { i = this.getApp().getColumnCanvas() - 1; }
-        if (i === this.getApp().getColumnCanvas()) { i = 0; }
-        if (j === -2) { j = this.getApp().getRowCanvas() - 2; }
-        if (j === this.getApp().getRowCanvas() + 1) { j = 1; }
-        if (i === -2) { i = this.getApp().getColumnCanvas() - 2; }
-        if (i === this.getApp().getColumnCanvas() + 1) { i = 1; }
+        const row = this.getApp().getRowCanvas();
+        const col = this.getApp().getColumnCanvas();
+
+        if (j === -1) { j = row - 1; }
+        if (j === row) { j = 0; }
+        if (i === -1) { i = col - 1; }
+        if (i === col) { i = 0; }
+        if (j === -2) { j = row - 2; }
+        if (j === row + 1) { j = 1; }
+        if (i === -2) { i = col - 2; }
+        if (i === col + 1) { i = 1; }
 
         return [j, i];
     }
@@ -152,7 +156,7 @@ export class Board {
                 const [
                     numberNeighbors,
                     typeNeighbors
-                ] = this.countNeighbors(j, i, this.getApp().getBorder());
+                ] = this.countNeighbors(j, i);
                 this.setGridNumberNeighborsValue(j, i, numberNeighbors);
                 this.setGridTypeNeighborsValue(j, i, typeNeighbors);
             }
@@ -163,26 +167,27 @@ export class Board {
         let isAlive = 0;
         for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
-                if (conf.aliveValuesSet.has(this.getGrid(j, i))) {
+                if (conf.aliveValuesSet.has(this.getGridValue(j, i))) {
                     isAlive++; // Incrémente le compteur si la cellule est vivante
                 }
             }
         }
         this.setIsAlive(isAlive);
         this.setTotalAlive(this.getTotalAlive() + isAlive);
+        console.log(this.getTotalAlive())
     }
 
-    countNeighbors(j, i, withBorder) {
+    countNeighbors(j, i) {
         let neighborsAccount = 0;
         let neighborsTotal = 0;
 
-        conf.MIDDLE.forEach(direction => {
+        conf.MIDDLES['Plaine'].forEach(direction => {
             let [y, x] = [j + direction.y, i + direction.x]
 
-            if (!withBorder) [y, x] = this.applyBoundaryRules(y, x);
+            if (!this.getApp().getBorder()) [y, x] = this.applyBoundaryRules(y, x);
 
             if (this.isWithinGridBounds(y, x)) {
-                const currentValue = this.getGrid(y, x);
+                const currentValue = this.getGridValue(y, x);
                 if (conf.aliveValuesSet.has(currentValue)) {
                     neighborsAccount += 1;
                     neighborsTotal += currentValue;
@@ -200,7 +205,7 @@ export class Board {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
                 const typeNeighbors = this.getGridTypeNeighborsValue(j, i);
                 const numberNeighbors = this.getGridNumberNeighborsValue(j, i);
-                const currentValue = this.getGrid(j, i);
+                const currentValue = this.getGridValue(j, i);
                 const nextCellValue = this.determineNextCellValue(currentValue, typeNeighbors, numberNeighbors);
                 nextRow.push(nextCellValue);
             }

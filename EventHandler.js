@@ -1,5 +1,5 @@
 import { conf } from './configuration.js';
-
+import { $, $All } from './utils.js';
 
 export class EventHandler {
     
@@ -40,8 +40,8 @@ export class EventHandler {
     }
 
     updateStartButton(forceStop = false) {
-        const playIcon = document.getElementById('startIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
+        const playIcon = $('#startIcon');
+        const pauseIcon = $('#pauseIcon');
 
         const isPlaying = playIcon.style.display === 'none';
 
@@ -95,11 +95,11 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Configurer Plateau
     initializeConfigurerModal() {
-        const hasardInput = document.querySelector('#hasard');
-        const rowsInput = document.querySelector('#rows');
-        const columnsInput = document.querySelector('#columns');
-        const cellSizeInput = document.querySelector('#cellSize');
-        const applyConfigureButton = document.querySelector('#applyConfigure');
+        const hasardInput = $('#hasard');
+        const rowsInput = $('#rows');
+        const columnsInput = $('#columns');
+        const cellSizeInput = $('#cellSize');
+        const applyConfigureButton = $('#applyConfigure');
 
         applyConfigureButton.addEventListener('click', () => {
             this.validateInput(
@@ -108,6 +108,8 @@ export class EventHandler {
                 columnsInput, conf.MIN_COL, conf.MAX_COL);
             this.validateInput(
                 cellSizeInput, conf.MIN_CELL_SIZE, conf.MAX_CELL_SIZE);
+
+            this.getApp().updateBottomNav(true);
 
             this.getApp().setColumnCanvas(rowsInput.value);
             this.getApp().setRowCanvas(columnsInput.value);
@@ -119,15 +121,15 @@ export class EventHandler {
     }
 
     initializeWeightModal() {
-        const weightEmpty = document.querySelector('#weight0');
-        const weightsInput = document.querySelectorAll('.weight');
-        const applyWeightButton = document.querySelector('#applyWeights');
+        const weightEmpty = $('#weight0');
+        const weightsInput = $All('.weight');
+        const applyWeightButton = $('#applyWeights');
 
         const weightsSpan = [
-            document.querySelector('#spanWeight1'),
-            document.querySelector('#spanWeight2'),
-            document.querySelector('#spanWeight3'),
-            document.querySelector('#spanWeight4')
+            $('#spanWeight1'),
+            $('#spanWeight2'),
+            $('#spanWeight3'),
+            $('#spanWeight4')
         ];
 
         const updateWeights = (changedInput) => {
@@ -136,8 +138,8 @@ export class EventHandler {
             let totalZero = (1 - total).toFixed(2);
             if (totalZero < 0) totalZero = 0;
 
-            document.querySelector('#spanWeight0').textContent = totalZero;
-            document.querySelector('#weight0').value = totalZero;
+            $('#spanWeight0').textContent = totalZero;
+            $('#weight0').value = totalZero;
 
             if (total > 1) {
                 const excess = total - 1;
@@ -177,7 +179,7 @@ export class EventHandler {
                 weights.push(weight.value);
             });
             this.getApp().setWeights(weights.map(Number));
-            document.querySelector('#hasard').checked = true;
+            $('#hasard').checked = true;
         })
        
     }
@@ -185,8 +187,8 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Charger Plateau
     initializeChargerModal() {
-        const loadConfigSelect = document.querySelector('#loadConfig');
-        const loadButton = document.querySelector('#chargerModal .btn-primary');
+        const loadConfigSelect = $('#loadConfig');
+        const loadButton = $('#chargerModal .btn-primary');
 
         loadButton.addEventListener('click', () => {
             // Fonction à remplir
@@ -195,8 +197,8 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Enregistrer Plateau
     initializeEnregistrerModal() {
-        const saveNameInput = document.querySelector('#saveName');
-        const saveButton = document.querySelector('#enregistrerModal .btn-primary');
+        const saveNameInput = $('#saveName');
+        const saveButton = $('#enregistrerModal .btn-primary');
 
         saveButton.addEventListener('click', () => {
             const saveName = saveNameInput.value;
@@ -204,7 +206,7 @@ export class EventHandler {
             this.getApp().setSaves([saveName], this.getApp().getBoard().getGrid());
             saveNameInput.input = '';
 
-            const loadConfig = document.getElementById('loadConfig');
+            const loadConfig = $('#loadConfig');
             loadConfig.innerHTML = '';
 
             Object.keys(this.getApp().getSaves()).forEach(save => {
@@ -219,9 +221,9 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Définir Règles
     initializeDefinirReglesModal() {
-        const birthRulesCheckboxes = document.querySelectorAll('#definirReglesModal .birth-rules .form-check-input');
-        const survivalRulesCheckboxes = document.querySelectorAll('#definirReglesModal .survival-rules .form-check-input');
-        const applyButton = document.querySelector('#definirReglesModal .btn-primary');
+        const birthRulesCheckboxes = $All('#definirReglesModal .birth-rules .form-check-input');
+        const survivalRulesCheckboxes = $All('#definirReglesModal .survival-rules .form-check-input');
+        const applyButton = $('#definirReglesModal .btn-primary');
 
         applyButton.addEventListener('click', () => {
             this.getApp().setBirth(new Set(Array.from(birthRulesCheckboxes)
@@ -237,8 +239,8 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Règles Prédéfinies
     initializePredefiniesModal() {
-        const predefinedRulesSelect = document.querySelector('#predefinedRules');
-        const applyButton = document.querySelector('#predefiniesModal .btn-primary');
+        const predefinedRulesSelect = $('#predefinedRules');
+        const applyButton = $('#predefiniesModal .btn-primary');
 
         applyButton.addEventListener('click', () => {
 
@@ -253,12 +255,12 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Ajout Rapide
     initializeAjoutRapideModal() {
-        const colorRadios = document.querySelectorAll('#ajoutRapideModal input[name="colorOptions"]');
-        const addSquareRadio = document.querySelector('#addSquare');
-        const addPatternRadio = document.querySelector('#addPattern');
-        const sizeRadios = document.querySelectorAll('#ajoutRapideModal input[name="squareSize"]');
-        const patternSelect = document.querySelector('#patternSelect');
-        const addButton = document.querySelector('#ajoutRapideModal .btn-primary');
+        const colorRadios = $All('#ajoutRapideModal input[name="colorOptions"]');
+        const addSquareRadio = $('#addSquare');
+        const addPatternRadio = $('#addPattern');
+        const sizeRadios = $All('#ajoutRapideModal input[name="squareSize"]');
+        const patternSelect = $('#patternSelect');
+        const addButton = $('#ajoutRapideModal .btn-primary');
 
         addButton.addEventListener('click', () => {
         });
@@ -266,8 +268,8 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Pas à Pas
     initializePasAPasModal() {
-        const applyButton = document.querySelector('#pasAPasModal .btn-primary');
-        const stepSelect = document.querySelector('#stepSelect');
+        const applyButton = $('#pasAPasModal .btn-primary');
+        const stepSelect = $('#stepSelect');
 
         applyButton.addEventListener('click', () => {
             this.getApp().setStep(stepSelect.value);
@@ -276,9 +278,9 @@ export class EventHandler {
 
     // Initialiser les événements pour la modale Vitesse
     initializeVitesseModal() {
-        const animationSpeedInput = document.querySelector('#animationSpeed');
-        const speedValueLabel = document.querySelector('#speedValueLabel');
-        const applyButton = document.querySelector('#vitesseModal .btn-primary');
+        const animationSpeedInput = $('#animationSpeed');
+        const speedValueLabel = $('#speedValueLabel');
+        const applyButton = $('#vitesseModal .btn-primary');
 
 
         animationSpeedInput.addEventListener('input', () => {
@@ -288,7 +290,6 @@ export class EventHandler {
         applyButton.addEventListener('click', () => {
             const speedValue = animationSpeedInput.value;
             this.getApp().setSpeed(speedValue);
-            console.log(`Vitesse d'animation définie à : ${speedValue}`);
         });
     }
 
@@ -299,7 +300,7 @@ export class EventHandler {
     *******************************************/
 
     initializeSimulationIcon() {
-        const newSimulationButton = document.querySelector('.icon-bar .btn[title="Nouvelle Simulation"]');
+        const newSimulationButton = $('.icon-bar .btn[title="Nouvelle Simulation"]');
 
         newSimulationButton.addEventListener('click', () => {
             this.updateStartButton(true)
@@ -307,7 +308,7 @@ export class EventHandler {
     }
 
     initializeStepIcon() {
-        const stepButton = document.querySelector('.btn[title="Pas à Pas"]');
+        const stepButton = $('.btn[title="Pas à Pas"]');
 
         stepButton.addEventListener('click', () => {
             this.getApp().calculateNextGeneration();
@@ -315,7 +316,7 @@ export class EventHandler {
     }
 
     initializeStartIcon() {
-        const startButton = document.querySelector('.btn[title="Démarrer"]');
+        const startButton = $('.btn[title="Démarrer"]');
 
         startButton.addEventListener('click', () => {
             this.updateStartButton();
@@ -323,10 +324,10 @@ export class EventHandler {
     }
 
     initializeRapidityIcon() {
-        const rapidityButton = document.querySelector('.btn[title="Rapidité"]');
-        const speedDiv = document.querySelector('#rapidityButtons');
-        const speedButtons = document.querySelectorAll('#rapidityButtons button');
-        const rapidityParent = document.querySelector('#rapidityParent');
+        const rapidityButton = $('.btn[title="Rapidité"]');
+        const speedDiv = $('#rapidityButtons');
+        const speedButtons = $All('#rapidityButtons button');
+        const rapidityParent = $('#rapidityParent');
 
         let speedHideTimeout; // Variable pour stocker le timeout
 
@@ -368,28 +369,28 @@ export class EventHandler {
     }
 
     initializeTrashIcon() {
-        const trashButton = document.querySelector('.btn[title="Corbeille"]');
+        const trashButton = $('.btn[title="Corbeille"]');
 
         trashButton.addEventListener('click', () => {
             this.getApp().clearGrid();
             this.getApp().stopAnimation();
             this.updateStartButton();
+            this.getApp().updateBottomNav();
         });
-
     }
 
     initializeBordureIcon() {
-        const borderButton = document.querySelector('.btn[title="Bordures"]');
+        const borderButton = $('.btn[title="Bordures"]');
 
         borderButton.addEventListener('click', () => {
             borderButton.classList.toggle('active');
             this.getApp().setBorder(!this.getApp().getBorder());
-            document.querySelector('canvas').classList.toggle('canvas-border');
+            $('canvas').classList.toggle('canvas-border');
         });
     }
 
     initializeGridIcon() {
-        const gridButton = document.querySelector('.btn[title="Grille"]');
+        const gridButton = $('.btn[title="Grille"]');
 
         gridButton.addEventListener('click', () => {
             gridButton.classList.toggle('active');
@@ -403,7 +404,7 @@ export class EventHandler {
     }
 
     initializeArrowsIcon() {
-        const arrowsButton = document.querySelector('.btn[title="Flèches"]');
+        const arrowsButton = $('.btn[title="Flèches"]');
         arrowsButton.addEventListener('click', () => {
             arrowsButton.classList.toggle('active');
             this.getApp().move = !this.getApp().move;
@@ -414,7 +415,7 @@ export class EventHandler {
     }
 
     initializeHistoryIcon() {
-        const historyButton = document.querySelector('.btn[title="Historique"]');
+        const historyButton = $('.btn[title="Historique"]');
 
         historyButton.addEventListener('click', () => {
             historyButton.classList.toggle('active');
@@ -428,12 +429,12 @@ export class EventHandler {
     }
 
     initializeColorIcon() {
-        const paletteIcon = document.getElementById('paletteIcon');
-        const wallIcon = document.getElementById('wallIcon');
-        const paletteButton = document.querySelector('.btn[title="Couleur"]');
-        const colorDiv = document.querySelector('#colorButtons');
-        const colorButtons = document.querySelectorAll('#colorButtons button');
-        const paletteParent = document.querySelector('#colorParent');
+        const paletteIcon = $('#paletteIcon');
+        const wallIcon = $('#wallIcon');
+        const paletteButton = $('.btn[title="Couleur"]');
+        const colorDiv = $('#colorButtons');
+        const colorButtons = $All('#colorButtons button');
+        const paletteParent = $('#colorParent');
 
         let colorHideTimeout; // Variable pour stocker le timeout
 
@@ -478,21 +479,23 @@ export class EventHandler {
                 }
             });
         });
-
     }
 
     initializeDrawIcon() {
 
-        const drawButton = document.querySelector('.icon-bar .btn[title="Dessiner"]');
-
-
+        const drawButton = $('.icon-bar .btn[title="Dessiner"]');
 
         drawButton.addEventListener('click', () => {
-            drawButton.classList.toggle('active');
-            this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
-            this.getApp().toggleDrawingEvents();
+            this.updateStartButton(true);
+            this.updateDrawButton();
         });
+    }
 
+    updateDrawButton(forced = false) {
+        const drawButton = $('.icon-bar .btn[title="Dessiner"]');
+        drawButton.classList.toggle('active');
+        this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
+        this.getApp().toggleDrawingEvents();
     }
 
     /******************************************
@@ -503,7 +506,7 @@ export class EventHandler {
 
 
     initializeCanvasEvents() {
-        const canvas = document.querySelector('#gameCanvas');
+        const canvas = $('#gameCanvas');
 
         canvas.addEventListener('click', (event) => {
             // Fonction à remplir
