@@ -50,7 +50,7 @@ export class BoardCanvas {
             }
         }
 
-        if (this.getApp().lines) { this.drawLines(); }
+        if (this.getApp().getLines()) { this.drawLines(); }
     }
 
 

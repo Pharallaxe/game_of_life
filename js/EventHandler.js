@@ -498,6 +498,7 @@ export class EventHandler {
 
         borderButton.addEventListener('click', () => {
             borderButton.classList.toggle('active');
+            
             this.getApp().setBorder(!this.getApp().getBorder());
             $('canvas').classList.toggle('canvas-border');
         });
