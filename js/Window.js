@@ -2,7 +2,6 @@ import { EventHandler } from './EventHandler.js';
 import { Board } from './Board.js';
 import { BoardCanvas } from './BoardCanvas.js';
 
-import { conf } from './configuration.js';
 import { $, $All } from './utils.js';
 
 class Window {
@@ -21,7 +20,7 @@ class Window {
     #history;
     #lines;
     #saves;
-    #speed ;
+    #speed;
     #step;
     #isPlaying;
     #enableDraw;
@@ -144,6 +143,7 @@ class Window {
     }
 
     calculateNextGeneration(isAnimating = false) {
+        console.log(this)
         const numberGeneration = isAnimating ? 1 : this.getStep();
         for (let i = 0; i < numberGeneration; i++) {
             this.getBoard().getNextGeneration();
@@ -158,7 +158,22 @@ class Window {
         $('#generation').textContent = !reset ? this.getBoard().getGeneration() : "";
         $('#livingCells').textContent = !reset ? this.getBoard().getIsAlive() : "";
         $('#totalCells').textContent = !reset ? this.getBoard().getTotalAlive() : "";
+    }
 
+    setCellSizeZoomIn() { 
+        let zoom = this.getCellSize() + 1;
+        if (zoom > 50) zoom = 50;
+        this.setCellSize(zoom);
+        this.setBoardCanvas().setupCanvas();
+        this.setBoardCanvas().drawGrid();
+    }
+    setCellSizeZoomOut() { 
+        let zoom = this.getCellSize() - 1;
+        if (zoom < 1) zoom = 1;
+        this.setCellSize(zoom);
+        console.log(this.getCellSize())
+        this.setBoardCanvas().setupCanvas() ;
+        this.setBoardCanvas().drawGrid() ;
     }
 
     toggleAnimation() {
@@ -267,13 +282,14 @@ class Window {
                     case 'left': this.getBoard().moveLeft(); break;
                 }
                 this.getBoardCanvas().drawGrid();
-            })
-        })
+            });
+        });
     }
 }
 
 
 document.addEventListener('DOMContentLoaded', function () {
     new Window();
+    
 });
 

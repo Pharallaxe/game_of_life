@@ -2,7 +2,7 @@ import { conf } from './configuration.js';
 import { $, $All } from './utils.js';
 
 export class EventHandler {
-    
+
     #app;
 
     getApp() { return this.#app; }
@@ -10,7 +10,6 @@ export class EventHandler {
     constructor(app) {
         this.#app = app;
 
-        // Initialisation globale
         this.initialize();
     }
 
@@ -63,6 +62,8 @@ export class EventHandler {
         this.initializeConfigurerModal();
         this.initializeWeightModal();
         this.initializeChargerModal();
+        this.initializeInputModal();
+        this.initializeOutputModal();
         this.initializeEnregistrerModal();
         this.initializeDefinirReglesModal();
         this.initializePredefiniesModal();
@@ -85,6 +86,9 @@ export class EventHandler {
 
         // CANVAS
         this.initializeCanvasEvents();
+
+        // CLAVIER
+        this.initializeZoom();
     }
 
     /******************************************
@@ -92,6 +96,24 @@ export class EventHandler {
      * EVENEMENTS POUR LES MODALES
      * 
     *******************************************/
+
+    initializeZoom() {
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey && (event.key === '+')) {
+                event.preventDefault(); // Empêcher le comportement par défaut du navigateur
+                // Action spécifique pour Ctrl + +
+                this.getApp().setCellSizeZoomIn();
+                console.log("+")
+            }
+        
+            if (event.ctrlKey && (event.key === '-')) {
+                event.preventDefault(); // Empêcher le comportement par défaut du navigateur
+                this.getApp().setCellSizeZoomOut();
+                // Appeler votre fonction ici
+                console.log("-")
+            }
+        });
+    }
 
     // Initialiser les événements pour la modale Configurer Plateau
     initializeConfigurerModal() {
@@ -166,7 +188,7 @@ export class EventHandler {
         });
 
         weightsInput.forEach(input => {
-            input.addEventListener('input', () =>  {
+            input.addEventListener('input', () => {
                 updateWeights(input);
                 displayWeights();
             });
@@ -181,7 +203,99 @@ export class EventHandler {
             this.getApp().setWeights(weights.map(Number));
             $('#hasard').checked = true;
         })
-       
+
+    }
+
+    initializeInputModal() {
+        const gridInput = $('#gridInput');
+        const applyGridButton = $('#applyGrid');
+        const gridError = $('#gridError');
+
+        let isValidatedGrid;
+        let grid;
+
+        gridInput.addEventListener('input', function () {
+            grid = gridInput.value.trim().split('\n')
+            isValidatedGrid = validateGrid(grid);
+
+            if (isValidatedGrid) {
+                gridInput.classList.add('valid');
+                gridInput.classList.remove('invalid');
+                gridError.classList.add('d-none');
+            } else {
+                gridInput.classList.add('invalid');
+                gridInput.classList.remove('valid');
+                gridError.classList.remove('d-none');
+            }
+
+            applyGridButton.disabled = !isValidatedGrid;
+        });
+
+        applyGridButton.addEventListener("click", () => {
+            if (isValidatedGrid) {
+                grid = grid.map(row => Array.from(row, Number));
+                this.getApp().initializeSimplely();
+                this.getApp().setColumnCanvas(grid[0].length);
+                this.getApp().setRowCanvas(grid.length);
+                this.getApp().getBoard().setGrid(grid);
+                this.getApp().getBoardCanvas().drawGrid();
+            }
+            
+        })
+
+        function validateGrid(grid) {
+            const rowLength = grid[0].length;
+
+            for (const row of grid) {
+                if (row.length !== rowLength || !/^[012349]+$/.test(row)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    initializeOutputModal() {
+        const gridDisplay = $("#gridDisplay");
+        const gridOutput = $("#gridOutput");
+        const copyGridButton = document.getElementById('copyGridButton');
+
+
+        gridDisplay.addEventListener("click", () => {
+            gridOutput.innerHTML = this.getApp().getBoard().getGrid().map(row => row.join('')).join('<br>\n');
+        })
+
+        const textArea = document.createElement('textarea');
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '-9999px';
+        textArea.value = gridOutput.textContent;
+
+        // Ajouter le textarea au document
+        document.body.appendChild(textArea);
+
+        // Sélectionner le texte
+        textArea.select();
+        textArea.setSelectionRange(0, textArea.value.length); // Pour les appareils mobiles
+
+        // Copier le texte dans le presse-papier
+        copyGridButton.addEventListener('click', () => {
+            navigator.clipboard.writeText(gridOutput.textContent)
+                .then(() => {
+                    alert('Le texte a été copié dans le presse-papier.');
+                })
+                .catch(err => {
+                    console.error('Erreur lors de la copie dans le presse-papier :', err);
+                    alert('Échec de la copie du texte dans le presse-papier.');
+                })
+                .finally(() => {
+                    // Supprimer le textarea
+                    document.body.removeChild(textArea);
+                });
+
+        });
     }
 
 
@@ -374,7 +488,7 @@ export class EventHandler {
         trashButton.addEventListener('click', () => {
             this.getApp().clearGrid();
             this.getApp().stopAnimation();
-            this.updateStartButton();
+            this.updateStartButton(true);
             this.getApp().updateBottomNav();
         });
     }
@@ -408,7 +522,7 @@ export class EventHandler {
         arrowsButton.addEventListener('click', () => {
             arrowsButton.classList.toggle('active');
             this.getApp().move = !this.getApp().move;
-            this.app[this.getApp().move ?
+            this.getApp()[this.getApp().move ?
                 'hideMoveArrow' :
                 'showMoveArrow']();
         });

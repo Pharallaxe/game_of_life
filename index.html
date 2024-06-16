@@ -9,8 +9,7 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
   <!-- JavaScript pour gérer l'exclusivité des sélections -->
-  <!-- <link rel="stylesheet" href="normalize.css"> -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -28,57 +27,40 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Plateau Menu -->
+                <!-- Fichier Menu -->
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="plateauDropdown" role="button"
+                  <a class="nav-link dropdown-toggle" href="#" id="fichierDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Plateau
                   </a>
-                  <ul class="dropdown-menu" aria-labelledby="plateauDropdown">
+                  <ul class="dropdown-menu" aria-labelledby="fichierDropdown">
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#configurerModal">Configurer</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                        data-bs-target="#gridInputModal">Entrer</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#gridOutputModal"
+                        id="gridDisplay">Afficher</a></li>
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#chargerModal">Charger</a></li>
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#enregistrerModal">Enregistrer</a></li>
                   </ul>
                 </li>
-                <!-- Règles Menu -->
+                <!-- Edition Menu -->
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="reglesDropdown" role="button"
+                  <a class="nav-link dropdown-toggle" href="#" id="editionDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    Règles
+                    Edition
                   </a>
-                  <ul class="dropdown-menu" aria-labelledby="reglesDropdown">
+                  <ul class="dropdown-menu" aria-labelledby="editionDropdown">
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#definirReglesModal">Définir</a></li>
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                        data-bs-target="#predefiniesModal">Prédéfinies</a></li>
-                  </ul>
-                </li>
-                <!-- Dessin Menu -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="dessinDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Dessin
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="dessinDropdown">
+                        data-bs-target="#predefiniesModal">Prédéfinir</a></li>
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                        data-bs-target="#ajoutRapideModal">Ajout
-                        Rapide</a></li>
-                    <li><a class="dropdown-item" href="#">Zoomer</a></li>
-                    <li><a class="dropdown-item" href="#">Dézoomer</a></li>
-                  </ul>
-                </li>
-                <!-- Animation Menu -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="animationDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Animation
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="animationDropdown">
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#pasAPasModal">Pas à
-                        Pas</a></li>
+                        data-bs-target="#ajoutRapideModal">Ajout Rapide</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                      data-bs-target="#pasAPasModal">Pas à Pas</a></li>
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#vitesseModal">Vitesse</a></li>
                   </ul>
@@ -86,8 +68,9 @@
               </ul>
             </div>
           </div>
+
+          <!-- Icon List -->
           <div>
-            <!-- Icon List -->
             <div class="d-flex icon-bar">
 
               <!-- Nouvelle simulation -->
@@ -107,7 +90,7 @@
                 <i id="pauseIcon" class="bi bi-pause-fill" style="display: none"></i>
               </button>
 
-
+              <!-- Rapidité -->
               <div class="position-relative" id="rapidityParent">
                 <button class="btn btn-outline-secondary" type="button" title="Rapidité">
                   <i class="bi bi-fast-forward-fill"></i>
@@ -134,21 +117,33 @@
                   </button>
                 </div>
               </div>
+
+              <!-- Corbeille -->
               <button class="btn btn-outline-secondary" type="button" title="Corbeille">
                 <i class="bi bi-trash"></i>
               </button>
+
+              <!-- Grille -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Grille">
                 <i class="bi bi-border-all"></i>
               </button>
+
+              <!-- Bordure -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Bordures">
                 <i class="bi bi-square"></i>
               </button>
+
+              <!-- Flèches -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Flèches">
                 <i class="bi bi-arrows-move"></i>
               </button>
+
+              <!-- Historique -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Historique">
                 <i class="bi bi-hourglass"></i>
               </button>
+
+              <!-- Palette -->
               <div class="position-relative" id="colorParent">
                 <button id="paletteButton" class="btn btn-outline-secondary blue" type="button" title="Couleur">
                   <i id="paletteIcon" class="bi bi-palette-fill"></i>
@@ -173,6 +168,8 @@
                   </button>
                 </div>
               </div>
+
+              <!-- Crayon -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
                 <i class="bi bi-pencil"></i>
               </button>
@@ -236,14 +233,15 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="applyConfigure">Appliquer</button>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal"
-          data-bs-target="#calibrerPoidsModal" id="openCalibrerPoids">
+          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#calibrerPoidsModal"
+            id="openCalibrerPoids">
             Calibrer Poids
           </button>
         </div>
       </div>
     </div>
   </div>
+
 
   <!-- Calibrer Poids Modal -->
   <div class="modal fade" id="calibrerPoidsModal" tabindex="-1" aria-labelledby="calibrerPoidsModalLabel"
@@ -281,14 +279,60 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-          data-bs-target="#configurerModal">Annuler</button>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-          data-bs-target="#configurerModal" id="applyWeights">Appliquer</button>
+            data-bs-target="#configurerModal">Annuler</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#configurerModal"
+            id="applyWeights">Appliquer</button>
         </div>
       </div>
     </div>
   </div>
 
+
+  <!-- Grid Input Modal -->
+  <div class="modal fade" id="gridInputModal" tabindex="-1" aria-labelledby="gridInputModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gridInputModalLabel">Entrer Grille de Chiffres</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="gridForm">
+            <div class="mb-3">
+              <label for="gridInput" class="form-label">Grille de Chiffres</label>
+              <textarea class="form-control" id="gridInput" rows="5" placeholder="000110&#10;001010&#10;..."></textarea>
+            </div>
+            <p id="gridError" class="text-danger d-none">La grille doit être rectangulaire et contenir uniquement 0, 1,
+              2, 3, 4, 9</p>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" id="applyGrid" disabled>Appliquer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Grid Output Modal -->
+  <div class="modal fade" id="gridOutputModal" tabindex="-1" aria-labelledby="gridOutputModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gridOutputModalLabel">Afficher la Grille</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="form-control" id="gridOutput"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" id="copyGridButton">Copier</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- Charger Modal -->
@@ -343,6 +387,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- Définir Règles Modal -->
   <div class="modal fade" id="definirReglesModal" tabindex="-1" aria-labelledby="definirReglesModalLabel"
@@ -480,6 +525,7 @@
     </div>
   </div>
 
+
   <!-- Ajout Rapide Modal -->
   <div class="modal fade" id="ajoutRapideModal" tabindex="-1" aria-labelledby="ajoutRapideModalLabel"
     aria-hidden="true">
@@ -548,6 +594,7 @@
     </div>
   </div>
 
+
   <!-- Pas à Pas Modal -->
   <div class="modal fade" id="pasAPasModal" tabindex="-1" aria-labelledby="pasAPasModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -606,12 +653,11 @@
   </div>
 
 
-  <script src="Window.js" type="module"></script>
+
+  <script src="js/Window.js" type="module"></script>
 
   <!-- Bootstrap JS and Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Optionally, a Bootstrap Icons for icons -->
-
 </body>
 
 </html>

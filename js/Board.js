@@ -62,10 +62,10 @@ export class Board {
         this.#totalAlive = 0
 
         this.#grid = this.createGrid();
-        this.#gridHistory = this.createGrid();
-        this.#gridNumberNeighbors = this.createGrid();
-        this.#gridTypeNeighbors = this.createGrid();
-        this.#gridEnableDraw = this.createGrid();
+        this.#gridHistory = this.createGrid(false);
+        this.#gridNumberNeighbors = this.createGrid(false);
+        this.#gridTypeNeighbors = this.createGrid(false);
+        this.#gridEnableDraw = this.createGrid(false);
     }
 
     getRandomCellState() {
@@ -86,10 +86,10 @@ export class Board {
     }
 
     // Méthode pour initialiser la grille avec des cellules mortes
-    createGrid() {
+    createGrid(isRandom = true) {
         return Array.from({ length: this.getApp().getRowCanvas() }, () =>
             Array.from({ length: this.getApp().getColumnCanvas() }, () =>
-                this.getApp().getRandomize() ? this.getRandomCellState() : conf.DEAD
+                isRandom && this.getApp().getRandomize() ? this.getRandomCellState() : conf.DEAD
             )
         );
     }
@@ -174,7 +174,6 @@ export class Board {
         }
         this.setIsAlive(isAlive);
         this.setTotalAlive(this.getTotalAlive() + isAlive);
-        console.log(this.getTotalAlive())
     }
 
     countNeighbors(j, i) {
