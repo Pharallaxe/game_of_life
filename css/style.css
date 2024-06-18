@@ -3,8 +3,7 @@
   position: relative;
   background-color: #171718;
   border: 1px solid #dee2e6;
-  width: 530px;
-  height: 500px;
+  width: 100%;
 }
 
 .canvas-container canvas {
@@ -38,92 +37,23 @@
 
 .game-life {
   align-self: center;
-  display: grid;
-  grid-template-columns: 40px 1fr 40px;
-  grid-template-rows: 40px 1fr 40px;
+  display: flex;
   justify-content: center;
   justify-items: center;
   align-items: center;
-  gap: 5px;
+  padding: 10px;
 
   --sizeInputCanvasMin: 12px;
   --sizeInputCanvasMax: 25px;
-  --sizeInputCanvasMargin: 10px;
-}
-
-.input-top,
-.input-left,
-.input-right,
-.input-bottom {
-  display: none;
-  cursor: pointer;
-  transition: 0.2s;
-  background-color: darkred;
-  border-radius: 5px;
-  transition: 0.2s;
-
-
-}
-
-.input-top:hover,
-.input-left:hover,
-.input-right:hover,
-.input-bottom:hover {
-  transform: scale(1.20);
-  background-color: darkred;
-  transition: 0.2s;
-}
-
-.input-left,
-.input-right {
-  width: var(--sizeInputCanvasMin);
-  height: var(--sizeInputCanvasMax);
-}
-
-.input-left {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-  clip-path: polygon(0 50%, 100% 100%, 100% 0);
-  margin-right: var(--sizeInputCanvasMargin);
-}
-
-.input-right {
-  grid-column: 3 / 4;
-  grid-row: 2 / 3;
-  clip-path: polygon(0 0, 0 100%, 100% 50%);
-  margin-left: var(--sizeInputCanvasMargin);
-}
-
-.input-top,
-.input-bottom {
-  height: var(--sizeInputCanvasMin);
-  width: var(--sizeInputCanvasMax);
-}
-
-.input-top {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-  margin-bottom: var(--sizeInputCanvasMargin);
-
-}
-
-.input-bottom {
-  grid-column: 2 / 3;
-  grid-row: 3 / 4;
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-  margin-top: var(--sizeInputCanvasMargin);
+  --sizeInputCanvasMargin: 5px;
 }
 
 canvas {
   border: solid 1px rgba(255, 255, 255, 0.436);
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
 }
 
 canvas.border {
   border: solid 3px rgba(255, 255, 255, 0.436);
-
 }
 
 #colorButtons,

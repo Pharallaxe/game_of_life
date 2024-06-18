@@ -1,25 +1,25 @@
 
 // function make
 
-export const conf = {
+export class Config {
     // Taille des cellules du canvas
-    MIN_CELL_SIZE : 2,
-    MAX_CELL_SIZE : 250,
+    static MIN_CELL_SIZE = 2;
+    static MAX_CELL_SIZE = 250;
 
     // Nombre minimales et maximales de colonne
-    MIN_COL : 2,
-    MAX_COL : 250,
+    static MIN_COL = 2;
+    static MAX_COL = 250;
 
     // Valeurs des cellules
-    DEAD : 0,
-    ALIVE1 : 1,
-    ALIVE2 : 2,
-    ALIVE3 : 3,
-    ALIVE4 : 4,
-    WALL : 9,
+    static DEAD = 0;
+    static ALIVE1 = 1;
+    static ALIVE2 = 2;
+    static ALIVE3 = 3;
+    static ALIVE4 = 4;
+    static WALL = 9;
 
     // Milieux
-    MIDDLES : {
+    MIDDLES = {
         "Désert": [
             { name: 'N', x: 0, y: -1 },
             { name: 'E', x: 1, y: 0 },
@@ -78,12 +78,12 @@ export const conf = {
             { name: 'NO-1', x: -1, y: -1 },
             { name: 'NO-2', x: -2, y: -2 }
         ],
-    },
+    };
 
-    aliveValuesSet : new Set([1, 2, 3, 4]),
+    static aliveValuesSet = new Set([1, 2, 3, 4]);
 
-    notDeadValueSet : new Set([1, 2, 3, 4, 9]),
+    static notDeadValueSet = new Set([1, 2, 3, 4, 9]);
 
     // Font Canvas
-    canvasBgColor : 'black',
+    static canvasBgColor = 'black';
 }

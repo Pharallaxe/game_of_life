@@ -89,6 +89,7 @@ export class EventHandler {
 
         // CLAVIER
         this.initializeZoom();
+
     }
 
     /******************************************
@@ -612,6 +613,7 @@ export class EventHandler {
         this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
         this.getApp().toggleDrawingEvents();
     }
+
 
     /******************************************
      * 

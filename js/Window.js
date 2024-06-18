@@ -122,8 +122,9 @@ class Window {
     initialize() {
         this.verifyInputRules();
         new EventHandler(this);
-        this.handleMoveArrowEvents()
-        this.initializeSimplely()
+        // this.handleMoveArrowEvents();
+        this.updateArrowsButton();
+        this.initializeSimplely();
         this.toggleDrawingEvents();
     }
 
@@ -143,7 +144,6 @@ class Window {
     }
 
     calculateNextGeneration(isAnimating = false) {
-        console.log(this)
         const numberGeneration = isAnimating ? 1 : this.getStep();
         for (let i = 0; i < numberGeneration; i++) {
             this.getBoard().getNextGeneration();
@@ -260,29 +260,30 @@ class Window {
         this.getBoardCanvas().drawGrid();
     }
 
-    showMoveArrow() {
-        const moveArrows = $All('.input-arrow');
-        moveArrows.forEach(arrow => { arrow.style.display = 'none'; });
-    }
+    updateArrowsButton() {
+        const topButton = $('#topButton');
+        const bottomButton = $('#bottomButton');
+        const leftButton = $('#leftButton');
+        const rightButton = $('#rightButton');
 
-    hideMoveArrow() {
-        const moveArrows = $All('.input-arrow');
-        moveArrows.forEach(arrow => { arrow.style.display = 'block'; });
-    }
+        topButton.addEventListener('click', () => {
+            this.getBoard().moveTop();
+            this.getBoardCanvas().drawGrid();
+        });
 
-    handleMoveArrowEvents() {
-        const moveArrows = $All('.input-arrow');
-        moveArrows.forEach(arrow => {
-            arrow.addEventListener('click', () => {
-                let direction = arrow.classList[1].split('-')[1];
-                switch (direction) {
-                    case "top": this.getBoard().moveTop(); break;
-                    case 'bottom': this.getBoard().moveBottom(); break;
-                    case 'right': this.getBoard().moveBottom(); break;
-                    case 'left': this.getBoard().moveLeft(); break;
-                }
-                this.getBoardCanvas().drawGrid();
-            });
+        bottomButton.addEventListener('click', () => {
+            this.getBoard().moveBottom();
+            this.getBoardCanvas().drawGrid();
+        });
+
+        rightButton.addEventListener('click', () => {
+            this.getBoard().moveRight();
+            this.getBoardCanvas().drawGrid();
+        });
+
+        leftButton.addEventListener('click', () => {
+            this.getBoard().moveLeft();
+            this.getBoardCanvas().drawGrid();
         });
     }
 }

@@ -10,23 +10,34 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
   <!-- JavaScript pour gérer l'exclusivité des sélections -->
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Media query for devices with a width of 600px or less */
+    @media (max-width: 600px) {
+      .responsive-container {
+        height: auto;
+        /* Adjust height for small screens */
+        padding: 5px;
+        /* Add some padding */
+      }
+    }
+  </style>
 </head>
 
 <body>
   <!-- Application Container -->
-  <div class="d-flex justify-content-center align-items-center" style="height:100vh">
+  <div class="d-flex justify-content-center align-items-center min-vh-100 vw-100 responsive-container">
     <div class="container-fluid d-flex flex-column justify-content-start " style="width: auto; height:auto">
       <!-- Navbar -->
-      <p class="border h1 p-3 text-center">Jeu de la vie</p>
+      <p class="border h1 p-1 text-center">Jeu de la vie</p>
       <nav class="navbar navbar-expand-sm navbar-light bg-light border">
         <div class="d-flex flex-column gap-2 container-fluid align-items-start ">
           <div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <ul class="navbar-nav me-auto mb-2">
                 <!-- Fichier Menu -->
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="fichierDropdown" role="button"
@@ -59,8 +70,8 @@
                         data-bs-target="#predefiniesModal">Prédéfinir</a></li>
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#ajoutRapideModal">Ajout Rapide</a></li>
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                      data-bs-target="#pasAPasModal">Pas à Pas</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#pasAPasModal">Pas à
+                        Pas</a></li>
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                         data-bs-target="#vitesseModal">Vitesse</a></li>
                   </ul>
@@ -71,7 +82,7 @@
 
           <!-- Icon List -->
           <div>
-            <div class="d-flex icon-bar">
+            <div class="d-flex icon-bar flex-wrap gap-1">
 
               <!-- Nouvelle simulation -->
               <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#configurerModal"
@@ -118,31 +129,6 @@
                 </div>
               </div>
 
-              <!-- Corbeille -->
-              <button class="btn btn-outline-secondary" type="button" title="Corbeille">
-                <i class="bi bi-trash"></i>
-              </button>
-
-              <!-- Grille -->
-              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Grille">
-                <i class="bi bi-border-all"></i>
-              </button>
-
-              <!-- Bordure -->
-              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Bordures">
-                <i class="bi bi-square"></i>
-              </button>
-
-              <!-- Flèches -->
-              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Flèches">
-                <i class="bi bi-arrows-move"></i>
-              </button>
-
-              <!-- Historique -->
-              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Historique">
-                <i class="bi bi-hourglass"></i>
-              </button>
-
               <!-- Palette -->
               <div class="position-relative" id="colorParent">
                 <button id="paletteButton" class="btn btn-outline-secondary blue" type="button" title="Couleur">
@@ -168,11 +154,59 @@
                   </button>
                 </div>
               </div>
-
+              
               <!-- Crayon -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
                 <i class="bi bi-pencil"></i>
               </button>
+
+              <!-- Corbeille -->
+              <button class="btn btn-outline-secondary" type="button" title="Corbeille">
+                <i class="bi bi-trash"></i>
+              </button>
+
+              <!-- Grille -->
+              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Grille">
+                <i class="bi bi-border-all"></i>
+              </button>
+
+              <!-- Bordure -->
+              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Bordures">
+                <i class="bi bi-square"></i>
+              </button>
+
+              <!-- Flèches -->
+              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Flèches">
+                <i class="bi bi-arrows-move"></i>
+              </button>
+
+              <!-- Historique -->
+              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Historique">
+                <i class="bi bi-hourglass"></i>
+              </button>
+
+              <!-- Top -->
+              <button id="topButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Monter">
+                <i class="bi bi-caret-up-square-fill"></i>
+              </button>
+
+              <!-- Bottom -->
+              <button id="bottomButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Descendre">
+                <i class="bi bi-caret-down-square-fill"></i>
+              </button>
+
+              <!-- Gauche -->
+              <button id="leftButton" class="btn boolean-btn btn-outline-secondary" type="button"
+                title="Décaler à gauche">
+                <i class="bi bi-caret-left-square-fill"></i>
+              </button>
+
+              <!-- Bottom -->
+              <button id="rightButton" class="btn boolean-btn btn-outline-secondary" type="button"
+                title="Décaler à droite">
+                <i class="bi bi-caret-right-square-fill"></i>
+              </button>
+
             </div>
           </div>
         </div>
