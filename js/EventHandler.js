@@ -248,9 +248,7 @@ export class EventHandler {
             const rowLength = grid[0].length;
 
             for (const row of grid) {
-                if (row.length !== rowLength || !/^[012349]+$/.test(row)) {
-                    return false;
-                }
+                if (row.length !== rowLength || !/^[012349]+$/.test(row)) return false;
             }
 
             return true;
@@ -284,17 +282,9 @@ export class EventHandler {
         // Copier le texte dans le presse-papier
         copyGridButton.addEventListener('click', () => {
             navigator.clipboard.writeText(gridOutput.textContent)
-                .then(() => {
-                    alert('Le texte a été copié dans le presse-papier.');
-                })
-                .catch(err => {
-                    console.error('Erreur lors de la copie dans le presse-papier :', err);
-                    alert('Échec de la copie du texte dans le presse-papier.');
-                })
-                .finally(() => {
-                    // Supprimer le textarea
-                    document.body.removeChild(textArea);
-                });
+                .then(() => { alert('Le texte a été copié dans le presse-papier.'); })
+                .catch(err => { alert('Échec de la copie du texte dans le presse-papier.'); })
+                .finally(() => { document.body.removeChild(textArea); });
 
         });
     }
@@ -386,9 +376,7 @@ export class EventHandler {
         const applyButton = $('#pasAPasModal .btn-primary');
         const stepSelect = $('#stepSelect');
 
-        applyButton.addEventListener('click', () => {
-            this.getApp().setStep(stepSelect.value);
-        });
+        applyButton.addEventListener('click', () => { this.getApp().setStep(stepSelect.value); });
     }
 
     // Initialiser les événements pour la modale Vitesse
@@ -417,25 +405,19 @@ export class EventHandler {
     initializeSimulationIcon() {
         const newSimulationButton = $('.icon-bar .btn[title="Nouvelle Simulation"]');
 
-        newSimulationButton.addEventListener('click', () => {
-            this.updateStartButton(true)
-        });
+        newSimulationButton.addEventListener('click', () => { this.updateStartButton(true) });
     }
 
     initializeStepIcon() {
         const stepButton = $('.btn[title="Pas à Pas"]');
 
-        stepButton.addEventListener('click', () => {
-            this.getApp().calculateNextGeneration();
-        });
+        stepButton.addEventListener('click', () => { this.getApp().calculateNextGeneration(); });
     }
 
     initializeStartIcon() {
         const startButton = $('.btn[title="Démarrer"]');
 
-        startButton.addEventListener('click', () => {
-            this.updateStartButton();
-        });
+        startButton.addEventListener('click', () => { this.updateStartButton(); });
     }
 
     initializeTrashIcon() {
@@ -466,24 +448,11 @@ export class EventHandler {
         gridButton.addEventListener('click', () => {
             gridButton.classList.toggle('active');
             this.getApp().setLines(!this.getApp().getLines());
-            if (!this.getApp().getLines()) {
-                this.getApp().getBoardCanvas().clearCanvas();
-            }
+            if (!this.getApp().getLines()) this.getApp().getBoardCanvas().clearCanvas();
             this.getApp().getBoardCanvas().drawGrid();
 
         });
     }
-
-    // initializeArrowsIcon() {
-    //     const arrowsButton = $('.btn[title="Flèches"]');
-    //     arrowsButton.addEventListener('click', () => {
-    //         arrowsButton.classList.toggle('active');
-    //         this.getApp().move = !this.getApp().move;
-    //         this.getApp()[this.getApp().move ?
-    //             'hideMoveArrow' :
-    //             'showMoveArrow']();
-    //     });
-    // }
 
     initializeHistoryIcon() {
         const historyButton = $('.btn[title="Historique"]');
@@ -568,7 +537,7 @@ export class EventHandler {
         this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
         this.getApp().toggleDrawingEvents();
     }
-    
+
     initializeRapidityIcon() {
         const rapidityButton = $('.btn[title="Rapidité"]');
         const speedDiv = $('#rapidityButtons');
@@ -619,11 +588,7 @@ export class EventHandler {
         const arrowDiv = $('#arrowButtons');
         const arrowButtons = $All('#arrowButtons button');
         const directionParent = $('#directionParent');
-        console.log(directionButton);
-        console.log(arrowDiv);
-        console.log(arrowButtons);
-        console.log(directionParent);
-
+        
         let arrowHideTimeout; // Variable pour stocker le timeout
 
         // Fonction pour afficher ou masquer la div des boutons avec un délai
@@ -648,28 +613,25 @@ export class EventHandler {
             arrowButton.addEventListener('click', () => {
                 let direction = arrowButton.dataset.direction;
                 switch (direction) {
-                    case "top": 
+                    case "top":
                         this.getApp().getBoard().moveTop();
                         this.getApp().getBoardCanvas().drawGrid();
                         break;
-                    case 'bottom': 
+                    case 'bottom':
                         this.getApp().getBoard().moveBottom();
                         this.getApp().getBoardCanvas().drawGrid();
                         break;
-                    case 'right': 
+                    case 'right':
                         this.getApp().getBoard().moveRight();
                         this.getApp().getBoardCanvas().drawGrid();
                         break;
-                    case 'left': 
+                    case 'left':
                         this.getApp().getBoard().moveLeft();
                         this.getApp().getBoardCanvas().drawGrid();
                         break;
-                }
-                
-            })
-        })
-
-    
+                };
+            });
+        });
     }
 
 
@@ -706,6 +668,4 @@ export class EventHandler {
      * EVENEMENTS POUR LE DESSIN
      * 
     *******************************************/
-
-
 }
