@@ -2,6 +2,7 @@ import { EventHandler } from './EventHandler.js';
 import { Board } from './Board.js';
 import { BoardCanvas } from './BoardCanvas.js';
 
+import { conf } from './configuration.js';
 import { $, $All } from './utils.js';
 
 class Window {
@@ -123,7 +124,7 @@ class Window {
         this.verifyInputRules();
         new EventHandler(this);
         // this.handleMoveArrowEvents();
-        this.updateArrowsButton();
+        // this.updateArrowsButton();
         this.initializeSimplely();
         this.toggleDrawingEvents();
     }
@@ -260,32 +261,26 @@ class Window {
         this.getBoardCanvas().drawGrid();
     }
 
-    updateArrowsButton() {
-        const topButton = $('#topButton');
-        const bottomButton = $('#bottomButton');
-        const leftButton = $('#leftButton');
-        const rightButton = $('#rightButton');
 
-        topButton.addEventListener('click', () => {
-            this.getBoard().moveTop();
-            this.getBoardCanvas().drawGrid();
-        });
+    // adjustCellSizeBasedOnContainer() {
+    //     let container = $(`.${DASHBOARD_NAME}`);
+    //     let currentMaxCellSize = parseInt((container.offsetWidth - 20) / this.getColumnCanvas);
 
-        bottomButton.addEventListener('click', () => {
-            this.getBoard().moveBottom();
-            this.getBoardCanvas().drawGrid();
-        });
+    //     if (this.cellSize < conf.MAX_CELL_SIZE) {
+    //         this.cellSize = conf.MIN_CELL_SIZE;
+    //     }
 
-        rightButton.addEventListener('click', () => {
-            this.getBoard().moveRight();
-            this.getBoardCanvas().drawGrid();
-        });
+    //     if (currentMaxCellSize <= this.cellSize) {
+    //         this.cellSize = currentMaxCellSize;
+    //         this.eventBoard.DASHBOARD.value.cellSize.element.textContent = currentMaxCellSize;
+    //     }
 
-        leftButton.addEventListener('click', () => {
-            this.getBoard().moveLeft();
-            this.getBoardCanvas().drawGrid();
-        });
-    }
+    //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
+    //     this.eventBoard.DASHBOARD.value.cellSize.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
+    //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
+    //     this.eventBoard.DASHBOARD.value.cellSize.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
+    //     this.eventBoard.DASHBOARD.value.cellSize.element.textContent = this.cellSize;
+    // }
 }
 
 

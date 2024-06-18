@@ -154,7 +154,7 @@
                   </button>
                 </div>
               </div>
-              
+
               <!-- Crayon -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
                 <i class="bi bi-pencil"></i>
@@ -175,37 +175,46 @@
                 <i class="bi bi-square"></i>
               </button>
 
-              <!-- Flèches -->
-              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Flèches">
-                <i class="bi bi-arrows-move"></i>
-              </button>
+
 
               <!-- Historique -->
               <button class="btn boolean-btn btn-outline-secondary" type="button" title="Historique">
                 <i class="bi bi-hourglass"></i>
               </button>
 
-              <!-- Top -->
-              <button id="topButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Monter">
-                <i class="bi bi-caret-up-square-fill"></i>
-              </button>
+              <!-- Flèches -->
+              <div class="position-relative" id="directionParent">
+                <button id="directionButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Flèches">
+                  <i class="bi bi-arrows-move"></i>
+                </button>
+                <div id="arrowButtons"
+                  class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
+                  <!-- Top -->
+                  <button id="topButton" class="btn boolean-btn btn-outline-secondary" type="button" data-direction="top" title="Monter">
+                    <i class="bi bi-caret-up-square-fill"></i>
+                  </button>
 
-              <!-- Bottom -->
-              <button id="bottomButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Descendre">
-                <i class="bi bi-caret-down-square-fill"></i>
-              </button>
+                  <!-- Bottom -->
+                  <button id="bottomButton" class="btn boolean-btn btn-outline-secondary" data-direction="bottom" type="button"
+                    title="Descendre">
+                    <i class="bi bi-caret-down-square-fill"></i>
+                  </button>
 
-              <!-- Gauche -->
-              <button id="leftButton" class="btn boolean-btn btn-outline-secondary" type="button"
-                title="Décaler à gauche">
-                <i class="bi bi-caret-left-square-fill"></i>
-              </button>
+                  <!-- Gauche -->
+                  <button id="leftButton" class="btn boolean-btn btn-outline-secondary" data-direction="left" type="button"
+                    title="Décaler à gauche">
+                    <i class="bi bi-caret-left-square-fill"></i>
+                  </button>
 
-              <!-- Bottom -->
-              <button id="rightButton" class="btn boolean-btn btn-outline-secondary" type="button"
-                title="Décaler à droite">
-                <i class="bi bi-caret-right-square-fill"></i>
-              </button>
+                  <!-- Bottom -->
+                  <button id="rightButton" class="btn boolean-btn btn-outline-secondary" data-direction="right" type="button"
+                    title="Décaler à droite">
+                    <i class="bi bi-caret-right-square-fill"></i>
+                  </button>
+                </div>
+              </div>
+
+
 
             </div>
           </div>
@@ -223,10 +232,12 @@
       </div>
 
       <!-- Status Bar -->
-      <div class="status-bar border">
-        Génération : <span id="generation">0</span>
-        | Vivantes : <span id="livingCells">0</span>
-        | Total : <span id="totalCells">0</span>
+      <div class="status-bar border d-flex flex-column flex-sm-row justify-content-center align-items-center">
+        <div class="d-flex flex-column flex-sm-row text-center">
+          <p class="mb-0 mx-sm-3 my-2">| Génération : <span id="generation">0</span> |</p>
+          <p class="mb-0 mx-sm-3 my-2">| Vivantes : <span id="livingCells">0</span> |</p>
+          <p class="mb-0 mx-sm-3 my-2">| Total : <span id="totalCells">0</span> |</p>
+        </div>
       </div>
     </div>
   </div>

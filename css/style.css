@@ -4,6 +4,8 @@
   background-color: #171718;
   border: 1px solid #dee2e6;
   width: 100%;
+  min-width: 200px;
+  min-height: 200px;
 }
 
 .canvas-container canvas {
@@ -58,7 +60,8 @@ canvas.border {
 
 #colorButtons,
 #rapidityButtons,
-#stepButtons {
+#stepButtons,
+#arrowButtons {
   display: none;
   z-index: 3;
   margin-top: 5px;
@@ -94,15 +97,6 @@ canvas.border {
   display: flex;
 }
 
-.modal-over {
-  z-index: 1060;
-  /* Higher than default Bootstrap modals */
-}
-
-.modal-backdrop.show.modal-over-backdrop {
-  z-index: 1059;
-  /* Slightly lower than the modal */
-}
 
 #gridInput {
   overflow-x: auto;

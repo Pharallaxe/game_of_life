@@ -79,10 +79,10 @@ export class EventHandler {
         this.initializeTrashIcon();
         this.initializeGridIcon();
         this.initializeBordureIcon();
-        this.initializeArrowsIcon();
         this.initializeHistoryIcon();
         this.initializeColorIcon();
         this.initializeDrawIcon();
+        this.updateArrowsButton();
 
         // CANVAS
         this.initializeCanvasEvents();
@@ -106,7 +106,7 @@ export class EventHandler {
                 this.getApp().setCellSizeZoomIn();
                 console.log("+")
             }
-        
+
             if (event.ctrlKey && (event.key === '-')) {
                 event.preventDefault(); // Empêcher le comportement par défaut du navigateur
                 this.getApp().setCellSizeZoomOut();
@@ -241,7 +241,7 @@ export class EventHandler {
                 this.getApp().getBoard().setGrid(grid);
                 this.getApp().getBoardCanvas().drawGrid();
             }
-            
+
         })
 
         function validateGrid(grid) {
@@ -438,51 +438,6 @@ export class EventHandler {
         });
     }
 
-    initializeRapidityIcon() {
-        const rapidityButton = $('.btn[title="Rapidité"]');
-        const speedDiv = $('#rapidityButtons');
-        const speedButtons = $All('#rapidityButtons button');
-        const rapidityParent = $('#rapidityParent');
-
-        let speedHideTimeout; // Variable pour stocker le timeout
-
-        // Fonction pour afficher ou masquer la div des boutons avec un délai
-        const toggleSpeedDiv = (show) => {
-            speedHideTimeout = this.toggleVisibilityWithDelay(speedDiv, show, 300, speedHideTimeout);
-        };
-
-        // Affiche la div lorsque le bouton "Rapidité" est survolé
-        rapidityButton.addEventListener('mouseover', () => toggleSpeedDiv(true));
-
-        // Affiche la div lorsque la souris est sur la div entière
-        rapidityParent.addEventListener('mouseover', () => toggleSpeedDiv(true));
-
-        // Ferme la div avec un délai lorsque la souris quitte la div entière
-        rapidityParent.addEventListener('mouseout', (event) => {
-            if (!rapidityParent.contains(event.relatedTarget)) {
-                toggleSpeedDiv(false);
-            }
-        });
-
-        // Gère le clic sur les boutons de rapidité
-        speedButtons.forEach(speedButton => {
-            speedButton.addEventListener('click', () => {
-                // Met à jour les classes des boutons pour indiquer la sélection
-                speedButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
-                speedButton.classList.add('bg-success', 'text-light');
-
-                // Met à jour la vitesse dans app
-                this.getApp().setSpeed(speedButton.dataset.speed);
-
-                // Ferme la div immédiatement après le clic
-                speedDiv.style.display = 'none';
-
-                // Appelle updateStartButton pour mettre à jour l'état
-                this.updateStartButton(true);
-            });
-        });
-    }
-
     initializeTrashIcon() {
         const trashButton = $('.btn[title="Corbeille"]');
 
@@ -499,7 +454,7 @@ export class EventHandler {
 
         borderButton.addEventListener('click', () => {
             borderButton.classList.toggle('active');
-            
+
             this.getApp().setBorder(!this.getApp().getBorder());
             $('canvas').classList.toggle('canvas-border');
         });
@@ -519,16 +474,16 @@ export class EventHandler {
         });
     }
 
-    initializeArrowsIcon() {
-        const arrowsButton = $('.btn[title="Flèches"]');
-        arrowsButton.addEventListener('click', () => {
-            arrowsButton.classList.toggle('active');
-            this.getApp().move = !this.getApp().move;
-            this.getApp()[this.getApp().move ?
-                'hideMoveArrow' :
-                'showMoveArrow']();
-        });
-    }
+    // initializeArrowsIcon() {
+    //     const arrowsButton = $('.btn[title="Flèches"]');
+    //     arrowsButton.addEventListener('click', () => {
+    //         arrowsButton.classList.toggle('active');
+    //         this.getApp().move = !this.getApp().move;
+    //         this.getApp()[this.getApp().move ?
+    //             'hideMoveArrow' :
+    //             'showMoveArrow']();
+    //     });
+    // }
 
     initializeHistoryIcon() {
         const historyButton = $('.btn[title="Historique"]');
@@ -612,6 +567,109 @@ export class EventHandler {
         drawButton.classList.toggle('active');
         this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
         this.getApp().toggleDrawingEvents();
+    }
+    
+    initializeRapidityIcon() {
+        const rapidityButton = $('.btn[title="Rapidité"]');
+        const speedDiv = $('#rapidityButtons');
+        const speedButtons = $All('#rapidityButtons button');
+        const rapidityParent = $('#rapidityParent');
+
+        let speedHideTimeout; // Variable pour stocker le timeout
+
+        // Fonction pour afficher ou masquer la div des boutons avec un délai
+        const toggleSpeedDiv = (show) => {
+            speedHideTimeout = this.toggleVisibilityWithDelay(speedDiv, show, 300, speedHideTimeout);
+        };
+
+        // Affiche la div lorsque le bouton "Rapidité" est survolé
+        rapidityButton.addEventListener('mouseover', () => toggleSpeedDiv(true));
+
+        // Affiche la div lorsque la souris est sur la div entière
+        rapidityParent.addEventListener('mouseover', () => toggleSpeedDiv(true));
+
+        // Ferme la div avec un délai lorsque la souris quitte la div entière
+        rapidityParent.addEventListener('mouseout', (event) => {
+            if (!rapidityParent.contains(event.relatedTarget)) {
+                toggleSpeedDiv(false);
+            }
+        });
+
+        // Gère le clic sur les boutons de rapidité
+        speedButtons.forEach(speedButton => {
+            speedButton.addEventListener('click', () => {
+                // Met à jour les classes des boutons pour indiquer la sélection
+                speedButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
+                speedButton.classList.add('bg-success', 'text-light');
+
+                // Met à jour la vitesse dans app
+                this.getApp().setSpeed(speedButton.dataset.speed);
+
+                // Ferme la div immédiatement après le clic
+                speedDiv.style.display = 'none';
+
+                // Appelle updateStartButton pour mettre à jour l'état
+                this.updateStartButton(true);
+            });
+        });
+    }
+
+    updateArrowsButton() {
+        const directionButton = $('#directionButton')
+        const arrowDiv = $('#arrowButtons');
+        const arrowButtons = $All('#arrowButtons button');
+        const directionParent = $('#directionParent');
+        console.log(directionButton);
+        console.log(arrowDiv);
+        console.log(arrowButtons);
+        console.log(directionParent);
+
+        let arrowHideTimeout; // Variable pour stocker le timeout
+
+        // Fonction pour afficher ou masquer la div des boutons avec un délai
+        const toggleArrowDiv = (show) => {
+            arrowHideTimeout = this.toggleVisibilityWithDelay(arrowDiv, show, 300, arrowHideTimeout);
+        };
+
+        // Affiche la div lorsque le bouton "Rapidité" est survolé
+        directionButton.addEventListener('mouseover', () => toggleArrowDiv(true));
+
+        // Affiche la div lorsque la souris est sur la div entière
+        directionParent.addEventListener('mouseover', () => toggleArrowDiv(true));
+
+        // Ferme la div avec un délai lorsque la souris quitte la div entière
+        directionParent.addEventListener('mouseout', (event) => {
+            if (!directionParent.contains(event.relatedTarget)) {
+                toggleArrowDiv(false);
+            }
+        });
+
+        arrowButtons.forEach(arrowButton => {
+            arrowButton.addEventListener('click', () => {
+                let direction = arrowButton.dataset.direction;
+                switch (direction) {
+                    case "top": 
+                        this.getApp().getBoard().moveTop();
+                        this.getApp().getBoardCanvas().drawGrid();
+                        break;
+                    case 'bottom': 
+                        this.getApp().getBoard().moveBottom();
+                        this.getApp().getBoardCanvas().drawGrid();
+                        break;
+                    case 'right': 
+                        this.getApp().getBoard().moveRight();
+                        this.getApp().getBoardCanvas().drawGrid();
+                        break;
+                    case 'left': 
+                        this.getApp().getBoard().moveLeft();
+                        this.getApp().getBoardCanvas().drawGrid();
+                        break;
+                }
+                
+            })
+        })
+
+    
     }
 
 
