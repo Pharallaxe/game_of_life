@@ -95,6 +95,13 @@
                   <i class="bi bi-plus-circle"></i>
                 </button>
 
+                <!-- Nouvelle sauvegarde -->
+                <!-- <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#configurerModal"
+                  type="button" title="Charger/sauvegarder">
+                  <i class="bi bi-box-arrow-down"></i>
+
+                </button> -->
+
                 <!-- Pas à pas -->
                 <button class="btn btn-outline-secondary" type="button" title="Pas à Pas">
                   <i class="bi bi-arrow-right-circle"></i>
@@ -216,9 +223,15 @@
                       type="button" title="Décaler à droite">
                       <i class="bi bi-caret-right-square-fill"></i>
                     </button>
+
                   </div>
                 </div>
-
+                
+                <!-- Rules -->
+                <!-- <button id="rightButton" class="btn boolean-btn btn-outline-secondary" data-direction="right"
+                  type="button" title="Décaler à droite">
+                  <i class="bi bi-rulers"></i>
+                </button> -->
               </div>
             </div>
           </div>
@@ -434,6 +447,59 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal avec Onglets -->
+    <!-- <div class="modal fade" id="chargerModal" tabindex="-1" aria-labelledby="chargerModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="chargerModalLabel">Plateau</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <ul class="nav nav-tabs" id="plateauTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="charger-tab" data-bs-toggle="tab" data-bs-target="#charger"
+                  type="button" role="tab" aria-controls="charger" aria-selected="true">Charger</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="enregistrer-tab" data-bs-toggle="tab" data-bs-target="#enregistrer"
+                  type="button" role="tab" aria-controls="enregistrer" aria-selected="false">Enregistrer</button>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="plateauTabContent">
+
+              <div class="tab-pane fade show active" id="charger" role="tabpanel" aria-labelledby="charger-tab">
+                <form>
+                  <div class="mb-3 mt-3">
+                    <label for="loadConfig" class="form-label">Sélectionner une configuration</label>
+                    <select class="form-select" id="loadConfig">
+                      <option value="configuration1">Configuration 1</option>
+
+                    </select>
+                  </div>
+                </form>
+              </div>
+
+              <div class="tab-pane fade" id="enregistrer" role="tabpanel" aria-labelledby="enregistrer-tab">
+                <form>
+                  <div class="mb-3 mt-3">
+                    <label for="saveName" class="form-label">Nom du fichier</label>
+                    <input type="text" class="form-control" id="saveName" placeholder="Entrez le nom du fichier">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" id="saveLoadButton" data-bs-dismiss="modal">Confirmer</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
 
 
     <!-- Définir Règles Modal -->
@@ -734,10 +800,10 @@
           <li>L'évolution des cellules se fait en fonction de leur
             environnement immédiat, c'est-à-dire les huit cellules voisines.</li>
           <li>Une cellule vivante avec 2 ou 3 voisins survivra à la génération
-            suivante. Sinon, elle mourra (par "sous-population" ou
+            suivante. Sinon, elle s'éteindra (par "sous-population" ou
             "surpopulation").</li>
-          <li>Une cellule morte avec exactement 3 voisins vivants deviendra
-            vivante (par "reproduction").</li>
+          <li>Une cellule éteinte avec exactement 3 voisins vivants apparaît
+            (par "reproduction").</li>
         </ol>
         </p>
         <p>Bien que les règles du jeu soient simples, cet automate cellulaire
@@ -747,7 +813,7 @@
           "vaisseaux", ensembles mobiles qui laissent derrière eux d'autres
           ensembles. Il existe également des configurations stables, appelées
           "statics".</p>
-      <p>De simples et légères modifications dans les règles peuvent conduire
+        <p>De simples et légères modifications dans les règles peuvent conduire
           vers des modèles chaotiques ou vers des structures stables et passer
           de l'un à l'autre. En cela, le jeu de la vie est un outil efficace
           pour se rendre compte de la fragilité de l'équilibre de certains

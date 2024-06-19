@@ -66,6 +66,35 @@ export class Board {
         this.#gridNumberNeighbors = this.createGrid(false);
         this.#gridTypeNeighbors = this.createGrid(false);
         this.#gridEnableDraw = this.createGrid(false);
+
+        this.initPlaneur();
+        
+    }
+
+    initPlaneur() {
+        const plane1 = [
+            [12, 5],
+            [12, 6],
+            [12, 7],
+            [13, 7],
+            [14, 6],
+        ];
+
+        const plane2 = [
+            [5, 12],
+            [5, 13],
+            [5, 14],
+            [6, 14],
+            [7, 13],
+        ];
+
+        plane1.forEach(coord => {
+            this.setGridValue(coord[0], coord[1], 1);
+        });
+
+        plane2.forEach(coord => {
+            this.setGridValue(coord[0], coord[1], 2);
+        });
     }
 
     getRandomCellState() {

@@ -158,8 +158,7 @@ export class EventHandler {
             $('#weight0').value = totalZero;
 
             if (total > 1) {
-                const excess = total - 1;
-                const decreaseAmount = excess / (weightsInput.length - 1);
+                const decreaseAmount = (total - 1) / (weightsInput.length - 1);
 
                 weightsInput.forEach(input => {
                     if (input !== changedInput) {
