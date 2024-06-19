@@ -349,8 +349,7 @@
                   placeholder="000110&#10;001010&#10;..."></textarea>
               </div>
               <p id="gridError" class="text-danger d-none">La grille doit être rectangulaire et contenir uniquement 0,
-                1,
-                2, 3, 4, 9</p>
+                1, 2, 3, 4, 9</p>
             </form>
           </div>
           <div class="modal-footer">
@@ -710,8 +709,78 @@
       Jeu de la Vie
     </h1>
     <div class="container mb-4">
+      <h2 class="">
+        Présentation
+      </h2>
+      <div>
+        <p>Le <em>"jeu de la vie"</em> est un exemple emblématique de ce que l'on appelle
+          un automate cellulaire&nbsp;: une classe de modèles mathématiques
+          utilisée pour simuler des phénomènes complexes. Bien que ce jeu ne
+          soit pas un jeu au sens traditionnel, il a suscité un intérêt
+          considérable, souvent ludique, en raison de sa simplicité et de la
+          complexité émergente qu'il génère.</p>
+        <p>Imaginé en 1970 par le mathématicien
+          britannique John Conway, il repose sur une grille à deux
+          dimensions composée de cellules vivantes ou éteintes. Chacune d'entre elles
+          évolue en fonction d'un ensemble de règles simples fondées
+          sur la présence d'autres cellules vivantes dans son voisinage.
+          Initialement conçu pour être joué sur une grille infinie, il a
+          rapidement trouvé des applications en informatique, en mathématiques
+          et en biologie.</p>
+        <p>Les règles du jeu de la vie au depart sont étonnamment simples&nbsp;:
+        <ol>
+          <li>Chaque cellule peut être soit vivante (remplie) soit éteinte
+            (vide).</li>
+          <li>L'évolution des cellules se fait en fonction de leur
+            environnement immédiat, c'est-à-dire les huit cellules voisines.</li>
+          <li>Une cellule vivante avec 2 ou 3 voisins survivra à la génération
+            suivante. Sinon, elle mourra (par "sous-population" ou
+            "surpopulation").</li>
+          <li>Une cellule morte avec exactement 3 voisins vivants deviendra
+            vivante (par "reproduction").</li>
+        </ol>
+        </p>
+        <p>Bien que les règles du jeu soient simples, cet automate cellulaire
+          génère des configurations étonnamment complexes. On retrouve des
+          "planeurs", ensembles de cellules mobiles&nbsp; des "oscillateurs"
+          ensembles qui reviennent régulièrement à leur état initial&nbsp; des
+          "vaisseaux", ensembles mobiles qui laissent derrière eux d'autres
+          ensembles. Il existe également des configurations stables, appelées
+          "statics".</p>
+      <p>De simples et légères modifications dans les règles peuvent conduire
+          vers des modèles chaotiques ou vers des structures stables et passer
+          de l'un à l'autre. En cela, le jeu de la vie est un outil efficace
+          pour se rendre compte de la fragilité de l'équilibre de certains
+          écosystèmes. Par exemple, des petites modifications à un endroit
+          (accentuer ou relâcher la pression à certains endroits) engendrent
+          des conséquences insoupçonnées sur l'ensemble des parties.</p>
+        <p>Le jeu de la vie a trouvé des applications dans au moins quatre
+          domaines&nbsp;:</p>
+        <ol>
+          <li>Mathématiques. Il a été utilisé pour démontrer des concepts
+            mathématiques tels que la notion de "calcul universel" et la
+            complexité des automates cellulaires.</li>
+          <li>Informatique. Il a inspiré des chercheurs à développer des
+            algorithmes pour résoudre des problèmes complexes et a été
+            utilisé dans la conception de circuits logiques.</li>
+          <li>Biologie. Le modèle a été appliqué à la modélisation de la
+            croissance cellulaire et à l'étude des automates cellulaires
+            dans des systèmes biologiques.</li>
+          <li>Art et Divertissement. Le Jeu de la Vie a été utilisé dans des
+            créations artistiques et des animations numériques.</li>
+        </ol>
+        <p>Le jeu de la vie est un exemple typique de la façon dont des règles
+          simples peuvent générer une merveilleuse complexité émergente. Son
+          influence s'étend bien au-delà de la sphère de l'informatique et des
+          mathématiques, et même de la biologie. L'exploration des
+          configurations et des modèles de cet outil est une source
+          d'inspiration pour les scientifiques et les amateurs de jeux. A vous
+          d'essayer et de lancer vos propres expértimentations.</p>
+      </div>
 
-
+      <h2 class="">
+        Aide
+      </h2>
       <div class="accordion" id="helpAccordion">
 
         <!-- Nouvelle simulation -->
@@ -785,8 +854,21 @@
             data-bs-parent="#helpAccordion">
             <div class="accordion-body">
               <p>Ce bouton ouvre un menu pour ajuster la vitesse de la simulation.</p>
-              <p>Vous pouvez sélectionner la vitesse d'exécution, par exemple x1, x2, x5, etc.</p>
-              <p></p>
+              <p>Vous pouvez sélectionner la vitesse d'exécution. par exemple x1, x2, x5, etc.</p>
+
+              <p><button class="btn btn-outline-secondary me-2"><span>x 1</span>
+                </button> Augmente la rapidité de 1</p>
+              <p><button class="btn btn-outline-secondary me-2"><span>x 2</span>
+                </button> Augmente la rapidité de 2</p>
+              <p><button class="btn btn-outline-secondary me-2"><span>x 5</span>
+                </button> Augmente la rapidité de 5</p>
+              <p><button class="btn btn-outline-secondary me-2"><span>x 10</span>
+                </button> Augmente la rapidité de 10</p>
+              <p><button class="btn btn-outline-secondary me-2"><span>x 20</span>
+                </button> Augmente la rapidité de 20</p>
+              <p><button class="btn btn-outline-secondary me-2"><span>x 50</span>
+                </button> Augmente la rapidité de 50</p>
+
             </div>
           </div>
         </div>
@@ -917,16 +999,11 @@
           <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven"
             data-bs-parent="#helpAccordion">
             <div class="accordion-body">
-              Ce bouton permet de déplacer la vue de la grille dans les directions
-              haut, bas, gauche, droite.
-              <p><i class="bi bi-caret-up-square-fill"></i> <strong>Monter :</strong> Déplace la vue vers
-                le haut.</p>
-              <p><i class="bi bi-caret-down-square-fill"></i> <strong>Descendre :</strong> Déplace la vue
-                vers le bas.</p>
-              <p><i class="bi bi-caret-left-square-fill"></i> <strong>Gauche :</strong> Déplace la vue
-                vers la gauche.</p>
-              <p><i class="bi bi-caret-right-square-fill"></i> <strong>Droite :</strong> Déplace la vue
-                vers la droite.</p>
+              <p>Ce bouton permet de déplacer la vue de la grille dans les directions haut, bas, gauche, droite.</p>
+              <p><i class="bi bi-caret-up-square-fill me-2"></i>Déplace la vue vers le haut.</p>
+              <p><i class="bi bi-caret-down-square-fill me-2"></i>Déplace la vue vers le bas.</p>
+              <p><i class="bi bi-caret-left-square-fill me-2"></i>Déplace la vue vers la gauche.</p>
+              <p><i class="bi bi-caret-right-square-fill me-2"></i>Déplace la vue vers la droite.</p>
             </div>
           </div>
         </div>
