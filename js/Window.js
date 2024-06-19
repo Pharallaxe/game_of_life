@@ -285,44 +285,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // const grid = document.getElementById('grid');
-    // let isDragging = false;
-    // let startX, startY;
-    // let offsetX = 0, offsetY = 0;
-    // let translateX = 0, translateY = 0;
+    document.getElementById('toggleButton').addEventListener('click', function () {
+        let gameDiv = document.getElementById('game');
+        let helpDiv = document.getElementById('help');
+        let toggleIcon = document.getElementById('toggleIcon');
 
-    // grid.addEventListener('mousedown', (e) => {
-    //     isDragging = true;
-    //     grid.classList.add('grabbing');
-    //     startX = e.clientX - offsetX;
-    //     startY = e.clientY - offsetY;
-    // });
+        
 
-    // grid.addEventListener('mousemove', (e) => {
-    //     if (isDragging) {
-    //         offsetX = e.clientX - startX;
-    //         offsetY = e.clientY - startY;
-    //         updatePosition();
-    //     }
-    // });
+        if (gameDiv.classList.contains('desactivate')) {
+            gameDiv.classList.remove('desactivate');
+            helpDiv.classList.add('desactivate')
 
-    // grid.addEventListener('mouseup', () => {
-    //     isDragging = false;
-    //     grid.classList.remove('grabbing');
-    //     translateX += offsetX;
-    //     translateY += offsetY;
-    //     offsetX = 0;
-    //     offsetY = 0;
-    // });
+            toggleIcon.className = 'bi bi-question-circle-fill';
+        } else {
+            gameDiv.classList.add('desactivate');
+            helpDiv.classList.remove('desactivate')
 
-    // grid.addEventListener('mouseleave', () => {
-    //     isDragging = false;
-    //     grid.classList.remove('grabbing');
-    // });
-
-    // function updatePosition() {
-    //     grid.style.transform = `translate(${translateX + offsetX}px, ${translateY + offsetY}px)`;
-    // }
+            toggleIcon.className = 'bi bi-controller';
+        }
+    });
 
 });
 
