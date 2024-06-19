@@ -156,7 +156,7 @@
               </div>
 
               <!-- Crayon -->
-              <button class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
+              <button id="" class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
                 <i class="bi bi-pencil"></i>
               </button>
 
@@ -252,17 +252,8 @@
             <div class="mb-3">
               <label for="rows" class="form-label">Nombre de Lignes</label>
               <div class="d-flex align-items-center">
-                <!-- Bouton pour diminuer -->
-                <button id="leftButton" class="btn btn-outline-secondary rounded-end-0" type="button" title="Diminuer">
-                    <i class="bi bi-caret-left-square-fill"></i>
-                </button>
-                <!-- Champ de saisie du nombre de lignes -->
-                <input type="number" class="form-control text-center rounded-0" value="20" min="3" max="50" id="rows" placeholder="Entrez le nombre de lignes">
-                <!-- Bouton pour augmenter -->
-                <button id="rightButton" class="btn btn-outline-secondary rounded-start-0" type="button" title="Augmenter">
-                    <i class="bi bi-caret-right-square-fill"></i>
-                </button>
-            </div>
+                <input type="number" class="form-control" value="20" min="3" max="50" id="rows"
+                placeholder="Entrez le nombre de lignes">
             </div>
             <div class="mb-3">
               <label for="columns" class="form-label">Nombre de Colonnes</label>

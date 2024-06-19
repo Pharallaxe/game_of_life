@@ -108,8 +108,6 @@ class Window {
         this.#isDrawing = false;              // ON n'est pas en train de dessiner
 
         this.initialize();
-
-        this.adjustCellSizeBasedOnContainer();
     }
 
     verifyInputRules() {
@@ -261,29 +259,6 @@ class Window {
             }
         }
         this.getBoardCanvas().drawGrid();
-    }
-
-
-    adjustCellSizeBasedOnContainer() {
-        let container = $(".game-life");
-        //     console.log(container.offsetWidth)
-        //     let currentMaxCellSize = parseInt((container.offsetWidth - 20) / this.getColumnCanvas());
-        //     console.log(currentMaxCellSize)
-
-        //     if (this.getCellSize() < conf.MAX_CELL_SIZE) {
-        //         this.setCellSize(conf.MIN_CELL_SIZE)
-        //     }
-
-        //     if (currentMaxCellSize <= this.cellSize) {
-        //         this.cellSize = currentMaxCellSize;
-        //         this.eventBoard.DASHBOARD.value.cellSize.element.textContent = currentMaxCellSize;
-        //     }
-
-        //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
-        //     this.eventBoard.DASHBOARD.value.cellSize.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
-        //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
-        //     this.eventBoard.DASHBOARD.value.cellSize.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
-        //     this.eventBoard.DASHBOARD.value.cellSize.element.textContent = this.cellSize;
     }
 }
 

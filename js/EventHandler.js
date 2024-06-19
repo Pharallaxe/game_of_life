@@ -121,10 +121,16 @@ export class EventHandler {
 
             this.getApp().updateBottomNav(true);
 
-            this.getApp().setColumnCanvas(rowsInput.value);
-            this.getApp().setRowCanvas(columnsInput.value);
-            this.getApp().setCellSize(cellSizeInput.value);
+            // Mise à jour de la taille des cellules en fonction de la largeur.   
+            const currentMaxCellSize = Math.min(
+                parseInt(($(".game-life").offsetWidth - 20) / rowsInput.value),
+                conf.MAX_CELL_SIZE,
+                cellSizeInput.value);
 
+
+            this.getApp().setColumnCanvas(columnsInput.value);
+            this.getApp().setRowCanvas(rowsInput.value);
+            this.getApp().setCellSize(currentMaxCellSize);
             this.getApp().setRandomize(hasardInput.checked);
             this.getApp().initializeSimplely();
         });

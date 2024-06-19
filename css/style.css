@@ -120,7 +120,7 @@ canvas.border {
   line-height: 1.0;
 }
 
-.canvas-container {
+/* .canvas-container {
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -133,4 +133,4 @@ canvas.border {
 }
 #gameCanvas.grabbing {
   cursor: grabbing;
-}
+} */
