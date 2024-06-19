@@ -119,3 +119,18 @@ canvas.border {
 #gridOutput {
   line-height: 1.0;
 }
+
+.canvas-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+#gameCanvas {
+  cursor: grab;
+  width: 100%;
+  height: 100%;
+}
+#gameCanvas.grabbing {
+  cursor: grabbing;
+}

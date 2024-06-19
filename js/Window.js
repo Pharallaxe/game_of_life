@@ -108,6 +108,8 @@ class Window {
         this.#isDrawing = false;              // ON n'est pas en train de dessiner
 
         this.initialize();
+
+        this.adjustCellSizeBasedOnContainer();
     }
 
     verifyInputRules() {
@@ -161,20 +163,20 @@ class Window {
         $('#totalCells').textContent = !reset ? this.getBoard().getTotalAlive() : "";
     }
 
-    setCellSizeZoomIn() { 
+    setCellSizeZoomIn() {
         let zoom = this.getCellSize() + 1;
         if (zoom > 50) zoom = 50;
         this.setCellSize(zoom);
         this.setBoardCanvas().setupCanvas();
         this.setBoardCanvas().drawGrid();
     }
-    setCellSizeZoomOut() { 
+    setCellSizeZoomOut() {
         let zoom = this.getCellSize() - 1;
         if (zoom < 1) zoom = 1;
         this.setCellSize(zoom);
         console.log(this.getCellSize())
-        this.setBoardCanvas().setupCanvas() ;
-        this.setBoardCanvas().drawGrid() ;
+        this.setBoardCanvas().setupCanvas();
+        this.setBoardCanvas().drawGrid();
     }
 
     toggleAnimation() {
@@ -262,30 +264,90 @@ class Window {
     }
 
 
-    // adjustCellSizeBasedOnContainer() {
-    //     let container = $(`.${DASHBOARD_NAME}`);
-    //     let currentMaxCellSize = parseInt((container.offsetWidth - 20) / this.getColumnCanvas);
+    adjustCellSizeBasedOnContainer() {
+        let container = $(".game-life");
+        //     console.log(container.offsetWidth)
+        //     let currentMaxCellSize = parseInt((container.offsetWidth - 20) / this.getColumnCanvas());
+        //     console.log(currentMaxCellSize)
 
-    //     if (this.cellSize < conf.MAX_CELL_SIZE) {
-    //         this.cellSize = conf.MIN_CELL_SIZE;
-    //     }
+        //     if (this.getCellSize() < conf.MAX_CELL_SIZE) {
+        //         this.setCellSize(conf.MIN_CELL_SIZE)
+        //     }
 
-    //     if (currentMaxCellSize <= this.cellSize) {
-    //         this.cellSize = currentMaxCellSize;
-    //         this.eventBoard.DASHBOARD.value.cellSize.element.textContent = currentMaxCellSize;
-    //     }
+        //     if (currentMaxCellSize <= this.cellSize) {
+        //         this.cellSize = currentMaxCellSize;
+        //         this.eventBoard.DASHBOARD.value.cellSize.element.textContent = currentMaxCellSize;
+        //     }
 
-    //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
-    //     this.eventBoard.DASHBOARD.value.cellSize.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
-    //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
-    //     this.eventBoard.DASHBOARD.value.cellSize.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
-    //     this.eventBoard.DASHBOARD.value.cellSize.element.textContent = this.cellSize;
-    // }
+        //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
+        //     this.eventBoard.DASHBOARD.value.cellSize.min = Math.min(conf.MIN_CELL_SIZE, currentMaxCellSize);
+        //     this.eventBoard.DASHBOARD.value.cellSize.element.dataset.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
+        //     this.eventBoard.DASHBOARD.value.cellSize.max = Math.min(conf.MAX_CELL_SIZE, currentMaxCellSize)
+        //     this.eventBoard.DASHBOARD.value.cellSize.element.textContent = this.cellSize;
+    }
 }
 
 
 document.addEventListener('DOMContentLoaded', function () {
     new Window();
-    
+
+    const leftButton = document.getElementById('leftButton');
+    const rightButton = document.getElementById('rightButton');
+    const rowsInput = document.getElementById('rows');
+
+    // Ajouter des écouteurs d'événements pour les boutons
+    leftButton.addEventListener('click', () => {
+        let currentValue = parseInt(rowsInput.value);
+        if (currentValue > conf.MIN_CELL_SIZE) {
+            rowsInput.value = currentValue - 1;
+        }
+    });
+
+    rightButton.addEventListener('click', () => {
+        let currentValue = parseInt(rowsInput.value);
+        if (currentValue < conf.MAX_CELL_SIZE) {
+            rowsInput.value = currentValue + 1;
+        }
+    });
+
+    // const grid = document.getElementById('grid');
+    // let isDragging = false;
+    // let startX, startY;
+    // let offsetX = 0, offsetY = 0;
+    // let translateX = 0, translateY = 0;
+
+    // grid.addEventListener('mousedown', (e) => {
+    //     isDragging = true;
+    //     grid.classList.add('grabbing');
+    //     startX = e.clientX - offsetX;
+    //     startY = e.clientY - offsetY;
+    // });
+
+    // grid.addEventListener('mousemove', (e) => {
+    //     if (isDragging) {
+    //         offsetX = e.clientX - startX;
+    //         offsetY = e.clientY - startY;
+    //         updatePosition();
+    //     }
+    // });
+
+    // grid.addEventListener('mouseup', () => {
+    //     isDragging = false;
+    //     grid.classList.remove('grabbing');
+    //     translateX += offsetX;
+    //     translateY += offsetY;
+    //     offsetX = 0;
+    //     offsetY = 0;
+    // });
+
+    // grid.addEventListener('mouseleave', () => {
+    //     isDragging = false;
+    //     grid.classList.remove('grabbing');
+    // });
+
+    // function updatePosition() {
+    //     grid.style.transform = `translate(${translateX + offsetX}px, ${translateY + offsetY}px)`;
+    // }
+
 });
 

@@ -25,19 +25,6 @@ export class EventHandler {
         }
     }
 
-    toggleVisibilityWithDelay(element, show, delay, timeoutId) {
-        clearTimeout(timeoutId); // Annule tout timeout précédent
-
-        if (show) {
-            element.style.display = 'flex'; // Affiche immédiatement
-            return null; // Pas de nouveau timeout à gérer pour l'affichage
-        } else {
-            return setTimeout(() => {
-                element.style.display = 'none';
-            }, delay); // Masque avec délai
-        }
-    }
-
     updateStartButton(forceStop = false) {
         const playIcon = $('#startIcon');
         const pauseIcon = $('#pauseIcon');
@@ -538,8 +525,22 @@ export class EventHandler {
         this.getApp().toggleDrawingEvents();
     }
 
+    toggleVisibilityWithDelay(element, show, delay, timeoutId) {
+        clearTimeout(timeoutId); // Annule tout timeout précédent
+
+        if (show) {
+            element.style.display = 'flex'; // Affiche immédiatement
+            return null; // Pas de nouveau timeout à gérer pour l'affichage
+        } else {
+            return setTimeout(() => {
+                element.style.display = 'none';
+            }, delay); // Masque avec délai
+        }
+    }
+
+
     initializeRapidityIcon() {
-        const rapidityButton = $('.btn[title="Rapidité"]');
+        const rapidityButton = $('#rapidityButton');
         const speedDiv = $('#rapidityButtons');
         const speedButtons = $All('#rapidityButtons button');
         const rapidityParent = $('#rapidityParent');
@@ -547,20 +548,31 @@ export class EventHandler {
         let speedHideTimeout; // Variable pour stocker le timeout
 
         // Fonction pour afficher ou masquer la div des boutons avec un délai
-        const toggleSpeedDiv = (show) => {
+        const toggleSpeedDivWithDelay = (show) => {
             speedHideTimeout = this.toggleVisibilityWithDelay(speedDiv, show, 300, speedHideTimeout);
         };
 
+
         // Affiche la div lorsque le bouton "Rapidité" est survolé
-        rapidityButton.addEventListener('mouseover', () => toggleSpeedDiv(true));
+        rapidityButton.addEventListener('mouseover', () => toggleSpeedDivWithDelay(true));
+
+        console.log(speedDiv.style.display)
 
         // Affiche la div lorsque la souris est sur la div entière
-        rapidityParent.addEventListener('mouseover', () => toggleSpeedDiv(true));
+        rapidityButton.addEventListener('click', () => {
+            console.log(speedDiv.style.display)
+            if (speedDiv.style.display === '') {
+                speedDiv.style.display = 'flex';
+            }
+        });
+
+        // Affiche la div lorsque la souris est sur la div entière
+        rapidityParent.addEventListener('mouseover', () => toggleSpeedDivWithDelay(true));
 
         // Ferme la div avec un délai lorsque la souris quitte la div entière
         rapidityParent.addEventListener('mouseout', (event) => {
             if (!rapidityParent.contains(event.relatedTarget)) {
-                toggleSpeedDiv(false);
+                toggleSpeedDivWithDelay(false);
             }
         });
 
@@ -588,7 +600,7 @@ export class EventHandler {
         const arrowDiv = $('#arrowButtons');
         const arrowButtons = $All('#arrowButtons button');
         const directionParent = $('#directionParent');
-        
+
         let arrowHideTimeout; // Variable pour stocker le timeout
 
         // Fonction pour afficher ou masquer la div des boutons avec un délai
