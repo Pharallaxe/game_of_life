@@ -21,7 +21,7 @@ class Window {
     #history;
     #lines;
     #saves;
-    #speed;
+    #rapidity;
     #step;
     #isPlaying;
     #enableDraw;
@@ -70,8 +70,8 @@ class Window {
     getSaves() { return this.#saves; }
     setSaves(key, value) { this.#saves[key] = value; }
 
-    getSpeed() { return this.#speed; }
-    setSpeed(value) { this.#speed = value; }
+    getRapidity() { return this.#rapidity; }
+    setRapidity(value) { this.#rapidity = value; }
 
     getStep() { return this.#step; }
     setStep(value) { this.#step = value; }
@@ -101,7 +101,7 @@ class Window {
         this.#history = false;                // L'historique n'est pas activé
         this.#lines = false;                  // Les lignes ne sont pas activées.
         this.#saves = {};                     // Ensemble des sauvegardes
-        this.#speed = 5;                      // Rapidité d'animation
+        this.#rapidity = 5;                      // Rapidité d'animation
         this.#step = 1;                       // Nombre de génération entre pas
         this.#isPlaying = false;              // L'animation n'est pas activée
         this.#enableDraw = false;             // Le dessin n'est pas activé
@@ -172,21 +172,20 @@ class Window {
         let zoom = this.getCellSize() - 1;
         if (zoom < 1) zoom = 1;
         this.setCellSize(zoom);
-        console.log(this.getCellSize())
         this.setBoardCanvas().setupCanvas();
         this.setBoardCanvas().drawGrid();
     }
 
     toggleAnimation() {
         this.setIsPlaying(!this.getIsPlaying());
-        if (this.getIsPlaying()) this.startAnimation(this.getSpeed());
+        if (this.getIsPlaying()) this.startAnimation(this.getRapidity());
         else this.stopAnimation();
     }
 
     startAnimation() {
         this.intervalId = setInterval(() => {
             this.calculateNextGeneration(true);
-        }, 1000 / this.getSpeed());
+        }, 1000 / this.getRapidity());
     }
 
     stopAnimation() {

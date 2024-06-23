@@ -75,7 +75,7 @@
                           data-bs-target="#predefiniesModal">Prédéfinir</a></li>
                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                           data-bs-target="#ajoutRapideModal">Ajout Rapide</a></li>
-                      <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#pasAPasModal">Pas à
+                      <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#stepModal">Pas à
                           Pas</a></li>
                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                           data-bs-target="#vitesseModal">Vitesse</a></li>
@@ -90,7 +90,7 @@
               <div class="d-flex icon-bar flex-wrap gap-1">
 
                 <!-- Nouvelle simulation -->
-                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#configurerModal"
+                <button id="simulationPrincipalButton" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#configurerModal"
                   type="button" title="Nouvelle Simulation">
                   <i class="bi bi-plus-circle"></i>
                 </button>
@@ -103,48 +103,48 @@
                 </button> -->
 
                 <!-- Pas à pas -->
-                <button class="btn btn-outline-secondary" type="button" title="Pas à Pas">
+                <button id="stepPrincipalButton" class="btn btn-outline-secondary" type="button" title="Pas à Pas">
                   <i class="bi bi-arrow-right-circle"></i>
                 </button>
 
                 <!-- Démarrer/Mettre en pause -->
-                <button class="btn btn-outline-secondary" type="button" title="Démarrer">
+                <button id="startPrincipalButton" class="btn btn-outline-secondary" type="button" title="Démarrer">
                   <i id="startIcon" class="bi bi-play-fill"></i>
                   <i id="pauseIcon" class="bi bi-pause-fill" style="display: none"></i>
                 </button>
 
                 <!-- Rapidité -->
                 <div class="position-relative" id="rapidityParent">
-                  <button id="rapidityButton" class="btn btn-outline-secondary" type="button" title="Rapidité">
+                  <button id="rapidityPrincipalButton" class="btn btn-outline-secondary" type="button" title="Rapidité">
                     <i class="bi bi-fast-forward-fill"></i>
                   </button>
                   <div id="rapidityButtons"
                     class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
-                    <button class="btn btn-outline-secondary bg-success text-light color-btn" data-speed="1">
+                    <button class="btn btn-outline-secondary bg-success text-light color-btn" data-rapidity="1">
                       <span>x 1</span>
                     </button>
-                    <button class="btn btn-outline-secondary color-btn" data-speed="2">
+                    <button class="btn btn-outline-secondary color-btn" data-rapidity="2">
                       <span>x 2</span>
                     </button>
-                    <button class="btn btn-outline-secondary color-btn" data-speed="5">
+                    <button class="btn btn-outline-secondary color-btn" data-rapidity="5">
                       <span>x 5</span>
                     </button>
-                    <button class="btn btn-outline-secondary color-btn" data-speed="10">
+                    <button class="btn btn-outline-secondary color-btn" data-rapidity="10">
                       <span>x10</span>
                     </button>
-                    <button class="btn btn-outline-secondary color-btn" data-speed="20">
+                    <button class="btn btn-outline-secondary color-btn" data-rapidity="20">
                       <span>x20</span>
                     </button>
-                    <button class="btn btn-outline-secondary color-btn" data-speed="50">
+                    <button class="btn btn-outline-secondary color-btn" data-rapidity="50">
                       <span>x50</span>
                     </button>
                   </div>
                 </div>
 
-                <!-- Palette -->
+                <!-- Color -->
                 <div class="position-relative" id="colorParent">
-                  <button id="paletteButton" class="btn btn-outline-secondary blue" type="button" title="Couleur">
-                    <i id="paletteIcon" class="bi bi-palette-fill"></i>
+                  <button id="colorPrincipalButton" class="btn btn-outline-secondary blue" type="button" title="Couleur">
+                    <i id="colorIcon" class="bi bi-palette-fill"></i>
                     <i id="wallIcon" class="bi bi-bricks" style="display: none"></i>
                   </button>
                   <div id="colorButtons"
@@ -168,40 +168,40 @@
                 </div>
 
                 <!-- Crayon -->
-                <button id="" class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
+                <button id="drawPrincipalButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Dessiner">
                   <i class="bi bi-pencil"></i>
                 </button>
 
                 <!-- Corbeille -->
-                <button class="btn btn-outline-secondary" type="button" title="Corbeille">
+                <button id="trashPrincipalButton" class="btn btn-outline-secondary" type="button" title="Corbeille">
                   <i class="bi bi-trash"></i>
                 </button>
 
                 <!-- Grille -->
-                <button class="btn boolean-btn btn-outline-secondary" type="button" title="Grille">
+                <button id="gridPrincipalButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Grille">
                   <i class="bi bi-border-all"></i>
                 </button>
 
                 <!-- Bordure -->
-                <button class="btn boolean-btn btn-outline-secondary" type="button" title="Bordures">
+                <button id="borderPrincipalButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Bordures">
                   <i class="bi bi-square"></i>
                 </button>
 
                 <!-- Historique -->
-                <button class="btn boolean-btn btn-outline-secondary" type="button" title="Historique">
+                <button id="historyPrincipalButton" class="btn boolean-btn btn-outline-secondary" type="button" title="Historique">
                   <i class="bi bi-hourglass"></i>
                 </button>
 
-                <!-- Flèches -->
-                <div class="position-relative" id="directionParent">
-                  <button id="directionButton" class="btn boolean-btn btn-outline-secondary" type="button"
-                    title="Flèches">
+                <!-- Déplacement -->
+                <div class="position-relative" id="moveParent">
+                  <button id="movePrincipalButton" class="btn boolean-btn btn-outline-secondary" type="button"
+                    title="Directions">
                     <i class="bi bi-arrows-move"></i>
                   </button>
-                  <div id="arrowButtons"
+                  <div id="moveButtons"
                     class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
                     <!-- Top -->
-                    <button id="topButton" class="btn boolean-btn btn-outline-secondary" type="button"
+                    <button class="btn boolean-btn btn-outline-secondary" type="button"
                       data-direction="top" title="Monter">
                       <i class="bi bi-caret-up-square-fill"></i>
                     </button>
@@ -226,10 +226,36 @@
 
                   </div>
                 </div>
+
+
+                <!-- Flèches -->
+                <div class="position-relative" id="zoomParent">
+                  <button id="zoomPrincipalButton" class="btn boolean-btn btn-outline-secondary" type="button"
+                    title="Zoom">
+                    <i class="bi bi-search"></i>
+                  </button>
+                  <div id="zoomButtons"
+                    class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
+
+                    <!-- Zoom in -->
+                    <button id="zoomInButton" class="btn boolean-btn btn-outline-secondary" type="button"
+                      data-direction="top" title="Zoomer">
+                      <i class="bi bi-zoom-in"></i>
+
+                    </button>
+
+                    <!-- Zoom out -->
+                    <button id="zoomOutButton" class="btn boolean-btn btn-outline-secondary" data-direction="bottom"
+                      type="button" title="Dézoomer">
+                      <i class="bi bi-zoom-out"></i>
+                    </button>
+
+                  </div>
+                </div>
                 
                 <!-- Rules -->
                 <!-- <button id="rightButton" class="btn boolean-btn btn-outline-secondary" data-direction="right"
-                  type="button" title="Décaler à droite">
+                  type="button" title="Règles">
                   <i class="bi bi-rulers"></i>
                 </button> -->
               </div>
@@ -709,18 +735,18 @@
 
 
     <!-- Pas à Pas Modal -->
-    <div class="modal fade" id="pasAPasModal" tabindex="-1" aria-labelledby="pasAPasModalLabel" aria-hidden="true">
+    <div class="modal fade" id="stepModal" tabindex="-1" aria-labelledby="stepModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="pasAPasModalLabel">Vitesse d'Animation</h5>
+            <h5 class="modal-title" id="stepModalLabel">Vitesse d'Animation</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
                 <label for="stepSelect" class="form-label">Sélectionner la vitesse :</label>
-                <select id="stepSelect" class="form-select mt-2">
+                <select id="stepSelectModal" class="form-select mt-2">
                   <option value="1">1</option>
                   <option value="10">10</option>
                   <option value="50">50</option>
@@ -734,7 +760,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Appliquer</button>
+            <button id="stepApplyModal" type="button" class="btn btn-primary" data-bs-dismiss="modal">Appliquer</button>
           </div>
         </div>
       </div>

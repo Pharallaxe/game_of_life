@@ -61,7 +61,8 @@ canvas.border {
 #colorButtons,
 #rapidityButtons,
 #stepButtons,
-#arrowButtons {
+#moveButtons,
+#zoomButtons {
   display: none;
   z-index: 3;
   margin-top: 5px;

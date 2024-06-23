@@ -1,5 +1,6 @@
 import { conf } from './configuration.js';
 import { $, $All } from './utils.js';
+import { HTML } from './HTML.js';
 
 export class EventHandler {
 
@@ -55,7 +56,7 @@ export class EventHandler {
         this.initializeDefinirReglesModal();
         this.initializePredefiniesModal();
         this.initializeAjoutRapideModal();
-        this.initializePasAPasModal();
+        this.initializeStepModal();
         this.initializeVitesseModal();
 
         // ICONES
@@ -69,10 +70,10 @@ export class EventHandler {
         this.initializeHistoryIcon();
         this.initializeColorIcon();
         this.initializeDrawIcon();
-        this.updateArrowsButton();
+        this.initializeArrowsButton();
+        this.initializeZoomButton()
 
         // CANVAS
-        this.initializeCanvasEvents();
 
         // CLAVIER
         this.initializeZoom();
@@ -364,11 +365,10 @@ export class EventHandler {
     }
 
     // Initialiser les événements pour la modale Pas à Pas
-    initializePasAPasModal() {
-        const applyButton = $('#pasAPasModal .btn-primary');
-        const stepSelect = $('#stepSelect');
-
-        applyButton.addEventListener('click', () => { this.getApp().setStep(stepSelect.value); });
+    initializeStepModal() {
+        HTML.stepApplyModal.addEventListener('click', () => {
+            this.getApp().setStep(HTML.stepSelectModal.value);
+        });
     }
 
     // Initialiser les événements pour la modale Vitesse
@@ -395,27 +395,19 @@ export class EventHandler {
     *******************************************/
 
     initializeSimulationIcon() {
-        const newSimulationButton = $('.icon-bar .btn[title="Nouvelle Simulation"]');
-
-        newSimulationButton.addEventListener('click', () => { this.updateStartButton(true) });
+        HTML.simulationPrincipalButton.addEventListener('click', () => { this.updateStartButton(true) });
     }
 
     initializeStepIcon() {
-        const stepButton = $('.btn[title="Pas à Pas"]');
-
-        stepButton.addEventListener('click', () => { this.getApp().calculateNextGeneration(); });
+        HTML.stepPrincipalButton.addEventListener('click', () => { this.getApp().calculateNextGeneration(); });
     }
 
     initializeStartIcon() {
-        const startButton = $('.btn[title="Démarrer"]');
-
-        startButton.addEventListener('click', () => { this.updateStartButton(); });
+        HTML.startPrincipalButton.addEventListener('click', () => { this.updateStartButton(); });
     }
 
     initializeTrashIcon() {
-        const trashButton = $('.btn[title="Corbeille"]');
-
-        trashButton.addEventListener('click', () => {
+        HTML.trashPrincipalButton.addEventListener('click', () => {
             this.getApp().clearGrid();
             this.getApp().stopAnimation();
             this.updateStartButton(true);
@@ -424,10 +416,8 @@ export class EventHandler {
     }
 
     initializeBordureIcon() {
-        const borderButton = $('.btn[title="Bordures"]');
-
-        borderButton.addEventListener('click', () => {
-            borderButton.classList.toggle('active');
+        HTML.borderPrincipalButton.addEventListener('click', () => {
+            HTML.borderPrincipalButton.classList.toggle('active');
 
             this.getApp().setBorder(!this.getApp().getBorder());
             $('canvas').classList.toggle('canvas-border');
@@ -435,10 +425,8 @@ export class EventHandler {
     }
 
     initializeGridIcon() {
-        const gridButton = $('.btn[title="Grille"]');
-
-        gridButton.addEventListener('click', () => {
-            gridButton.classList.toggle('active');
+        HTML.gridPrincipalButton.addEventListener('click', () => {
+            HTML.gridPrincipalButton.classList.toggle('active');
             this.getApp().setLines(!this.getApp().getLines());
             if (!this.getApp().getLines()) this.getApp().getBoardCanvas().clearCanvas();
             this.getApp().getBoardCanvas().drawGrid();
@@ -447,10 +435,8 @@ export class EventHandler {
     }
 
     initializeHistoryIcon() {
-        const historyButton = $('.btn[title="Historique"]');
-
-        historyButton.addEventListener('click', () => {
-            historyButton.classList.toggle('active');
+        HTML.historyPrincipalButton.addEventListener('click', () => {
+            HTML.historyPrincipalButton.classList.toggle('active');
             this.getApp().setHistory(!this.getApp().getHistory());
             if (!this.getApp().getHistory()) {
                 this.getApp().getBoardCanvas().clearCanvas();
@@ -461,71 +447,37 @@ export class EventHandler {
     }
 
     initializeColorIcon() {
-        const paletteIcon = $('#paletteIcon');
-        const wallIcon = $('#wallIcon');
-        const paletteButton = $('.btn[title="Couleur"]');
-        const colorDiv = $('#colorButtons');
-        const colorButtons = $All('#colorButtons button');
-        const paletteParent = $('#colorParent');
-
-        let colorHideTimeout; // Variable pour stocker le timeout
-
-        const toggleColorDiv = (show) => {
-            colorHideTimeout = this.toggleVisibilityWithDelay(colorDiv, show, 300, colorHideTimeout);
-        };
-
-        // Affiche la div lorsque le bouton "Couleur" est survolé
-        paletteButton.addEventListener('mouseover', () => toggleColorDiv(true));
-
-        // Affiche la div lorsque la souris est sur la div entière
-        paletteParent.addEventListener('mouseover', () => toggleColorDiv(true));
-
-        // Ferme la div avec un délai lorsque la souris quitte la div entière
-        paletteParent.addEventListener('mouseout', (event) => {
-            if (!paletteParent.contains(event.relatedTarget)) {
-                toggleColorDiv(false);
-            }
-        });
-
+        this.displayDivButtons(HTML.colorDiv, HTML.colorPrincipalButton, HTML.colorParent);
 
         // Gère le clic sur les boutons de couleur
-        colorButtons.forEach(colorButton => {
+        HTML.colorButtons.forEach(colorButton => {
             colorButton.addEventListener('click', () => {
 
-                paletteButton.classList.remove('blue', 'green', 'yellow', 'red');
+                HTML.colorPrincipalButton.classList.remove('blue', 'green', 'yellow', 'red');
                 let className = colorButton.dataset.color;
                 this.getApp().setValueAdd(parseInt(colorButton.dataset.value));
 
-                paletteButton.classList.add(className);
+                HTML.colorPrincipalButton.classList.add(className);
 
                 // Ferme la div immédiatement après le clic
-                colorDiv.style.display = 'none';
+                HTML.colorDiv.style.display = 'none';
 
-                if (colorButton.dataset.color === 'wall') {
-                    paletteIcon.style.display = 'none'
-                    wallIcon.style.display = 'block'
-                }
-                else {
-                    paletteIcon.style.display = 'block'
-                    wallIcon.style.display = 'none'
-                }
+                const isWall = colorButton.dataset.color === 'wall';
+                HTML.colorIcon.style.display = isWall ? 'none' : 'block';
+                HTML.wallIcon.style.display = isWall ? 'block' : 'none';
             });
         });
     }
 
     initializeDrawIcon() {
-
-        const drawButton = $('.icon-bar .btn[title="Dessiner"]');
-
-        drawButton.addEventListener('click', () => {
+        HTML.drawPrincipalButton.addEventListener('click', () => {
             this.updateStartButton(true);
             this.updateDrawButton();
         });
     }
 
     updateDrawButton(forced = false) {
-        const drawButton = $('.icon-bar .btn[title="Dessiner"]');
-        drawButton.classList.toggle('active');
+        HTML.drawPrincipalButton.classList.toggle('active');
         this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
         this.getApp().toggleDrawingEvents();
     }
@@ -543,56 +495,21 @@ export class EventHandler {
         }
     }
 
-
     initializeRapidityIcon() {
-        const rapidityButton = $('#rapidityButton');
-        const speedDiv = $('#rapidityButtons');
-        const speedButtons = $All('#rapidityButtons button');
-        const rapidityParent = $('#rapidityParent');
-
-        let speedHideTimeout; // Variable pour stocker le timeout
-
-        // Fonction pour afficher ou masquer la div des boutons avec un délai
-        const toggleSpeedDivWithDelay = (show) => {
-            speedHideTimeout = this.toggleVisibilityWithDelay(speedDiv, show, 300, speedHideTimeout);
-        };
-
-
-        // Affiche la div lorsque le bouton "Rapidité" est survolé
-        rapidityButton.addEventListener('mouseover', () => toggleSpeedDivWithDelay(true));
-
-        console.log(speedDiv.style.display)
-
-        // Affiche la div lorsque la souris est sur la div entière
-        rapidityButton.addEventListener('click', () => {
-            console.log(speedDiv.style.display)
-            if (speedDiv.style.display === '') {
-                speedDiv.style.display = 'flex';
-            }
-        });
-
-        // Affiche la div lorsque la souris est sur la div entière
-        rapidityParent.addEventListener('mouseover', () => toggleSpeedDivWithDelay(true));
-
-        // Ferme la div avec un délai lorsque la souris quitte la div entière
-        rapidityParent.addEventListener('mouseout', (event) => {
-            if (!rapidityParent.contains(event.relatedTarget)) {
-                toggleSpeedDivWithDelay(false);
-            }
-        });
+        this.displayDivButtons(HTML.rapidityDiv, HTML.rapidityPrincipalButton, HTML.rapidityParent);
 
         // Gère le clic sur les boutons de rapidité
-        speedButtons.forEach(speedButton => {
-            speedButton.addEventListener('click', () => {
+        HTML.rapidityButtons.forEach(rapidityButton => {
+            rapidityButton.addEventListener('click', () => {
                 // Met à jour les classes des boutons pour indiquer la sélection
-                speedButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
-                speedButton.classList.add('bg-success', 'text-light');
+                HTML.rapidityButtons.forEach(button => button.classList.remove('bg-success', 'text-light'));
+                rapidityButton.classList.add('bg-success', 'text-light');
 
                 // Met à jour la vitesse dans app
-                this.getApp().setSpeed(speedButton.dataset.speed);
+                this.getApp().setRapidity(rapidityButton.dataset.rapidity);
 
                 // Ferme la div immédiatement après le clic
-                speedDiv.style.display = 'none';
+                HTML.rapidityDiv.style.display = 'none';
 
                 // Appelle updateStartButton pour mettre à jour l'état
                 this.updateStartButton(true);
@@ -600,35 +517,22 @@ export class EventHandler {
         });
     }
 
-    updateArrowsButton() {
-        const directionButton = $('#directionButton')
-        const arrowDiv = $('#arrowButtons');
-        const arrowButtons = $All('#arrowButtons button');
-        const directionParent = $('#directionParent');
+    initializeZoomButton() {
+        this.displayDivButtons(HTML.zoomDiv, HTML.zoomPrincipalButton, HTML.zoomParent);
 
-        let arrowHideTimeout; // Variable pour stocker le timeout
+        HTML.zoomButtons.forEach(zoomButton => {
+            zoomButton.addEventListener('click', () => {
 
-        // Fonction pour afficher ou masquer la div des boutons avec un délai
-        const toggleArrowDiv = (show) => {
-            arrowHideTimeout = this.toggleVisibilityWithDelay(arrowDiv, show, 300, arrowHideTimeout);
-        };
-
-        // Affiche la div lorsque le bouton "Rapidité" est survolé
-        directionButton.addEventListener('mouseover', () => toggleArrowDiv(true));
-
-        // Affiche la div lorsque la souris est sur la div entière
-        directionParent.addEventListener('mouseover', () => toggleArrowDiv(true));
-
-        // Ferme la div avec un délai lorsque la souris quitte la div entière
-        directionParent.addEventListener('mouseout', (event) => {
-            if (!directionParent.contains(event.relatedTarget)) {
-                toggleArrowDiv(false);
-            }
+            });
         });
+    }
 
-        arrowButtons.forEach(arrowButton => {
-            arrowButton.addEventListener('click', () => {
-                let direction = arrowButton.dataset.direction;
+    initializeArrowsButton() {
+        this.displayDivButtons(HTML.moveDiv, HTML.movePrincipalButton, HTML.moveParent);
+
+        HTML.moveButtons.forEach(moveButton => {
+            moveButton.addEventListener('click', () => {
+                let direction = moveButton.dataset.direction;
                 switch (direction) {
                     case "top":
                         this.getApp().getBoard().moveTop();
@@ -651,34 +555,34 @@ export class EventHandler {
         });
     }
 
+    displayDivButtons(div, principalButton, parent) {
+        let moveHideTimeout; // Variable pour stocker le timeout
+
+        // Fonction pour afficher ou masquer la div des boutons avec un délai
+        const toggleDiv = (show) => {
+            moveHideTimeout = this.toggleVisibilityWithDelay(div, show, 300, moveHideTimeout);
+        };
+
+        // Affiche la div lorsque le bouton est survolé
+        principalButton.addEventListener('mouseover', () => toggleDiv(true));
+
+        // Affiche la div lorsque la souris est sur la div entière
+        parent.addEventListener('mouseover', () => toggleDiv(true));
+
+        // Ferme la div avec un délai lorsque la souris quitte la div entière
+        parent.addEventListener('mouseout', (event) => {
+            if (!parent.contains(event.relatedTarget)) {
+                toggleDiv(false);
+            }
+        });
+    }
+
 
     /******************************************
      * 
      * EVENEMENTS POUR LES CANVAS
      * 
     *******************************************/
-
-
-    initializeCanvasEvents() {
-        const canvas = $('#gameCanvas');
-
-        canvas.addEventListener('click', (event) => {
-            // Fonction à remplir
-        });
-
-        canvas.addEventListener('mousemove', (event) => {
-            // Fonction à remplir
-        });
-
-        canvas.addEventListener('mousedown', (event) => {
-            // Fonction à remplir
-        });
-
-        canvas.addEventListener('mouseup', (event) => {
-            // Fonction à remplir
-        });
-    }
-
 
     /******************************************
      * 
