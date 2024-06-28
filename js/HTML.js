@@ -3,6 +3,9 @@ import { $, $All } from './utils.js';
 
 export class HTML {
 
+    // Configure modale
+     
+
     // Step modale
     static stepApplyModal = $('#stepApplyModal');
     static stepSelectModal = $('#stepSelectModal');

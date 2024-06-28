@@ -10,20 +10,15 @@ export class EventHandler {
 
     constructor(app) {
         this.#app = app;
-
         this.initialize();
     }
 
     validateInput(inputElement, minValue, maxValue) {
         let value = parseInt(inputElement.value, 10);
 
-        if (isNaN(value)) {
-            inputElement.value = minValue;
-        } else if (value > maxValue) {
-            inputElement.value = maxValue;
-        } else if (value < minValue) {
-            inputElement.value = minValue;
-        }
+        if (isNaN(value)) inputElement.value = minValue;
+        else if (value > maxValue) inputElement.value = maxValue;
+        else if (value < minValue) inputElement.value = minValue;
     }
 
     updateStartButton(forceStop = false) {
@@ -32,9 +27,7 @@ export class EventHandler {
 
         const isPlaying = playIcon.style.display === 'none';
 
-        if (forceStop && !isPlaying) {
-            return;
-        }
+        if (forceStop && !isPlaying) return;
 
         playIcon.style.display = isPlaying ? 'block' : 'none';
         pauseIcon.style.display = isPlaying ? 'none' : 'block';
@@ -73,8 +66,6 @@ export class EventHandler {
         this.initializeArrowsButton();
         this.initializeZoomButton()
 
-        // CANVAS
-
         // CLAVIER
         this.initializeZoom();
 
@@ -89,45 +80,35 @@ export class EventHandler {
     initializeZoom() {
         document.addEventListener('keydown', (event) => {
             if (event.ctrlKey && (event.key === '+')) {
-                event.preventDefault(); // Empêcher le comportement par défaut du navigateur
-                // Action spécifique pour Ctrl + +
+                event.preventDefault(); 
                 this.getApp().setCellSizeZoomIn();
-                console.log("+")
             }
 
             if (event.ctrlKey && (event.key === '-')) {
-                event.preventDefault(); // Empêcher le comportement par défaut du navigateur
+                event.preventDefault(); 
                 this.getApp().setCellSizeZoomOut();
-                // Appeler votre fonction ici
-                console.log("-")
             }
         });
     }
 
     // Initialiser les événements pour la modale Configurer Plateau
     initializeConfigurerModal() {
-        const hasardInput = $('#hasard');
-        const rowsInput = $('#rows');
-        const columnsInput = $('#columns');
-        const cellSizeInput = $('#cellSize');
-        const applyConfigureButton = $('#applyConfigure');
+        const hasardInput = $('#hasardConfigureModal');
+        const rowsInput = $('#rowsConfigureModal');
+        const columnsInput = $('#columnsConfigureModal');
+        const cellSizeInput = $('#cellSizeConfigureModal');
+        const applyConfigureButton = $('#configureApplyModal');
 
         applyConfigureButton.addEventListener('click', () => {
-            this.validateInput(
-                rowsInput, conf.MIN_COL, conf.MAX_COL);
-            this.validateInput(
-                columnsInput, conf.MIN_COL, conf.MAX_COL);
-            this.validateInput(
-                cellSizeInput, conf.MIN_CELL_SIZE, conf.MAX_CELL_SIZE);
+            this.validateInput(rowsInput, conf.MIN_COL, conf.MAX_COL);
+            this.validateInput(columnsInput, conf.MIN_COL, conf.MAX_COL);
+            this.validateInput(cellSizeInput, conf.MIN_CELL_SIZE, conf.MAX_CELL_SIZE);
 
             this.getApp().updateBottomNav(true);
 
             // Mise à jour de la taille des cellules en fonction de la largeur.   
             const currentMaxCellSize = Math.min(
-                parseInt(($(".game-life").offsetWidth - 20) / rowsInput.value),
-                conf.MAX_CELL_SIZE,
-                cellSizeInput.value);
-
+                parseInt(($(".game-life").offsetWidth - 20) / rowsInput.value), conf.MAX_CELL_SIZE, cellSizeInput.value);
 
             this.getApp().setColumnCanvas(columnsInput.value);
             this.getApp().setRowCanvas(rowsInput.value);
