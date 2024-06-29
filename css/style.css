@@ -37,7 +37,7 @@
   color: white;
 }
 
-.game-life {
+#gameLife {
   align-self: center;
   display: flex;
   justify-content: center;
@@ -99,7 +99,7 @@ canvas.border {
 }
 
 
-#gridInput {
+#arrayGridEnterInput {
   overflow-x: auto;
   overflow-y: auto;
   height: 200px;
@@ -107,12 +107,12 @@ canvas.border {
   line-height: 0.8;
 }
 
-#gridInput.valid {
+#arrayGridEnterInput.valid {
   background-color: #d4edda;
   /* vert pâle */
 }
 
-#gridInput.invalid {
+#arrayGridEnterInput.invalid {
   background-color: #f8d7da;
   /* rouge pâle */
 }

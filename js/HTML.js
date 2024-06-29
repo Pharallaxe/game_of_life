@@ -3,18 +3,84 @@ import { $, $All } from './utils.js';
 
 export class HTML {
 
-    // Configure modale
-     
+    // Configure modal
+    static hasardConfigureCheckbox = $('#hasardConfigureCheckbox');
+    static rowsConfigureInput = $('#rowsConfigureInput');
+    static columnsConfigureInput = $('#columnsConfigureInput');
+    static cellSizeConfigureInput = $('#cellSizeConfigureInput');
+    static applyConfigureButton = $('#applyConfigureButton');
 
-    // Step modale
+    // Random Modal
+    static weightRandomInput0 = $('#weightRandomInput0');
+    static weightFullRandomInputs = $All('#weightRandomInputs .weight');
+    static applyRandombutton = $('#applyRandombutton');
+
+    static weightRandomSpans = [
+        $('#weightRandomSpan1'),
+        $('#weightRandomSpan2'),
+        $('#weightRandomSpan3'),
+        $('#weightRandomSpan4')
+    ];
+    static weightRandomSpan0 = $('#weightRandomSpan0');
+
+    // Grid Enter modal
+    static arrayGridEnterInput = $('#arrayGridEnterInput');
+    static applyGridEnterButton = $('#applyGridEnterButton');
+    static errorGridEnterP = $('#errorGridEnterP');
+
+    // Grid Exit modal
+    static tabGridExitButton = $("#tabGridExitButton");
+    static arraygridExitP = $("#arraygridExitP");
+    static copyGridExitButton = $('#copyGridExitButton');
+
+    // Load Modal
+    static configLoadSelect = $('#configLoadSelect');
+    static applyLoadButton = $('#applyLoadButton');
+
+    // Save Modal
+    static nameSaveInput = $('#nameSaveInput');
+    static applySaveButton = $('#applySaveButton');
+
+    // Define Rules modal
+    static birthDefineRulesCheckboxes = $All('#birthDefineRulesCheckboxes input');
+    static survivalDefineRulesCheckboxes = $All('#survivalDefineRulesCheckboxes input');
+    static applyDefineRulesButton = $('#applyDefineRulesButton'); 
+
+    // Predefine modal
+    static rulesPredefineSelect = $('#rulesPredefineSelect');
+    static applyPredefineButton = $('#applyPredefineButton');
+
+    // Step modal
     static stepApplyModal = $('#stepApplyModal');
     static stepSelectModal = $('#stepSelectModal');
 
     // Canvas
+    static canvasContainer = $('#gameLife');
     static canvas = $('#gameCanvas');
+
+    // Barre
+    static generation = $('#generation');
+    static livingCells = $('#livingCells');
+    static totalCells = $('#totalCells');
+
+    // Doc
+    static gameWindow = $('#gameWindow');
+    static docWindow = $('#docWindow');
+    static toggleDocIcon = $('#toggleDocIcon');
+    static toggleDocButton = $('#toggleDocButton');
 
     // Simulation
     static simulationPrincipalButton = $('#simulationPrincipalButton');
+    
+    // Save
+    static savePrincipalButton = $('#savePrincipalButton');
+    
+    // Load
+    static loadPrincipalButton = $('#loadPrincipalButton');
+
+    // Copy
+    static copyPrincipalButton = $('#copyPrincipalButton');
+
 
     // Start
     static startPrincipalButton = $('#startPrincipalButton');

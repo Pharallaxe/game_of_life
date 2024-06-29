@@ -3,8 +3,8 @@
 
 export const conf = {
     // Taille des cellules du canvas
-    MIN_CELL_SIZE : 2,
-    MAX_CELL_SIZE : 250,
+    MIN_CELL_SIZE : 3,
+    MAX_CELL_SIZE : 40,
 
     // Nombre minimales et maximales de colonne
     MIN_COL : 2,

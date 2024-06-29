@@ -3,7 +3,7 @@
 
 export class Config {
     // Taille des cellules du canvas
-    static MIN_CELL_SIZE = 2;
+    static MIN_CELL_SIZE = 3;
     static MAX_CELL_SIZE = 250;
 
     // Nombre minimales et maximales de colonne

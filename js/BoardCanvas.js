@@ -38,14 +38,10 @@ export class BoardCanvas {
         for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
                 const currentValueCell = this.getApp().getBoard().getGridValue(j, i);
+                const cellSize = this.getApp().getCellSize();
                 if (conf.notDeadValueSet.has(currentValueCell)) {
                     this.getCtx().fillStyle = this.getColorFromIndex(currentValueCell, j, i);
-                    this.getCtx()
-                        .fillRect(
-                            i * this.getApp().getCellSize(),
-                            j * this.getApp().getCellSize(),
-                            this.getApp().getCellSize(),
-                            this.getApp().getCellSize());
+                    this.getCtx().fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
                 }
             }
         }
@@ -57,20 +53,21 @@ export class BoardCanvas {
     drawLines() {
         this.getCtx().strokeStyle = 'rgb(100, 100, 100)';
         this.getCtx().lineWidth = 1;
+        const cellSize = this.getApp().getCellSize();
 
         // Dessiner des lignes horizontales
         for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             this.getCtx().beginPath();
-            this.getCtx().moveTo(0, j * this.getApp().getCellSize());
-            this.getCtx().lineTo(this.getCanvas().width, j * this.getApp().getCellSize());
+            this.getCtx().moveTo(0, j * cellSize);
+            this.getCtx().lineTo(this.getCanvas().width, j * cellSize);
             this.getCtx().stroke();
         }
 
         // Dessiner des lignes verticales
         for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
             this.getCtx().beginPath();
-            this.getCtx().moveTo(i * this.getApp().getCellSize(), 0);
-            this.getCtx().lineTo(i * this.getApp().getCellSize(), this.getCanvas().height);
+            this.getCtx().moveTo(i * cellSize, 0);
+            this.getCtx().lineTo(i * cellSize, this.getCanvas().height);
             this.getCtx().stroke();
         }
     }

@@ -1,9 +1,11 @@
 import { EventHandler } from './EventHandler.js';
 import { Board } from './Board.js';
 import { BoardCanvas } from './BoardCanvas.js';
+import { HTML } from './HTML.js';
 
 import { conf } from './configuration.js';
 import { $, $All } from './utils.js';
+import { Config } from './Config.js';
 
 class Window {
 
@@ -123,9 +125,9 @@ class Window {
     initialize() {
         this.verifyInputRules();
         new EventHandler(this);
-        // this.handleMoveArrowEvents();
-        // this.updateArrowsButton();
         this.initializeSimplely();
+        this.getBoard().initPlaneur();
+        this.getBoardCanvas().drawGrid();
         this.toggleDrawingEvents();
     }
 
@@ -135,8 +137,8 @@ class Window {
 
         // Création du canvas
         const existingCanvases = $('canvas');
-        const parentCanvas = existingCanvases.parentNode
-        parentCanvas.removeChild(existingCanvases)
+        const parentCanvas = existingCanvases.parentNode;
+        parentCanvas.removeChild(existingCanvases);
 
         let canvas = document.createElement('canvas');
         parentCanvas.appendChild(canvas);
@@ -156,24 +158,31 @@ class Window {
     }
 
     updateBottomNav(reset = false) {
-        $('#generation').textContent = !reset ? this.getBoard().getGeneration() : "";
-        $('#livingCells').textContent = !reset ? this.getBoard().getIsAlive() : "";
-        $('#totalCells').textContent = !reset ? this.getBoard().getTotalAlive() : "";
+        HTML.generation.textContent = !reset ? this.getBoard().getGeneration() : "";
+        HTML.livingCells.textContent = !reset ? this.getBoard().getIsAlive() : "";
+        HTML.totalCells.textContent = !reset ? this.getBoard().getTotalAlive() : "";
     }
 
     setCellSizeZoomIn() {
         let zoom = this.getCellSize() + 1;
-        if (zoom > 50) zoom = 50;
-        this.setCellSize(zoom);
-        this.setBoardCanvas().setupCanvas();
-        this.setBoardCanvas().drawGrid();
+        if (zoom > conf.MAX_CELL_SIZE) zoom = conf.MAX_CELL_SIZE;
+        const canvasSize = HTML.canvasContainer.offsetWidth - 20
+
+        // Mise à jour de la taille des cellules en fonction de la largeur.   
+        const currentMaxCellSize = Math.min(
+            parseInt(canvasSize / HTML.rowsConfigureInput.value),
+            zoom)
+
+        this.setCellSize(currentMaxCellSize);
+        this.getBoardCanvas().setupCanvas();
+        this.getBoardCanvas().drawGrid();
     }
     setCellSizeZoomOut() {
         let zoom = this.getCellSize() - 1;
-        if (zoom < 1) zoom = 1;
+        if (zoom < conf.MIN_CELL_SIZE) zoom = conf.MIN_CELL_SIZE;
         this.setCellSize(zoom);
-        this.setBoardCanvas().setupCanvas();
-        this.setBoardCanvas().drawGrid();
+        this.getBoardCanvas().setupCanvas();
+        this.getBoardCanvas().drawGrid();
     }
 
     toggleAnimation() {
@@ -264,45 +273,6 @@ class Window {
 
 document.addEventListener('DOMContentLoaded', function () {
     new Window();
-
-    const leftButton = document.getElementById('leftButton');
-    const rightButton = document.getElementById('rightButton');
-    const rowsInput = document.getElementById('rows');
-
-    // Ajouter des écouteurs d'événements pour les boutons
-    leftButton.addEventListener('click', () => {
-        let currentValue = parseInt(rowsInput.value);
-        if (currentValue > conf.MIN_CELL_SIZE) {
-            rowsInput.value = currentValue - 1;
-        }
-    });
-
-    rightButton.addEventListener('click', () => {
-        let currentValue = parseInt(rowsInput.value);
-        if (currentValue < conf.MAX_CELL_SIZE) {
-            rowsInput.value = currentValue + 1;
-        }
-    });
-
-    document.getElementById('toggleButton').addEventListener('click', function () {
-        let gameDiv = document.getElementById('game');
-        let helpDiv = document.getElementById('help');
-        let toggleIcon = document.getElementById('toggleIcon');
-
-        
-
-        if (gameDiv.classList.contains('desactivate')) {
-            gameDiv.classList.remove('desactivate');
-            helpDiv.classList.add('desactivate')
-
-            toggleIcon.className = 'bi bi-question-circle-fill';
-        } else {
-            gameDiv.classList.add('desactivate');
-            helpDiv.classList.remove('desactivate')
-
-            toggleIcon.className = 'bi bi-controller';
-        }
-    });
 
 });
 

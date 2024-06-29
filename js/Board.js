@@ -66,9 +66,14 @@ export class Board {
         this.#gridNumberNeighbors = this.createGrid(false);
         this.#gridTypeNeighbors = this.createGrid(false);
         this.#gridEnableDraw = this.createGrid(false);
+    }
 
-        this.initPlaneur();
-        
+    initializeGrids(grid) {
+        this.setGrid(grid);
+        this.setGridHistory(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false);
+        this.setGridNumberNeighbors(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false);
+        this.setGridTypeNeighbors(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false);
+        this.setGridEnableDraw(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false)
     }
 
     initPlaneur() {
@@ -261,14 +266,14 @@ export class Board {
     }
 
     // Déplace la grille vers le haut
-    moveTop() {
+    moveUp() {
         let nextGrid = this.getGrid().slice(1);
         nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(conf.DEAD));
         this.setGrid(nextGrid);
     }
 
     // Déplace la grille vers le bas
-    moveBottom() {
+    moveDown() {
         let nextGrid = [];
         nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(conf.DEAD));
         nextGrid = nextGrid.concat(this.getGrid().slice(0, this.getApp().getRowCanvas() - 1));
