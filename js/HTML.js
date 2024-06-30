@@ -1,4 +1,4 @@
-import { $, $All } from './utils.js';
+import {$, $All} from './utils.js';
 
 
 export class HTML {
@@ -44,7 +44,7 @@ export class HTML {
     // Define Rules modal
     static birthDefineRulesCheckboxes = $All('#birthDefineRulesCheckboxes input');
     static survivalDefineRulesCheckboxes = $All('#survivalDefineRulesCheckboxes input');
-    static applyDefineRulesButton = $('#applyDefineRulesButton'); 
+    static applyDefineRulesButton = $('#applyDefineRulesButton');
 
     // Predefine modal
     static rulesPredefineSelect = $('#rulesPredefineSelect');
@@ -71,10 +71,10 @@ export class HTML {
 
     // Simulation
     static simulationPrincipalButton = $('#simulationPrincipalButton');
-    
+
     // Save
     static savePrincipalButton = $('#savePrincipalButton');
-    
+
     // Load
     static loadPrincipalButton = $('#loadPrincipalButton');
 

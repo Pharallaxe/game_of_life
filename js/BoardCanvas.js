@@ -1,15 +1,21 @@
-import { conf } from './configuration.js';
+import {conf} from './configuration.js';
 
 export class BoardCanvas {
     #app;
     #canvas;
     #ctx;
 
-    getApp() { return this.#app; }
+    getApp() {
+        return this.#app;
+    }
 
-    getCanvas() {return this.#canvas;}
+    getCanvas() {
+        return this.#canvas;
+    }
 
-    getCtx() {return this.#ctx;}
+    getCtx() {
+        return this.#ctx;
+    }
 
     constructor(app) {
         this.#app = app;
@@ -46,7 +52,9 @@ export class BoardCanvas {
             }
         }
 
-        if (this.getApp().getLines()) { this.drawLines(); }
+        if (this.getApp().getLines()) {
+            this.drawLines();
+        }
     }
 
 
@@ -81,13 +89,20 @@ export class BoardCanvas {
         }
 
         switch (value) {
-            case 0: return `hsl(0, 0%, 0%)`; // Noir
-            case 1: return `hsl(200, ${color}%, 50%)`; // Bleu
-            case 2: return `hsl(0, ${color}%, 50%)`; // Rouge
-            case 3: return `hsl(60, ${color}%, 50%)`; // Jaune
-            case 4: return `hsl(100, ${color}%, 50%)`; // Vert
-            case 9: return `hsl(320, ${color}%, 100%)`; // Blanc
-            default: return '';
+            case 0:
+                return `hsl(0, 0%, 0%)`; // Noir
+            case 1:
+                return `hsl(200, ${color}%, 50%)`; // Bleu
+            case 2:
+                return `hsl(0, ${color}%, 50%)`; // Rouge
+            case 3:
+                return `hsl(60, ${color}%, 50%)`; // Jaune
+            case 4:
+                return `hsl(100, ${color}%, 50%)`; // Vert
+            case 9:
+                return `hsl(320, ${color}%, 100%)`; // Blanc
+            default:
+                return '';
         }
     }
 }

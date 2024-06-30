@@ -1,4 +1,4 @@
-import { conf } from './configuration.js';
+import {conf} from './configuration.js';
 
 
 export class Board {
@@ -13,46 +13,118 @@ export class Board {
     #gridTypeNeighbors;
     #gridEnableDraw;
 
-    getApp() { return this.#app; }
+    getApp() {
+        return this.#app;
+    }
 
-    getIsAlive() { return this.#isAlive; }
-    setIsAlive(value) { this.#isAlive = value; }
+    getIsAlive() {
+        return this.#isAlive;
+    }
 
-    getGeneration() { return this.#generation; }
-    setGeneration(value) { this.#generation = value; }
+    setIsAlive(value) {
+        this.#isAlive = value;
+    }
 
-    getTotalAlive() { return this.#totalAlive; }
-    setTotalAlive(value) { this.#totalAlive = value; }
+    getGeneration() {
+        return this.#generation;
+    }
+
+    setGeneration(value) {
+        this.#generation = value;
+    }
+
+    getTotalAlive() {
+        return this.#totalAlive;
+    }
+
+    setTotalAlive(value) {
+        this.#totalAlive = value;
+    }
 
     // Grille principale
-    getGrid() { return this.#grid; }
-    setGrid(value) { this.#grid = value; }
-    getGridValue(y, x) { return this.#grid[y][x]; }
-    setGridValue(y, x, value) { this.#grid[y][x] = value; }
+    getGrid() {
+        return this.#grid;
+    }
+
+    setGrid(value) {
+        this.#grid = value;
+    }
+
+    getGridValue(y, x) {
+        return this.#grid[y][x];
+    }
+
+    setGridValue(y, x, value) {
+        this.#grid[y][x] = value;
+    }
 
     // Historique de la grille
-    getGridHistory() { return this.#gridHistory; }
-    setGridHistory(value) { this.#gridHistory = value; }
-    getGridHistoryValue(y, x) { return this.#gridHistory[y][x]; }
-    setGridHistoryValue(y, x, value) { this.#gridHistory[y][x] = value; }
+    getGridHistory() {
+        return this.#gridHistory;
+    }
+
+    setGridHistory(value) {
+        this.#gridHistory = value;
+    }
+
+    getGridHistoryValue(y, x) {
+        return this.#gridHistory[y][x];
+    }
+
+    setGridHistoryValue(y, x, value) {
+        this.#gridHistory[y][x] = value;
+    }
 
     // Nombre de voisins dans la grille
-    getGridNumberNeighbors() { return this.#gridNumberNeighbors; }
-    setGridNumberNeighbors(value) { this.#gridNumberNeighbors = value; }
-    getGridNumberNeighborsValue(y, x) { return this.#gridNumberNeighbors[y][x]; }
-    setGridNumberNeighborsValue(y, x, value) { this.#gridNumberNeighbors[y][x] = value; }
+    getGridNumberNeighbors() {
+        return this.#gridNumberNeighbors;
+    }
+
+    setGridNumberNeighbors(value) {
+        this.#gridNumberNeighbors = value;
+    }
+
+    getGridNumberNeighborsValue(y, x) {
+        return this.#gridNumberNeighbors[y][x];
+    }
+
+    setGridNumberNeighborsValue(y, x, value) {
+        this.#gridNumberNeighbors[y][x] = value;
+    }
 
     // Type de voisins dans la grille
-    getGridTypeNeighbors() { return this.#gridTypeNeighbors; }
-    setGridTypeNeighbors(value) { this.#gridTypeNeighbors = value; }
-    getGridTypeNeighborsValue(y, x) { return this.#gridTypeNeighbors[y][x]; }
-    setGridTypeNeighborsValue(y, x, value) { this.#gridTypeNeighbors[y][x] = value; }
+    getGridTypeNeighbors() {
+        return this.#gridTypeNeighbors;
+    }
+
+    setGridTypeNeighbors(value) {
+        this.#gridTypeNeighbors = value;
+    }
+
+    getGridTypeNeighborsValue(y, x) {
+        return this.#gridTypeNeighbors[y][x];
+    }
+
+    setGridTypeNeighborsValue(y, x, value) {
+        this.#gridTypeNeighbors[y][x] = value;
+    }
 
     // Activation du dessin sur la grille
-    getGridEnableDraw() { return this.#gridEnableDraw; }
-    setGridEnableDraw(value) { this.#gridEnableDraw = value; }
-    getGridEnableDrawValue(y, x) { return this.#gridEnableDraw[y][x]; }
-    setGridEnableDrawValue(y, x, value) { this.#gridEnableDraw[y][x] = value; }
+    getGridEnableDraw() {
+        return this.#gridEnableDraw;
+    }
+
+    setGridEnableDraw(value) {
+        this.#gridEnableDraw = value;
+    }
+
+    getGridEnableDrawValue(y, x) {
+        return this.#gridEnableDraw[y][x];
+    }
+
+    setGridEnableDrawValue(y, x, value) {
+        this.#gridEnableDraw[y][x] = value;
+    }
 
 
     constructor(app) {
@@ -70,10 +142,10 @@ export class Board {
 
     initializeGrids(grid) {
         this.setGrid(grid);
-        this.setGridHistory(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false);
-        this.setGridNumberNeighbors(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false);
-        this.setGridTypeNeighbors(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false);
-        this.setGridEnableDraw(Array.from({ length: grid.length }, () => Array(grid[0].length).fill(0)), false)
+        this.setGridHistory(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)));
+        this.setGridNumberNeighbors(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)));
+        this.setGridTypeNeighbors(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)));
+        this.setGridEnableDraw(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)))
     }
 
     initPlaneur() {
@@ -120,11 +192,18 @@ export class Board {
     }
 
     // Méthode pour initialiser la grille avec des cellules mortes
-    createGrid(isRandom = true) {
-        return Array.from({ length: this.getApp().getRowCanvas() }, () =>
-            Array.from({ length: this.getApp().getColumnCanvas() }, () =>
-                isRandom && this.getApp().getRandomize() ? this.getRandomCellState() : conf.DEAD
+    createGridRandom() {
+        return Array.from({length: this.getApp().getRowCanvas()}, () =>
+            Array.from({length: this.getApp().getColumnCanvas()}, () =>
+                this.getRandomCellState()
             )
+        );
+    }
+
+    // Méthode pour initialiser la grille avec des cellules mortes
+    createGrid() {
+        return Array.from({length: this.getApp().getRowCanvas()}, () =>
+            Array.from({length: this.getApp().getColumnCanvas()}, () => conf.DEAD)
         );
     }
 
@@ -170,14 +249,30 @@ export class Board {
         const row = this.getApp().getRowCanvas();
         const col = this.getApp().getColumnCanvas();
 
-        if (j === -1) { j = row - 1; }
-        if (j === row) { j = 0; }
-        if (i === -1) { i = col - 1; }
-        if (i === col) { i = 0; }
-        if (j === -2) { j = row - 2; }
-        if (j === row + 1) { j = 1; }
-        if (i === -2) { i = col - 2; }
-        if (i === col + 1) { i = 1; }
+        if (j === -1) {
+            j = row - 1;
+        }
+        if (j === row) {
+            j = 0;
+        }
+        if (i === -1) {
+            i = col - 1;
+        }
+        if (i === col) {
+            i = 0;
+        }
+        if (j === -2) {
+            j = row - 2;
+        }
+        if (j === row + 1) {
+            j = 1;
+        }
+        if (i === -2) {
+            i = col - 2;
+        }
+        if (i === col + 1) {
+            i = 1;
+        }
 
         return [j, i];
     }

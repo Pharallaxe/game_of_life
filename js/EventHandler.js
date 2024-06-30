@@ -1,12 +1,14 @@
-import { conf } from './configuration.js';
-import { $, $All } from './utils.js';
-import { HTML } from './HTML.js';
+import {conf} from './configuration.js';
+import {$, $All} from './utils.js';
+import {HTML} from './HTML.js';
 
 export class EventHandler {
 
     #app;
 
-    getApp() { return this.#app; }
+    getApp() {
+        return this.#app;
+    }
 
     constructor(app) {
         this.#app = app;
@@ -56,13 +58,6 @@ export class EventHandler {
         return true;
     }
 
-    cleanGrid() {
-        this.getApp().clearGrid();
-        this.getApp().stopAnimation();
-        this.updateStartButton(true);
-        this.getApp().updateBottomNav();
-    }
-
     displayDivButtons(div, principalButton, parent) {
         let moveHideTimeout; // Variable pour stocker le timeout
 
@@ -85,7 +80,7 @@ export class EventHandler {
         });
     }
 
-    updateDrawButton(forced = false) {
+    updateDrawButton() {
         HTML.drawPrincipalButton.classList.toggle('active');
         this.getApp().setEnableDraw(!this.getApp().getEnableDraw());
         this.getApp().toggleDrawingEvents();
@@ -140,10 +135,10 @@ export class EventHandler {
     }
 
     /******************************************
-     * 
+     *
      * EVENEMENTS POUR LES MODALES
-     * 
-    *******************************************/
+     *
+     *******************************************/
 
     // Initialiser les événements pour la modale Configurer Plateau
     initializeConfigurerModal() {
@@ -157,20 +152,22 @@ export class EventHandler {
         }
 
         HTML.applyConfigureButton.addEventListener('click', () => {
-
-            this.getApp().stopAnimation();
-            this.updateStartButton(true);
-
+            // Corriger les input
             let rowsInput = validateInput(HTML.rowsConfigureInput, conf.MIN_COL, conf.MAX_COL);
             let columnsInput = validateInput(HTML.columnsConfigureInput, conf.MIN_COL, conf.MAX_COL);
             let cellSizeInput = validateInput(HTML.cellSizeConfigureInput, conf.MIN_CELL_SIZE, conf.MAX_CELL_SIZE);
+
             let hasardInput = HTML.hasardConfigureCheckbox;
 
-            this.getApp().updateBottomNav(true);
-            this.formatGrid(rowsInput, columnsInput, cellSizeInput);
+            // Initialiser une nouvelle grille
+            this.updateStartButton(true);
+            this.getApp().cleanGrid();
+            this.getApp().formatGrid(rowsInput, columnsInput, cellSizeInput);
+            let grid = this.getApp().getBoard().createGridRandom();
+            this.getApp().getBoard().initializeGrids(grid);
+            this.getApp().getBoardCanvas().setDimensionsCanvas();
+            this.getApp().getBoardCanvas().drawGrid();
 
-            this.getApp().setRandomize(hasardInput.checked);
-            this.getApp().initializeSimplely();
         });
     }
 
@@ -227,7 +224,11 @@ export class EventHandler {
         HTML.applyGridEnterButton.addEventListener("click", () => {
             if (isValidatedGrid) {
                 grid = grid.map(row => Array.from(row, Number));
-                this.formatGrid(grid.length, grid[0].length, this.getApp().getCellSize());
+
+                // Initialiser une nouvelle grille
+                this.updateStartButton(true);
+                this.getApp().cleanGrid();
+                this.getApp().formatGrid(grid.length, grid[0].length, this.getApp().getCellSize());
                 this.getApp().getBoard().initializeGrids(grid);
                 this.getApp().getBoardCanvas().setDimensionsCanvas();
                 this.getApp().getBoardCanvas().drawGrid();
@@ -235,33 +236,20 @@ export class EventHandler {
         });
     }
 
-    formatGrid(row, col, cellSize) {
-        const canvasSize = HTML.canvasContainer.offsetWidth - 20
-        // Mise à jour de la taille des cellules en fonction de la largeur.   
-        const currentMaxCellSize = Math.min(parseInt(canvasSize / col), conf.MAX_CELL_SIZE, cellSize);
-
-        console.log(cellSize)
-
-        this.cleanGrid();
-        this.getApp().setRowCanvas(row);
-        this.getApp().setColumnCanvas(col);
-        this.getApp().setCellSize(currentMaxCellSize);
-    }
-
     initializeLoadModal() {
-        
+
         HTML.loadPrincipalButton.addEventListener('click', () => {
-    
+
             // Mettre en pause l'animation
             this.getApp().stopAnimation();
             this.updateStartButton(true);
-    
+
             // Effacer le select
             HTML.configLoadSelect.innerHTML = '';
-    
+
             // Récupérer les noms des sauvegardes à partir de l'objet 'saveNames'
             let saveNames = JSON.parse(localStorage.getItem('saveNames')) || [];
-    
+
             // Créer le select
             saveNames.forEach(saveName => {
                 const option = document.createElement('option');
@@ -278,35 +266,35 @@ export class EventHandler {
             let saves = JSON.parse(localStorage.getItem('savesLifeGame')) || {};
             const savedGrid = saves[selectedSave];
 
-            console.log(selectedSave);
-            console.log(savedGrid);
-
-            this.formatGrid(savedGrid.length, savedGrid[0].length, this.getApp().getCellSize());
+            // Initialiser une nouvelle grille
+            this.updateStartButton(true);
+            this.getApp().cleanGrid();
+            this.getApp().formatGrid(savedGrid.length, savedGrid[0].length, this.getApp().getCellSize());
             this.getApp().getBoard().initializeGrids(savedGrid);
             this.getApp().getBoardCanvas().setDimensionsCanvas();
             this.getApp().getBoardCanvas().drawGrid();
         });
     }
-    
+
     initializeSaveModal() {
         HTML.applySaveButton.addEventListener('click', () => {
-    
+
             this.getApp().stopAnimation();
             this.updateStartButton(true);
-    
+
             let saveName = HTML.nameSaveInput.value.toLowerCase().trim();
-    
+
             // Vérifier si le champ de nom est vide
             while (!saveName) {
                 saveName = prompt("Veuillez entrer un nom pour la sauvegarde.").toLowerCase().trim();
             }
-    
+
             const saveData = this.getApp().getBoard().getGrid();
-    
+
             // Vérifier s'il existe déjà une sauvegarde avec le même nom
             let saveNames = JSON.parse(localStorage.getItem('saveNames')) || [];
             let saves = JSON.parse(localStorage.getItem('savesLifeGame')) || {};
-    
+
             if (saves[saveName]) {
                 // Afficher une boîte de dialogue de confirmation
                 if (!confirm(`Une sauvegarde portant le même nom existe déjà. Voulez-vous la remplacer ?`)) {
@@ -315,14 +303,14 @@ export class EventHandler {
             } else {
                 saveNames.push(saveName);
             }
-    
+
             saves[saveName] = saveData;
             localStorage.setItem('saveNames', JSON.stringify(saveNames));
             localStorage.setItem('savesLifeGame', JSON.stringify(saves));
             HTML.nameSaveInput.value = '';
         });
     }
-    
+
 
     // Initialiser les événements pour la modale Définir Règles
     initializeDefineRulesModal() {
@@ -362,13 +350,15 @@ export class EventHandler {
     }
 
     /******************************************
-     * 
+     *
      * EVENEMENTS POUR LES ICONES
-     * 
-    *******************************************/
+     *
+     *******************************************/
 
     initializeSimulationIcon() {
-        HTML.simulationPrincipalButton.addEventListener('click', () => { this.updateStartButton(true) });
+        HTML.simulationPrincipalButton.addEventListener('click', () => {
+            this.updateStartButton(true)
+        });
     }
 
     initializeCopyIcon() {
@@ -395,18 +385,28 @@ export class EventHandler {
             textArea.setSelectionRange(0, textArea.value.length); // Pour les appareils mobiles
 
             navigator.clipboard.writeText(gridValue)
-                .then(() => { alert('Le texte a été copié dans le presse-papier.'); })
-                .catch(err => { alert('Échec de la copie du texte dans le presse-papier.'); })
-                .finally(() => { document.body.removeChild(textArea); });
+                .then(() => {
+                    alert('Le texte a été copié dans le presse-papier.');
+                })
+                .catch(err => {
+                    alert('Échec de la copie du texte dans le presse-papier.');
+                })
+                .finally(() => {
+                    document.body.removeChild(textArea);
+                });
         });
     }
 
     initializeStepIcon() {
-        HTML.stepPrincipalButton.addEventListener('click', () => { this.getApp().calculateNextGeneration(); });
+        HTML.stepPrincipalButton.addEventListener('click', () => {
+            this.getApp().calculateNextGeneration();
+        });
     }
 
     initializeStartIcon() {
-        HTML.startPrincipalButton.addEventListener('click', () => { this.updateStartButton(); });
+        HTML.startPrincipalButton.addEventListener('click', () => {
+            this.updateStartButton(false);
+        });
     }
 
     initializeTrashIcon() {
@@ -508,6 +508,7 @@ export class EventHandler {
 
         HTML.zoomButtons.forEach(zoomButton => {
             zoomButton.addEventListener('click', () => {
+                console.log(zoomButton.dataset.value)
                 this.updateZoom(zoomButton.dataset.value)
             });
         });
@@ -528,6 +529,7 @@ export class EventHandler {
             });
         });
     }
+
     initializeKeyboard() {
         document.addEventListener('keydown', (event) => {
             if (event.ctrlKey && ['+', '-'].includes(event.key)) {
@@ -558,14 +560,14 @@ export class EventHandler {
 
 
     /******************************************
-     * 
+     *
      * EVENEMENTS POUR LES CANVAS
-     * 
-    *******************************************/
+     *
+     *******************************************/
 
     /******************************************
-     * 
+     *
      * EVENEMENTS POUR LE DESSIN
-     * 
-    *******************************************/
+     *
+     *******************************************/
 }

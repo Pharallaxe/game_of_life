@@ -1,5 +1,5 @@
-import { Board } from './Board.js';
-import { conf } from './configuration.js';
+import {Board} from './Board.js';
+import {conf} from './configuration.js';
 
 function assert(condition, message) {
     if (!condition) {
@@ -119,11 +119,11 @@ function runTests() {
     (function testGridMovement() {
         const board = new Board(mockApp);
         board.setGridValue(1, 1, 1);
-        board.moveTop();
+        board.moveUp();
         assert(board.getGridValue(1, 1) === 0, "Grid value at (1,1) should be 0 after moveTop");
         assert(board.getGridValue(0, 1) === 1, "Grid value at (0,1) should be 1 after moveTop");
 
-        board.moveBottom();
+        board.moveDown();
         assert(board.getGridValue(0, 1) === 0, "Grid value at (0,1) should be 0 after moveBottom");
         assert(board.getGridValue(1, 1) === 1, "Grid value at (1,1) should be 1 after moveBottom");
 

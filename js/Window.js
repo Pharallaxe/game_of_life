@@ -1,11 +1,11 @@
-import { EventHandler } from './EventHandler.js';
-import { Board } from './Board.js';
-import { BoardCanvas } from './BoardCanvas.js';
-import { HTML } from './HTML.js';
+import {EventHandler} from './EventHandler.js';
+import {Board} from './Board.js';
+import {BoardCanvas} from './BoardCanvas.js';
+import {HTML} from './HTML.js';
 
-import { conf } from './configuration.js';
-import { $, $All } from './utils.js';
-import { Config } from './Config.js';
+import {conf} from './configuration.js';
+import {$, $All} from './utils.js';
+import {Config} from './Config.js';
 
 class Window {
 
@@ -30,62 +30,157 @@ class Window {
     #isDrawing;
 
 
-    getBoard() { return this.#board; }
-    setBoard(value) { this.#board = value; }
+    getBoard() {
+        return this.#board;
+    }
 
-    getBoardCanvas() { return this.#boardCanvas; }
-    setBoardCanvas(value) { this.#boardCanvas = value; }
+    setBoard(value) {
+        this.#board = value;
+    }
 
-    getRowCanvas() { return this.#rowCanvas; }
-    setRowCanvas(value) { this.#rowCanvas = value; }
+    getBoardCanvas() {
+        return this.#boardCanvas;
+    }
 
-    getColumnCanvas() { return this.#columnCanvas; }
-    setColumnCanvas(value) { this.#columnCanvas = value; }
+    setBoardCanvas(value) {
+        this.#boardCanvas = value;
+    }
 
-    getCellSize() { return this.#cellSize; }
-    setCellSize(value) { this.#cellSize = value; }
+    getRowCanvas() {
+        return this.#rowCanvas;
+    }
 
-    getValueAdd() { return this.#valueAdd; }
-    setValueAdd(value) { this.#valueAdd = value; }
+    setRowCanvas(value) {
+        this.#rowCanvas = value;
+    }
 
-    getBirth() { return this.#birth; }
-    setBirth(value) { this.#birth = value; }
+    getColumnCanvas() {
+        return this.#columnCanvas;
+    }
 
-    getSurvival() { return this.#survival; }
-    setSurvival(value) { this.#survival = value; }
+    setColumnCanvas(value) {
+        this.#columnCanvas = value;
+    }
 
-    getRandomize() { return this.#randomize; }
-    setRandomize(value) { this.#randomize = value; }
+    getCellSize() {
+        return this.#cellSize;
+    }
 
-    getWeights() { return this.#weights; }
-    setWeights(value) { this.#weights = value; }
+    setCellSize(value) {
+        this.#cellSize = value;
+    }
 
-    getBorder() { return this.#border; }
-    setBorder(value) { this.#border = value; }
+    getValueAdd() {
+        return this.#valueAdd;
+    }
 
-    getHistory() { return this.#history; }
-    setHistory(value) { this.#history = value; }
+    setValueAdd(value) {
+        this.#valueAdd = value;
+    }
 
-    getLines() { return this.#lines; }
-    setLines(value) { this.#lines = value; }
+    getBirth() {
+        return this.#birth;
+    }
 
-    getSaves() { return this.#saves; }
-    setSaves(key, value) { this.#saves[key] = value; }
+    setBirth(value) {
+        this.#birth = value;
+    }
 
-    getRapidity() { return this.#rapidity; }
-    setRapidity(value) { this.#rapidity = value; }
+    getSurvival() {
+        return this.#survival;
+    }
 
-    getStep() { return this.#step; }
-    setStep(value) { this.#step = value; }
+    setSurvival(value) {
+        this.#survival = value;
+    }
 
-    getIsPlaying() { return this.#isPlaying; }
-    setIsPlaying(value) { this.#isPlaying = value; }
+    getRandomize() {
+        return this.#randomize;
+    }
 
-    getEnableDraw() { return this.#enableDraw; }
-    setEnableDraw(value) { this.#enableDraw = value; }
+    setRandomize(value) {
+        this.#randomize = value;
+    }
 
-    getIsDrawing() { return this.#isDrawing; }
-    setIsDrawing(value) { this.#isDrawing = value; }
+    getWeights() {
+        return this.#weights;
+    }
+
+    setWeights(value) {
+        this.#weights = value;
+    }
+
+    getBorder() {
+        return this.#border;
+    }
+
+    setBorder(value) {
+        this.#border = value;
+    }
+
+    getHistory() {
+        return this.#history;
+    }
+
+    setHistory(value) {
+        this.#history = value;
+    }
+
+    getLines() {
+        return this.#lines;
+    }
+
+    setLines(value) {
+        this.#lines = value;
+    }
+
+    getSaves() {
+        return this.#saves;
+    }
+
+    setSaves(key, value) {
+        this.#saves[key] = value;
+    }
+
+    getRapidity() {
+        return this.#rapidity;
+    }
+
+    setRapidity(value) {
+        this.#rapidity = value;
+    }
+
+    getStep() {
+        return this.#step;
+    }
+
+    setStep(value) {
+        this.#step = value;
+    }
+
+    getIsPlaying() {
+        return this.#isPlaying;
+    }
+
+    setIsPlaying(value) {
+        this.#isPlaying = value;
+    }
+
+    getEnableDraw() {
+        return this.#enableDraw;
+    }
+
+    setEnableDraw(value) {
+        this.#enableDraw = value;
+    }
+
+    getIsDrawing() {
+        return this.#isDrawing;
+    }
+
+    setIsDrawing(value) {
+        this.#isDrawing = value;
+    }
 
 
     constructor() {
@@ -125,25 +220,42 @@ class Window {
     initialize() {
         this.verifyInputRules();
         new EventHandler(this);
-        this.initializeSimplely();
+        this.setBoard(new Board(this));
+        this.resetCanvas();
+        this.setBoardCanvas(new BoardCanvas(this));
         this.getBoard().initPlaneur();
         this.getBoardCanvas().drawGrid();
         this.toggleDrawingEvents();
     }
 
-    initializeSimplely() {
-        // Création d'un tableau
-        this.setBoard(new Board(this));
-
-        // Création du canvas
+    resetCanvas() {
+        // Supprimer de l'ancien canvas
         const existingCanvases = $('canvas');
         const parentCanvas = existingCanvases.parentNode;
         parentCanvas.removeChild(existingCanvases);
 
+        // Créer un nouveau canvas
         let canvas = document.createElement('canvas');
         parentCanvas.appendChild(canvas);
-        this.setBoardCanvas(new BoardCanvas(this));
-        this.getBoardCanvas().drawGrid();
+    }
+
+    formatGrid(row, col, cellSize) {
+        const canvasSize = HTML.canvasContainer.offsetWidth - 20
+        // Mise à jour de la taille des cellules en fonction de la largeur.   
+        const currentMaxCellSize = Math.min(parseInt(canvasSize / col), conf.MAX_CELL_SIZE, cellSize);
+
+        this.setRowCanvas(row);
+        this.setColumnCanvas(col);
+        this.setCellSize(currentMaxCellSize);
+    }
+
+    cleanGrid() {
+        // this.setBoard(new Board(this));
+        // this.resetCanvas();
+        // this.setBoardCanvas(new BoardCanvas(this));
+        this.clearGrid();
+        this.stopAnimation();
+        this.updateBottomNav(true);
     }
 
     calculateNextGeneration(isAnimating = false) {
@@ -158,25 +270,27 @@ class Window {
     }
 
     updateBottomNav(reset = false) {
-        HTML.generation.textContent = !reset ? this.getBoard().getGeneration() : "";
-        HTML.livingCells.textContent = !reset ? this.getBoard().getIsAlive() : "";
-        HTML.totalCells.textContent = !reset ? this.getBoard().getTotalAlive() : "";
+        HTML.generation.textContent = reset ? "0" : this.getBoard().getGeneration();
+        HTML.livingCells.textContent = reset ? "0" : this.getBoard().getIsAlive();
+        HTML.totalCells.textContent = reset ? "0" : this.getBoard().getTotalAlive();
     }
 
     setCellSizeZoomIn() {
         let zoom = this.getCellSize() + 1;
         if (zoom > conf.MAX_CELL_SIZE) zoom = conf.MAX_CELL_SIZE;
+
         const canvasSize = HTML.canvasContainer.offsetWidth - 20
 
         // Mise à jour de la taille des cellules en fonction de la largeur.   
         const currentMaxCellSize = Math.min(
-            parseInt(canvasSize / HTML.rowsConfigureInput.value),
+            Math.floor(canvasSize / this.getColumnCanvas()),
             zoom)
-
+        console.log(currentMaxCellSize)
         this.setCellSize(currentMaxCellSize);
         this.getBoardCanvas().setupCanvas();
         this.getBoardCanvas().drawGrid();
     }
+
     setCellSizeZoomOut() {
         let zoom = this.getCellSize() - 1;
         if (zoom < conf.MIN_CELL_SIZE) zoom = conf.MIN_CELL_SIZE;
