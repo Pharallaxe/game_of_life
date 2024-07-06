@@ -1,5 +1,4 @@
-import {conf} from './configuration.js';
-
+import {Config} from './Config.js';
 
 export class Board {
     #app;
@@ -142,10 +141,10 @@ export class Board {
 
     initializeGrids(grid) {
         this.setGrid(grid);
-        this.setGridHistory(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)));
-        this.setGridNumberNeighbors(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)));
-        this.setGridTypeNeighbors(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)));
-        this.setGridEnableDraw(Array.from({length: grid.length}, () => Array(grid[0].length).fill(conf.DEAD)))
+        this.setGridHistory(Array.from({length: grid.length}, () => Array(grid[0].length).fill(Config.DEAD)));
+        this.setGridNumberNeighbors(Array.from({length: grid.length}, () => Array(grid[0].length).fill(Config.DEAD)));
+        this.setGridTypeNeighbors(Array.from({length: grid.length}, () => Array(grid[0].length).fill(Config.DEAD)));
+        this.setGridEnableDraw(Array.from({length: grid.length}, () => Array(grid[0].length).fill(Config.DEAD)))
     }
 
     initPlaneur() {
@@ -188,7 +187,7 @@ export class Board {
         }
 
         // Retourne DEAD par défaut (ne devrait pas se produire)
-        return conf.DEAD;
+        return Config.DEAD;
     }
 
     // Méthode pour initialiser la grille avec des cellules mortes
@@ -203,11 +202,11 @@ export class Board {
     // Méthode pour initialiser la grille avec des cellules mortes
     createGrid() {
         return Array.from({length: this.getApp().getRowCanvas()}, () =>
-            Array.from({length: this.getApp().getColumnCanvas()}, () => conf.DEAD)
+            Array.from({length: this.getApp().getColumnCanvas()}, () => Config.DEAD)
         );
     }
 
-    applyPattern(pattern, startY, startX, state = conf.ALIVE1) {
+    applyPattern(pattern, startY, startX, state = Config.ALIVE1) {
         pattern.forEach(([dy, dx]) => {
             const y = startY + dy;
             const x = startX + dx;
@@ -232,7 +231,7 @@ export class Board {
     updateHistoryGrid() {
         for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
-                if (conf.aliveValuesSet.has(this.getGridValue(j, i))) {
+                if (Config.aliveValuesSet.has(this.getGridValue(j, i))) {
                     this.setGridHistoryValue(j, i, this.getGridHistoryValue(j, i) + 1);
                 } else {
                     this.setGridHistoryValue(j, i, 0)
@@ -296,7 +295,7 @@ export class Board {
         let isAlive = 0;
         for (let j = 0; j < this.getApp().getRowCanvas(); j++) {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
-                if (conf.aliveValuesSet.has(this.getGridValue(j, i))) {
+                if (Config.aliveValuesSet.has(this.getGridValue(j, i))) {
                     isAlive++; // Incrémente le compteur si la cellule est vivante
                 }
             }
@@ -309,14 +308,14 @@ export class Board {
         let neighborsAccount = 0;
         let neighborsTotal = 0;
 
-        conf.MIDDLES['Plaine'].forEach(direction => {
+        Config.MIDDLES['Plaine'].forEach(direction => {
             let [y, x] = [j + direction.y, i + direction.x]
 
             if (!this.getApp().getBorder()) [y, x] = this.applyBoundaryRules(y, x);
 
             if (this.isWithinGridBounds(y, x)) {
                 const currentValue = this.getGridValue(y, x);
-                if (conf.aliveValuesSet.has(currentValue)) {
+                if (Config.aliveValuesSet.has(currentValue)) {
                     neighborsAccount += 1;
                     neighborsTotal += currentValue;
                 }
@@ -343,34 +342,34 @@ export class Board {
     }
 
     determineNextCellValue(currentValue, typeNeighbors, numberNeighbors) {
-        if (conf.aliveValuesSet.has(currentValue)) {
+        if (Config.aliveValuesSet.has(currentValue)) {
             if (this.getApp().getBirth().has(numberNeighbors)) {
                 return currentValue;
             } else {
-                return conf.DEAD;
+                return Config.DEAD;
             }
-        } else if (currentValue === conf.DEAD) {
+        } else if (currentValue === Config.DEAD) {
             if (this.getApp().getSurvival().has(numberNeighbors)) {
                 return typeNeighbors;
             } else {
-                return conf.DEAD;
+                return Config.DEAD;
             }
-        } else if (currentValue === conf.WALL) {
-            return conf.WALL;
+        } else if (currentValue === Config.WALL) {
+            return Config.WALL;
         }
     }
 
     // Déplace la grille vers le haut
     moveUp() {
         let nextGrid = this.getGrid().slice(1);
-        nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(conf.DEAD));
+        nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(Config.DEAD));
         this.setGrid(nextGrid);
     }
 
     // Déplace la grille vers le bas
     moveDown() {
         let nextGrid = [];
-        nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(conf.DEAD));
+        nextGrid.push(Array(this.getApp().getColumnCanvas()).fill(Config.DEAD));
         nextGrid = nextGrid.concat(this.getGrid().slice(0, this.getApp().getRowCanvas() - 1));
         this.setGrid(nextGrid);
     }
@@ -381,7 +380,7 @@ export class Board {
             for (let i = 0; i < this.getApp().getColumnCanvas() - 1; i++) {
                 this.setGridValue(j, i, this.getGridValue(j, i + 1));
             }
-            this.setGridValue(j, this.getApp().getColumnCanvas() - 1, conf.DEAD);
+            this.setGridValue(j, this.getApp().getColumnCanvas() - 1, Config.DEAD);
         }
     }
 
@@ -391,7 +390,7 @@ export class Board {
             for (let i = this.getApp().getColumnCanvas() - 1; i > 0; i--) {
                 this.setGridValue(j, i, this.getGridValue(j, i - 1));
             }
-            this.setGridValue(j, 0, conf.DEAD);
+            this.setGridValue(j, 0, Config.DEAD);
         }
     }
 }

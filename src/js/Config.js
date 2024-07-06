@@ -18,8 +18,8 @@ export class Config {
     static WALL = 9;
 
     // Milieux
-    MIDDLES = {
-        "Désert": [
+    static MIDDLES = {
+        "Desert": [
             {name: 'N', x: 0, y: -1},
             {name: 'E', x: 1, y: 0},
             {name: 'S', x: 0, y: 1},
@@ -45,7 +45,7 @@ export class Config {
             {name: 'O', x: -1, y: 0},
             {name: 'NO', x: -1, y: -1}
         ],
-        'Forêt': [
+        'Foret': [
             {name: 'N-1', x: 0, y: -1},
             {name: 'N-2', x: 0, y: -2},
             {name: 'NE', x: 1, y: -1},

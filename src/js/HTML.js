@@ -3,6 +3,9 @@ import {$, $All} from './utils.js';
 
 export class HTML {
 
+    // Simulation
+    static simulationPrincipalButton = $('#simulationPrincipalButton');
+
     // Configure modal
     static hasardConfigureCheckbox = $('#hasardConfigureCheckbox');
     static rowsConfigureInput = $('#rowsConfigureInput');
@@ -14,54 +17,28 @@ export class HTML {
     static weightRandomInput0 = $('#weightRandomInput0');
     static weightFullRandomInputs = $All('#weightRandomInputs .weight');
     static applyRandombutton = $('#applyRandombutton');
-
+    static weightRandomSpan0 = $('#weightRandomSpan0');
     static weightRandomSpans = [
         $('#weightRandomSpan1'),
         $('#weightRandomSpan2'),
         $('#weightRandomSpan3'),
         $('#weightRandomSpan4')
     ];
-    static weightRandomSpan0 = $('#weightRandomSpan0');
+
+    // Save Modal
+    static savePrincipalButton = $('#savePrincipalButton');
+    static nameSaveInput = $('#nameSaveInput');
+    static applySaveButton = $('#applySaveButton');
+
+    // Load Modal
+    static loadPrincipalButton = $('#loadPrincipalButton');
+    static configLoadSelect = $('#configLoadSelect');
+    static applyLoadButton = $('#applyLoadButton');
 
     // Grid Enter modal
     static arrayGridEnterInput = $('#arrayGridEnterInput');
     static applyGridEnterButton = $('#applyGridEnterButton');
     static errorGridEnterP = $('#errorGridEnterP');
-
-    // Grid Exit modal
-    static tabGridExitButton = $("#tabGridExitButton");
-    static arraygridExitP = $("#arraygridExitP");
-    static copyGridExitButton = $('#copyGridExitButton');
-
-    // Load Modal
-    static configLoadSelect = $('#configLoadSelect');
-    static applyLoadButton = $('#applyLoadButton');
-
-    // Save Modal
-    static nameSaveInput = $('#nameSaveInput');
-    static applySaveButton = $('#applySaveButton');
-
-    // Define Rules modal
-    static birthDefineRulesCheckboxes = $All('#birthDefineRulesCheckboxes input');
-    static survivalDefineRulesCheckboxes = $All('#survivalDefineRulesCheckboxes input');
-    static applyDefineRulesButton = $('#applyDefineRulesButton');
-
-    // Predefine modal
-    static rulesPredefineSelect = $('#rulesPredefineSelect');
-    static applyPredefineButton = $('#applyPredefineButton');
-
-    // Step modal
-    static stepApplyModal = $('#stepApplyModal');
-    static stepSelectModal = $('#stepSelectModal');
-
-    // Canvas
-    static canvasContainer = $('#gameLife');
-    static canvas = $('#gameCanvas');
-
-    // Barre
-    static generation = $('#generation');
-    static livingCells = $('#livingCells');
-    static totalCells = $('#totalCells');
 
     // Doc
     static gameWindow = $('#gameWindow');
@@ -69,27 +46,29 @@ export class HTML {
     static toggleDocIcon = $('#toggleDocIcon');
     static toggleDocButton = $('#toggleDocButton');
 
-    // Simulation
-    static simulationPrincipalButton = $('#simulationPrincipalButton');
-
-    // Save
-    static savePrincipalButton = $('#savePrincipalButton');
-
-    // Load
-    static loadPrincipalButton = $('#loadPrincipalButton');
-
     // Copy
     static copyPrincipalButton = $('#copyPrincipalButton');
 
+    // Step
+    static stepPrincipalButton = $('#stepPrincipalButton');
+
+    // Jump
+    static jumpPrincipalButton = $('#jumpPrincipalButton');
+    static jumpDiv = $('#jumpButtons');
+    static jumpButtons = $All('#jumpButtons button');
+    static jumpParent = $('#jumpParent');
 
     // Start
     static startPrincipalButton = $('#startPrincipalButton');
 
-    //Trash
-    static trashPrincipalButton = $('#trashPrincipalButton');
+    // Rapidity
+    static rapidityPrincipalButton = $('#rapidityPrincipalButton');
+    static rapidityDiv = $('#rapidityButtons');
+    static rapidityButtons = $All('#rapidityButtons button');
+    static rapidityParent = $('#rapidityParent');
 
-    // Step
-    static stepPrincipalButton = $('#stepPrincipalButton');
+    // Trash
+    static trashPrincipalButton = $('#trashPrincipalButton');
 
     // Grid
     static gridPrincipalButton = $('#gridPrincipalButton');
@@ -123,9 +102,28 @@ export class HTML {
     static zoomButtons = $All('#zoomButtons button');
     static zoomParent = $('#zoomParent');
 
-    // Rapidity
-    static rapidityPrincipalButton = $('#rapidityPrincipalButton');
-    static rapidityDiv = $('#rapidityButtons');
-    static rapidityButtons = $All('#rapidityButtons button');
-    static rapidityParent = $('#rapidityParent');
+    // Define button
+    static defineRulesPrincipalButton = $("#defineRulesPrincipalButton");
+
+    // Define Rules modal
+    static birthDefineRulesCheckboxes = $All('#birthDefineRulesCheckboxes input');
+    static survivalDefineRulesCheckboxes = $All('#survivalDefineRulesCheckboxes input');
+    static applyDefineRulesButton = $('#applyDefineRulesButton');
+
+    // Predefine button
+    static predefineRulesPrincipalButton = $("#predefineRulesPrincipalButton");
+
+    // Predefine modal
+    static predefineRulesSelect = $('#predefineRulesSelect');
+    static applyPredefineRulesButton = $('#applyPredefineRulesButton');
+    static cancelPredefineRulesButton = $('#cancelPredefineRulesButton');
+
+    // Canvas
+    static canvasContainer = $('#gameLife');
+    static canvas = $('#gameCanvas');
+
+    // Barre
+    static generation = $('#generation');
+    static livingCells = $('#livingCells');
+    static totalCells = $('#totalCells');
 }

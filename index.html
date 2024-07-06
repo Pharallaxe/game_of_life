@@ -8,19 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
-    <!-- JavaScript pour gérer l'exclusivité des sélections -->
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Media query for devices with a width of 600px or less */
-        @media (max-width: 600px) {
-            .responsive-container {
-                height: auto;
-                /* Adjust height for small screens */
-                padding: 5px;
-                /* Add some padding */
-            }
-        }
-    </style>
+
 </head>
 
 <body>
@@ -36,37 +24,6 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-sm navbar-light bg-light border">
                 <div class="d-flex flex-column gap-2 container-fluid align-items-start ">
-                    <div>
-                        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav"
-                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav me-auto mb-2">
-
-                                <!-- Edition Menu -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="editionDropdown" role="button"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                        Edition
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="editionDropdown">
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                               data-bs-target="#defineRulesModal">Définir</a></li>
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                               data-bs-target="#predefineModal">Prédéfinir</a></li>
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                               data-bs-target="#addModal">Ajout
-                                            Rapide</a></li>
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                               data-bs-target="#stepModal">Pas à
-                                            Pas</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
                     <!-- Icon List -->
                     <div>
@@ -76,28 +33,24 @@
                             <button id="simulationPrincipalButton" class="btn btn-outline-secondary"
                                     data-bs-toggle="modal"
                                     data-bs-target="#configurerModal" type="button" title="Nouvelle Simulation">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                                    <path
-                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                </svg>
+                                <i class="bi bi-plus-circle"></i>
+
                             </button>
 
                             <!-- Nouvelle sauvegarde -->
                             <button id="savePrincipalButton" class="btn btn-outline-secondary" data-bs-toggle="modal"
                                     data-bs-target="#saveModal" type="button" title="Sauvegarder">
-                                <img src="./img/save.svg"></img>
+                                <img src="src/img/save.svg" alt=""></img>
                             </button>
 
                             <!-- Nouveau chargement -->
                             <button id="loadPrincipalButton" class="btn btn-outline-secondary" data-bs-toggle="modal"
                                     data-bs-target="#loadModal" type="button" title="Charger">
-                                <img src="./img/load.svg"></img>
+                                <img src="src/img/load.svg" alt=""></img>
                             </button>
 
                             <!-- Nouvelle entrée -->
-                            <button id="loadPrincipalButton" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                            <button id="entryPrincipalButton" class="btn btn-outline-secondary" data-bs-toggle="modal"
                                     data-bs-target="#gridEnterModal" type="button" title="Entrer">
                                 <i class="bi bi-list-columns"></i>
                             </button>
@@ -105,7 +58,7 @@
                             <!-- Copie -->
                             <button id="copyPrincipalButton" class="btn btn-outline-secondary" type="button"
                                     title="Copier dans le presse-papier">
-                                <img src="./img/copy.svg"></img>
+                                <img src="src/img/copy.svg" alt=""></img>
                             </button>
 
                             <!-- Pas à pas -->
@@ -113,6 +66,42 @@
                                     title="Pas à Pas">
                                 <i class="bi bi-arrow-right-circle"></i>
                             </button>
+
+                            <!-- Saut -->
+                            <div class="position-relative" id="jumpParent">
+                                <button id="jumpPrincipalButton" class="btn btn-outline-secondary" type="button"
+                                        title="saut">
+                                    <i class="bi bi-arrow-right-circle-fill"></i>
+                                </button>
+                                <div id="jumpButtons"
+                                     class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
+                                    <button class="btn btn-outline-secondary bg-success text-light color-btn"
+                                            data-jump="1">
+                                        <span>+  1</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary color-btn" data-jump="10">
+                                        <span>+ 10</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary color-btn" data-jump="50">
+                                        <span>+ 50</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary color-btn" data-jump="100">
+                                        <span>+100</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary color-btn" data-jump="500">
+                                        <span>+500</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary color-btn" data-jump="1000">
+                                        <span>+ 1k</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary color-btn" data-jump="5000">
+                                        <span>+ 5k</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary color-btn" data-jump="10000">
+                                        <span>+10k</span>
+                                    </button>
+                                </div>
+                            </div>
 
                             <!-- Démarrer/Mettre en pause -->
                             <button id="startPrincipalButton" class="btn btn-outline-secondary" type="button"
@@ -129,14 +118,14 @@
                                 </button>
                                 <div id="rapidityButtons"
                                      class="color-buttons button-primary position-absolute flex-column gap-1 justify-content-between pt-1 pb-1 rounded">
-                                    <button class="btn btn-outline-secondary bg-success text-light color-btn"
+                                    <button class="btn btn-outline-secondary color-btn"
                                             data-rapidity="1">
                                         <span>x 1</span>
                                     </button>
                                     <button class="btn btn-outline-secondary color-btn" data-rapidity="2">
                                         <span>x 2</span>
                                     </button>
-                                    <button class="btn btn-outline-secondary color-btn" data-rapidity="5">
+                                    <button class="btn btn-outline-secondary color-btn bg-success text-light" data-rapidity="5">
                                         <span>x 5</span>
                                     </button>
                                     <button class="btn btn-outline-secondary color-btn" data-rapidity="10">
@@ -255,7 +244,6 @@
                                 </div>
                             </div>
 
-
                             <!-- Flèches -->
                             <div class="position-relative" id="zoomParent">
                                 <button id="zoomPrincipalButton" class="btn boolean-btn btn-outline-secondary"
@@ -280,35 +268,40 @@
                                             title="Dézoomer" data-value="out">
                                         <i class="bi bi-zoom-out"></i>
                                     </button>
-
                                 </div>
                             </div>
 
                             <!-- Rules -->
-                            <button id="rulesPrincipalButton" class="btn boolean-btn btn-outline-secondary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#defineRulesModal" type="button" title="Règles">
+                            <button id="defineRulesPrincipalButton" class="btn boolean-btn btn-outline-secondary"
+                                    data-bs-toggle="modal" data-bs-target="#defineRulesModal" type="button"
+                                    title="Règles">
                                 <i class="bi bi-rulers"></i>
                             </button>
 
                             <!-- Predefines -->
-                            <button id="predefinePrincipalButton" class="btn boolean-btn btn-outline-secondary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#predefineModal" type="button" title="Règles Prédéfinies">
+                            <button id="predefineRulesPrincipalButton" class="btn boolean-btn btn-outline-secondary"
+                                    data-bs-toggle="modal" data-bs-target="#predefineRulesModal" type="button"
+                                    title="Règles Prédéfinies">
                                 <i class="bi bi-file-ruled"></i>
-
                             </button>
 
                             <ul class="dropdown-menu" aria-labelledby="editionDropdown">
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                       data-bs-target="#defineRulesModal">Définir</a></li>
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                       data-bs-target="#predefineModal">Prédéfinir</a></li>
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addModal">Ajout
-                                    Rapide</a></li>
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                       data-bs-target="#stepModal">Pas à
-                                    Pas</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                       data-bs-target="#defineRulesModal">Définir</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                       data-bs-target="#predefineModal">Prédéfinir</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addModal">Ajout
+                                        Rapide</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                       data-bs-target="#stepModal">Pas à Pas</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -383,7 +376,6 @@
         </div>
     </div>
 
-
     <!-- Calibrer Poids Modal -->
     <div class="modal fade" id="weightModal" tabindex="-1" aria-labelledby="weightModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -444,7 +436,6 @@
         </div>
     </div>
 
-
     <!-- Grid Enter Modal -->
     <div class="modal fade" id="gridEnterModal" tabindex="-1" aria-labelledby="gridEnterModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -475,7 +466,6 @@
         </div>
     </div>
 
-
     <!-- Grid Exit Modal -->
     <div class="modal fade" id="gridExitModal" tabindex="-1" aria-labelledby="gridExitModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -494,7 +484,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Load Modal -->
     <div class="modal fade" id="loadModal" tabindex="-1" aria-labelledby="loadModalLabel" aria-hidden="true">
@@ -522,7 +511,6 @@
         </div>
     </div>
 
-
     <!-- Save Modal -->
     <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -549,60 +537,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal avec Onglets -->
-    <!-- <div class="modal fade" id="loadModal" tabindex="-1" aria-labelledby="loadModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loadModalLabel">Plateau</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-
-            <ul class="nav nav-tabs" id="plateauTab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="charger-tab" data-bs-toggle="tab" data-bs-target="#charger"
-                  type="button" role="tab" aria-controls="charger" aria-selected="true">Charger</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="enregistrer-tab" data-bs-toggle="tab" data-bs-target="#enregistrer"
-                  type="button" role="tab" aria-controls="enregistrer" aria-selected="false">Enregistrer</button>
-              </li>
-            </ul>
-
-            <div class="tab-content" id="plateauTabContent">
-
-              <div class="tab-pane fade show active" id="charger" role="tabpanel" aria-labelledby="charger-tab">
-                <form>
-                  <div class="mb-3 mt-3">
-                    <label for="loadConfig" class="form-label">Sélectionner une configuration</label>
-                    <select class="form-select" id="loadConfig">
-                      <option value="configuration1">Configuration 1</option>
-
-                    </select>
-                  </div>
-                </form>
-              </div>
-
-              <div class="tab-pane fade" id="enregistrer" role="tabpanel" aria-labelledby="enregistrer-tab">
-                <form>
-                  <div class="mb-3 mt-3">
-                    <label for="saveName" class="form-label">Nom du fichier</label>
-                    <input type="text" class="form-control" id="saveName" placeholder="Entrez le nom du fichier">
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-primary" id="saveLoadButton" data-bs-dismiss="modal">Confirmer</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
 
     <!-- Définir Règles Modal -->
     <div class="modal fade" id="defineRulesModal" tabindex="-1" aria-labelledby="defineRulesModalLabel"
@@ -711,20 +645,20 @@
         </div>
     </div>
 
-
     <!-- Predefines Modal -->
-    <div class="modal fade" id="predefineModal" tabindex="-1" aria-labelledby="predefineModalLabel" aria-hidden="true">
+    <div class="modal fade" id="predefineRulesModal" tabindex="-1" aria-labelledby="predefineRulesModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="predefineModalLabel">Règles Prédéfinies</h5>
+                    <h5 class="modal-title" id="predefineRulesModalLabel">Règles Prédéfinies</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="rulesPredefineSelect" class="form-label">Choisir une règle</label>
-                            <select class="form-select" id="rulesPredefineSelect">
+                            <label for="predefineRulesSelect" class="form-label">Choisir une règle</label>
+                            <select class="form-select" id="predefineRulesSelect">
                                 <option value="3/23">Classique (B3/S23)</option>
                                 <option value="36/23">HighLife (B36/S23)</option>
                                 <option value="3678/34678">Day & Night (B3678/S34678)</option>
@@ -736,125 +670,13 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            id="applyPredefineButton">Appliquer
+                            id="applyPredefineRulesButton">Appliquer
                     </button>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <!-- Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Ajout Rapide</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <!-- Sélection de la Taille du Carré ou Patron -->
-                        <div class="mb-3">
-                            <p class="form-label">Ajouter</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <!-- Taille du Carré -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="addOptions" id="squareAddInput"
-                                           value="square">
-                                    <label class="form-check-label" for="squareAddInput">Carré</label>
-                                </div>
-                                <div id="squareSizes" class="ms-4" style="display:none;">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="squareSize"
-                                               id="sizeSquareAddInput1" value="1">
-                                        <label class="form-check-label" for="sizeSquareAddInput1">1x1</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="squareSize"
-                                               id="sizeSquareAddInput2" value="2">
-                                        <label class="form-check-label" for="sizeSquareAddInput2">2x2</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="squareSize"
-                                               id="sizeSquareAddInput3" value="3">
-                                        <label class="form-check-label" for="sizeSquareAddInput3">3x3</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="squareSize"
-                                               id="sizeSquareAddInput4" value="4">
-                                        <label class="form-check-label" for="sizeSquareAddInput4">4x4</label>
-                                    </div>
-                                </div>
-
-                                <!-- Patron -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="addOptions" id="patternAddInput"
-                                           value="pattern">
-                                    <label class="form-check-label" for="patternAddInput">Patron</label>
-                                </div>
-                                <div id="patternAddSelect" class="ms-4" style="display:none;">
-                                    <select class="form-select mt-2">
-                                        <option value="block">Block</option>
-                                        <option value="beehive">Beehive</option>
-                                        <option value="loaf">Loaf</option>
-                                        <option value="boat">Boat</option>
-                                        <option value="blinker">Blinker</option>
-                                        <option value="toad">Toad</option>
-                                        <option value="glider">Glider</option>
-                                        <!-- Ajoutez ici d'autres patrons selon vos besoins -->
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ajouter</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Pas à Pas Modal -->
-    <div class="modal fade" id="stepModal" tabindex="-1" aria-labelledby="stepModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="stepModalLabel">Vitesse d'Animation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="stepSelectModal" class="form-label">Sélectionner la vitesse :</label>
-                            <select id="stepSelectModal" class="form-select mt-2">
-                                <option value="1">1</option>
-                                <option value="10">10</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="500">500</option>
-                                <option value="1000">1000</option>
-                                <option value="10000">10000</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button id="stepApplyModal" type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                        Appliquer
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </div>
-
 
 <div id="docWindow" class="desactivate mt-4">
     <h1 class="text-center mb-4 ">
@@ -865,103 +687,154 @@
             Présentation
         </h2>
         <div>
-            <p>Le <em>"jeu de la vie"</em> est un exemple emblématique de ce que l'on appelle
-                un automate cellulaire&nbsp;: une classe de modèles mathématiques
-                utilisée pour simuler des phénomènes complexes. Bien que ce jeu ne
-                soit pas un jeu au sens traditionnel, il a suscité un intérêt
-                considérable, souvent ludique, en raison de sa simplicité et de la
-                complexité émergente qu'il génère.</p>
-            <p>Imaginé en 1970 par le mathématicien
-                britannique John Conway, il repose sur une grille à deux
-                dimensions composée de cellules vivantes ou éteintes. Chacune d'entre elles
-                évolue en fonction d'un ensemble de règles simples fondées
-                sur la présence d'autres cellules vivantes dans son voisinage.
-                Initialement conçu pour être joué sur une grille infinie, il a
-                rapidement trouvé des applications en informatique, en mathématiques
-                et en biologie.</p>
-            <p>Les règles du jeu de la vie au depart sont étonnamment simples&nbsp;:
+            <p>Le <em>"jeu de la vie"</em> est un exemple emblématique de ce que l'on appelle un automate cellulaire&nbsp;:
+                une classe de modèles mathématiques utilisée pour simuler des phénomènes complexes. Bien que ce jeu ne
+                soit pas un jeu au sens traditionnel, il a suscité un intérêt considérable, souvent ludique, en raison
+                de sa simplicité et de la complexité émergente qu'il génère.</p>
+            <p>Imaginé en 1970 par le mathématicien britannique John Conway, il repose sur une grille à deux dimensions
+                composée de cellules vivantes ou éteintes. Chacune d'entre elles évolue en fonction d'un ensemble de
+                règles simples fondées sur la présence d'autres cellules vivantes dans son voisinage. Initialement conçu
+                pour être joué sur une grille infinie, il a rapidement trouvé des applications en informatique, en
+                mathématiques et en biologie.</p>
+            <p>Les règles du jeu de la vie au depart sont étonnamment simples&nbsp;: </p>
             <ol>
-                <li>Chaque cellule peut être soit vivante (remplie) soit éteinte
-                    (vide).
+                <li>Chaque cellule peut être soit vivante (remplie) soit éteinte (vide).
                 </li>
-                <li>L'évolution des cellules se fait en fonction de leur
-                    environnement immédiat, c'est-à-dire les huit cellules voisines.
+                <li>L'évolution des cellules se fait en fonction de leur environnement immédiat, c'est-à-dire les huit
+                    cellules voisines.
                 </li>
-                <li>Une cellule vivante avec 2 ou 3 voisins survivra à la génération
-                    suivante. Sinon, elle s'éteindra (par "sous-population" ou
-                    "surpopulation").
+                <li>Une cellule vivante avec 2 ou 3 voisins survivra à la génération suivante. Sinon, elle s'éteindra
+                    (par "sous-population" ou "surpopulation").
                 </li>
-                <li>Une cellule éteinte avec exactement 3 voisins vivants apparaît
-                    (par "reproduction").
+                <li>Une cellule éteinte avec exactement 3 voisins vivants apparaît (par "reproduction").
                 </li>
             </ol>
-            </p>
-            <p>Bien que les règles du jeu soient simples, cet automate cellulaire
-                génère des configurations étonnamment complexes. On retrouve des
-                planeurs, ensembles de cellules mobiles&nbsp; des oscillateurs
-                ensembles qui reviennent régulièrement à leur état initial&nbsp; des
-                vaisseaux, ensembles mobiles qui laissent derrière eux d'autres
-                ensembles. Il existe également des configurations stables, appelées
-                statics.</p>
-            <p>De simples et légères modifications dans les règles peuvent conduire
-                vers des modèles chaotiques ou vers des structures stables et passer
-                de l'un à l'autre. En cela, le jeu de la vie est un outil efficace
-                pour se rendre compte de la fragilité de l'équilibre de certains
-                écosystèmes. Par exemple, des petites modifications à un endroit
-                (accentuer ou relâcher la pression à certains endroits) engendrent
-                des conséquences insoupçonnées sur l'ensemble des parties.</p>
 
-            <p>Le jeu de la vie est un exemple typique de la façon dont des règles
-                simples peuvent générer une merveilleuse complexité émergente. L'exploration des
-                configurations et des modèles de cet outil est une source
-                de réflexion pour les scientifiques et les amateurs. A vous
-                d'essayer et de lancer vos propres expérimentations.</p>
+            <p>Bien que les règles du jeu soient simples, cet automate cellulaire génère des configurations étonnamment
+                complexes. On retrouve des planeurs, ensembles de cellules mobiles&nbsp; des oscillateurs ensembles qui
+                reviennent régulièrement à leur état initial&nbsp; des vaisseaux, ensembles mobiles qui laissent
+                derrière eux d'autres ensembles. Il existe également des configurations stables, appelées statics.</p>
+            <p>De simples et légères modifications dans les règles peuvent conduire vers des modèles chaotiques ou vers
+                des structures stables et passer de l'un à l'autre. En cela, le jeu de la vie est un outil efficace pour
+                se rendre compte de la fragilité de l'équilibre de certains écosystèmes. Par exemple, des petites
+                modifications à un endroit (accentuer ou relâcher la pression à certains endroits) engendrent des
+                conséquences insoupçonnées sur l'ensemble des parties.</p>
+            <p>Le jeu de la vie est un exemple typique de la façon dont des règles simples peuvent générer une
+                merveilleuse complexité émergente. L'exploration des configurations et des modèles de cet outil est une
+                source de réflexion pour les scientifiques et les amateurs. A vous d'essayer et de lancer vos propres
+                expérimentations.</p>
         </div>
 
-        <h2 class="">
-            Aide
-        </h2>
+        <h2 class="">Aide</h2>
         <div class="accordion" id="helpAccordion">
 
             <!-- Nouvelle simulation -->
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne"
-                            aria-expanded="true" aria-controls="collapseOne">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-plus-circle me-2" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                            <path
-                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                        </svg>
+                <h2 class="accordion-header" id="headingNew">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseNew" aria-expanded="true" aria-controls="collapseNew">
+                        <i class="bi bi-plus-circle me-2"></i>
                         <strong>Simulation :</strong>
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                <div id="collapseNew" class="accordion-collapse collapse" aria-labelledby="headingNew"
                      data-bs-parent="#helpAccordion">
                     <div class="accordion-body">
-                        <p>Ce bouton ouvre une fenêtre pour configurer
-                            une nouvelle simulation du jeu de la vie. Vous pouvez choisir les dimensions de la
-                            grille et les règles initiales.</p>
+                        <p>Ce bouton ouvre une fenêtre pour configurer une nouvelle simulation du jeu de la vie. Vous
+                            pouvez choisir les dimensions de la grille et la taille de chaque cellule.</p>
+                        <p>Vous pouvez aussi choisir la répartition au hasard de chaque cellule de la grille
+                        entre 0, 1, 2, 3 et 4</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sauvegarde -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSave">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseSave" aria-expanded="true" aria-controls="collapseSave">
+                        <img src="src/img/save.svg" class="me-2" alt=""></img>
+                        <strong>Sauvegarde :</strong>
+                    </button>
+                </h2>
+                <div id="collapseSave" class="accordion-collapse collapse" aria-labelledby="headingSave"
+                     data-bs-parent="#helpAccordion">
+                    <div class="accordion-body">
+                        <p>Ce bouton ouvre une fenêtre pour enregistrer la grille visible sous forme de tableau
+                        de chiffres dans le Local Storage en tant que valeur d'une clef, dont vous donnez le nom.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nouveau chargement -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingLoad">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLoad" aria-expanded="true" aria-controls="collapseLoad">
+                        <img src="src/img/load.svg" class="me-2" alt=""></img>
+                        <strong>Chargement :</strong>
+                    </button>
+                </h2>
+                <div id="collapseLoad" class="accordion-collapse collapse" aria-labelledby="headingLoad"
+                     data-bs-parent="#helpAccordion">
+                    <div class="accordion-body">
+                        <p>Ce bouton ouvre une fenêtre pour charger l'une des différentes grilles sauvegardées
+                            en Local Storage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nouveau entrée -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingEntry">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseEntry" aria-expanded="true" aria-controls="collapseEntry">
+                        <i class="bi bi-list-columns me-2"></i>
+                        <strong>Entrée :</strong>
+                    </button>
+                </h2>
+                <div id="collapseEntry" class="accordion-collapse collapse" aria-labelledby="headingEntry"
+                     data-bs-parent="#helpAccordion">
+                    <div class="accordion-body">
+                        <p>Ce bouton ouvre une fenêtre dans laquelle on peut entrer un rectangle de chiffres
+                        composés de 0, 1, 2, 3, 4 et 9. En cliquant sur appliquer vous pouvez transformer
+                        cette grille en dessin canvas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nouveau copie -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingCopy">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseCopy" aria-expanded="true" aria-controls="collapseCopy">
+                        <img src="src/img/copy.svg" class="me-2" alt=""></img>
+                        <strong>Entrée :</strong>
+                    </button>
+                </h2>
+                <div id="collapseCopy" class="accordion-collapse collapse" aria-labelledby="headingCopy"
+                     data-bs-parent="#helpAccordion">
+                    <div class="accordion-body">
+                        <p>Cliquer sur ce bouton permet de copier la grille en cours dans le presse-papier
+                        puis </p>
                     </div>
                 </div>
             </div>
 
             <!-- Pas à pas -->
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
+                <h2 class="accordion-header" id="headingStep">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            data-bs-target="#collapseStep" aria-expanded="false" aria-controls="collapseStep">
                         <i class="bi bi-arrow-right-circle me-2"></i>
                         <strong>Pas à Pas :</strong>
                     </button>
                 </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                <div id="collapseStep" class="accordion-collapse collapse" aria-labelledby="headingStep"
                      data-bs-parent="#helpAccordion">
                     <div class="accordion-body">
-                        <p>Avance la simulation d'une seule étape, permettant de voir
-                            l'évolution cellule par cellule.</p>
+                        <p>Avance la simulation d'une seule étape, permettant de voir l'évolution cellule par
+                            cellule.</p>
                     </div>
                 </div>
             </div>
@@ -980,8 +853,8 @@
                     <div class="accordion-body">
                         <p><i class="bi bi-play-fill border border-dark p-1 rounded me-2"></i>Ce bouton lance la
                             simulation, permettant de voir les cellules évoluer en temps réel.</p>
-                        <p><i class="bi bi-pause-fill border border-dark p-1 rounded me-2"></i>Ce bouton met en
-                            pause la simulation, vous permettant d'analyser l'état actuel des cellules sans changement.
+                        <p><i class="bi bi-pause-fill border border-dark p-1 rounded me-2"></i>Ce bouton met en pause la
+                            simulation, vous permettant d'analyser l'état actuel des cellules sans changement.
                         </p>
                     </div>
                 </div>
@@ -1001,7 +874,6 @@
                     <div class="accordion-body">
                         <p>Ce bouton ouvre un menu pour ajuster la vitesse de la simulation.</p>
                         <p>Vous pouvez sélectionner la vitesse d'exécution. par exemple x1, x2, x5, etc.</p>
-
                         <p>
                             <button class="btn btn-outline-secondary me-2"><span>x 1</span>
                             </button>
@@ -1049,7 +921,7 @@
                 <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                      data-bs-parent="#helpAccordion">
                     <div class="accordion-body">
-                        <p></i>Ce bouton ouvre un petit menu pour sélectionner la couleur des cellules.</p>
+                        <p>Ce bouton ouvre un petit menu pour sélectionner la couleur des cellules.</p>
                         <p><i class="bi bi-palette-fill border border-dark p-1 rounded me-2 blue"></i> Choisir les
                             cellules de type 1.</p>
                         <p><i class="bi bi-palette-fill border border-dark p-1 rounded me-2 red"></i> Choisir les
@@ -1069,8 +941,8 @@
                 <h2 class="accordion-header" id="headingSix">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                        <p class="bi bi-pencil me-2"></i>
-                            <strong>Crayon :</strong>
+                        <i class="bi bi-pencil me-2"></i>
+                        <strong>Crayon :</strong>
                     </button>
                 </h2>
                 <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
@@ -1177,14 +1049,13 @@
     </div>
 </div>
 
-
 <!-- Bouton de basculage -->
 <button id="toggleDocButton" class="fixed-bottom-right toggle-icon">
     <i id="toggleDocIcon" class="bi bi-question-circle-fill"></i>
 </button>
 
 
-<script src="js/Window.js" type="module"></script>
+<script src="dist/bundle.js" type="module"></script>
 
 <!-- Bootstrap JS and Dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

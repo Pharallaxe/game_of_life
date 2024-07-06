@@ -1,6 +1,6 @@
 # Jeu de la Vie
 
-![Illustration de l'auteur](./img/pharallaxe.png)
+![Illustration de l'auteur](src/img/pharallaxe.png)
 
 ## Licence
 Ce projet est sous licence [Apache](./LICENSE).

@@ -3,8 +3,7 @@ import {Board} from './Board.js';
 import {BoardCanvas} from './BoardCanvas.js';
 import {HTML} from './HTML.js';
 
-import {conf} from './configuration.js';
-import {$, $All} from './utils.js';
+import {$} from './utils.js';
 import {Config} from './Config.js';
 
 class Window {
@@ -239,10 +238,19 @@ class Window {
         parentCanvas.appendChild(canvas);
     }
 
+    /**
+     * Formate la grille en fonction du nombre de lignes, de colonnes et de la taille des cellules.
+     *
+     * @param {number} row - Le nombre de lignes de la grille.
+     * @param {number} col - Le nombre de colonnes de la grille.
+     * @param {number} cellSize - La taille initiale des cellules.
+     * @returns {void}
+     */
     formatGrid(row, col, cellSize) {
         const canvasSize = HTML.canvasContainer.offsetWidth - 20
+
         // Mise à jour de la taille des cellules en fonction de la largeur.   
-        const currentMaxCellSize = Math.min(parseInt(canvasSize / col), conf.MAX_CELL_SIZE, cellSize);
+        const currentMaxCellSize = Math.min(parseInt(canvasSize / col), Config.MAX_CELL_SIZE, cellSize);
 
         this.setRowCanvas(row);
         this.setColumnCanvas(col);
@@ -250,9 +258,6 @@ class Window {
     }
 
     cleanGrid() {
-        // this.setBoard(new Board(this));
-        // this.resetCanvas();
-        // this.setBoardCanvas(new BoardCanvas(this));
         this.clearGrid();
         this.stopAnimation();
         this.updateBottomNav(true);
@@ -277,7 +282,7 @@ class Window {
 
     setCellSizeZoomIn() {
         let zoom = this.getCellSize() + 1;
-        if (zoom > conf.MAX_CELL_SIZE) zoom = conf.MAX_CELL_SIZE;
+        if (zoom > Config.MAX_CELL_SIZE) zoom = Config.MAX_CELL_SIZE;
 
         const canvasSize = HTML.canvasContainer.offsetWidth - 20
 
@@ -285,7 +290,6 @@ class Window {
         const currentMaxCellSize = Math.min(
             Math.floor(canvasSize / this.getColumnCanvas()),
             zoom)
-        console.log(currentMaxCellSize)
         this.setCellSize(currentMaxCellSize);
         this.getBoardCanvas().setupCanvas();
         this.getBoardCanvas().drawGrid();
@@ -293,7 +297,7 @@ class Window {
 
     setCellSizeZoomOut() {
         let zoom = this.getCellSize() - 1;
-        if (zoom < conf.MIN_CELL_SIZE) zoom = conf.MIN_CELL_SIZE;
+        if (zoom < Config.MIN_CELL_SIZE) zoom = Config.MIN_CELL_SIZE;
         this.setCellSize(zoom);
         this.getBoardCanvas().setupCanvas();
         this.getBoardCanvas().drawGrid();

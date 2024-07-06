@@ -1,4 +1,5 @@
-import {conf} from './configuration.js';
+import {Config} from './Config.js';
+
 
 export class BoardCanvas {
     #app;
@@ -31,7 +32,7 @@ export class BoardCanvas {
 
     setupCanvas() {
         this.setDimensionsCanvas();
-        this.getCtx().fillStyle = conf.canvasBgColor;
+        this.getCtx().fillStyle = Config.canvasBgColor;
         this.getCtx().fillRect(0, 0, this.getCanvas().width, this.getCanvas().height);
     }
 
@@ -45,7 +46,7 @@ export class BoardCanvas {
             for (let i = 0; i < this.getApp().getColumnCanvas(); i++) {
                 const currentValueCell = this.getApp().getBoard().getGridValue(j, i);
                 const cellSize = this.getApp().getCellSize();
-                if (conf.notDeadValueSet.has(currentValueCell)) {
+                if (Config.notDeadValueSet.has(currentValueCell)) {
                     this.getCtx().fillStyle = this.getColorFromIndex(currentValueCell, j, i);
                     this.getCtx().fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
                 }

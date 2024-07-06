@@ -63,7 +63,8 @@ canvas.border {
 #rapidityButtons,
 #stepButtons,
 #moveButtons,
-#zoomButtons {
+#zoomButtons,
+#jumpButtons {
     display: none;
     z-index: 3;
     margin-top: 5px;
@@ -76,6 +77,10 @@ canvas.border {
 }
 
 #stepButtons {
+    left: -5px;
+}
+
+#jumpButtons {
     left: -5px;
 }
 
@@ -146,4 +151,11 @@ canvas.border {
 
 .desactivate {
     display: none;
+}
+
+@media (max-width: 600px) {
+    .responsive-container {
+        height: auto;
+        padding: 5px;
+    }
 }
