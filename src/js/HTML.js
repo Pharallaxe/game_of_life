@@ -82,6 +82,12 @@ export class HTML {
     // History
     static historyPrincipalButton = $('#historyPrincipalButton');
 
+    // Pattern
+    static patternPrincipalButton = $('#patternPrincipalButton');
+    static patternSelect = $('#patternSelect');
+    static patternPreview = $("#patternPreview")
+    static applyPatternButton = $('#applyPatternButton');
+
     // Color
     static colorIcon = $('#colorIcon');
     static wallIcon = $('#wallIcon');

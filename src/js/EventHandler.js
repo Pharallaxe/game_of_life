@@ -1,6 +1,7 @@
 import {Config} from './Config.js';
 import {$} from './utils.js';
 import {HTML} from './HTML.js';
+import {PatternManager} from "./PatternManager.js";
 
 export class EventHandler {
     #app;
@@ -147,6 +148,7 @@ export class EventHandler {
         this.initializeLoadModal();
         this.initiatilizeEnterButton();
         this.initializeCopyIcon();
+        this.initializePatternIcon();
         this.initializeStepIcon();
         this.initializeJumpIcon();
         this.initializeStartIcon();
@@ -482,6 +484,16 @@ export class EventHandler {
                 });
         });
     }
+
+    /******************************************
+     * INITIALISATION DES PATTERNS
+     ******************************************/
+
+    initializePatternIcon() {
+        const patternManager = new PatternManager(this);
+        patternManager.init();
+    }
+
 
     /******************************************
      * INITIALISATION PAS A PAS

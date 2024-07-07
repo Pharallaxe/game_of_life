@@ -169,6 +169,35 @@
                 padding: 5px;
             }
         }
+
+        .scrollable-select {
+            overflow-y: auto;
+            max-height: 200px; /* Ajustez cette valeur selon vos besoins */
+        }
+
+        .scrollable-select option {
+            padding: 8px;
+        }
+
+        .scrollable-select option:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+
+        #patternPreview {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #patternPreviewTable {
+            align-self: center;
+        }
+
+        #patternPreviewTable td {
+            border: 1px solid #ccc;
+        }
+
     </style>
 
 </head>
@@ -221,6 +250,13 @@
                             <button id="copyPrincipalButton" class="btn btn-outline-secondary" type="button"
                                     title="Copier dans le presse-papier">
                                 <img src="src/img/copy.svg" alt="">
+                            </button>
+
+                            <!-- Livre -->
+                            <button id="patternPrincipalButton" class="btn btn-outline-secondary" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#patternModal"
+                                    title="Ouvrir la liste des patterns">
+                                <i class="bi bi-journals"></i>
                             </button>
 
                             <!-- Pas à pas -->
@@ -677,6 +713,30 @@
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             id="applySaveButton">Enregistrer
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Définir Règles Modal -->
+    <div class="modal fade" id="patternModal" tabindex="-1" aria-labelledby="patternModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="patternModalLabel">Choisir un Pattern</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-select mb-3" id="patternSelect">
+                        <option selected>Choisir</option>
+                    </select>
+                    <div class="border p-3 mb-3" id="patternPreview">
+                        <!-- La prévisualisation du pattern sera affichée ici -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="applyPatternButton">Appliquer</button>
                 </div>
             </div>
         </div>
@@ -1275,7 +1335,7 @@
                      data-bs-parent="#helpAccordion">
                     <div class="accordion-body">
                         <p>Ouvre une fenêtre qui va permettre de définir les règles du jeu de la vie : les une sont
-                        les règles de naissance d'une cellule, les autres les règles de survie.</p>
+                            les règles de naissance d'une cellule, les autres les règles de survie.</p>
                     </div>
                 </div>
             </div>
@@ -1290,11 +1350,12 @@
                         <strong>Règles prédéfinies :</strong>
                     </button>
                 </h4>
-                <div id="collapsePredefineRules" class="accordion-collapse collapse" aria-labelledby="headingPredefineRules"
+                <div id="collapsePredefineRules" class="accordion-collapse collapse"
+                     aria-labelledby="headingPredefineRules"
                      data-bs-parent="#helpAccordion">
                     <div class="accordion-body">
                         <p>Ouvre une fenêtre qui va permettre de choisir des règles prédéfinies du jeu de la vie.
-                        Pour exemple, B3/S23 indique les règles suivantes</p>
+                            Pour exemple, B3/S23 indique les règles suivantes</p>
                         <ul>
                             <li>La case 3 est cochée parmi les règles de naissance</li>
                             <li>Les cases 2 et 3 sont cochées parmi les règles de naissance</li>
