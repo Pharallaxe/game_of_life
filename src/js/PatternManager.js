@@ -23,6 +23,7 @@ export class PatternManager {
             const option = document.createElement('option');
             option.value = index;
             option.textContent = pattern.name;
+            console.log(pattern)
             HTML.patternSelect.appendChild(option);
         });
     }
@@ -53,7 +54,6 @@ export class PatternManager {
         const cellSize = previewWidth / columns;
 
         pattern.grid.forEach(row => {
-            console.log(row)
             const tr = document.createElement('tr');
             tr.style.height = `${cellSize * 0.6}px`;
             row.forEach(cell => {
@@ -81,7 +81,6 @@ export class PatternManager {
     }
 
     applyPatternToGame(pattern) {
-        console.log('Appliquer le pattern : \n', pattern.grid);
         this.eventHandler.updateStartButton(true);
         this.eventHandler.getApp().cleanGrid();
         this.eventHandler.getApp().formatGrid(pattern.grid.length, pattern.grid[0].length, this.eventHandler.getApp().getCellSize());

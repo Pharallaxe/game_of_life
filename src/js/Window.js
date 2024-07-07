@@ -1,10 +1,10 @@
-import {EventHandler} from './EventHandler.js';
-import {Board} from './Board.js';
-import {BoardCanvas} from './BoardCanvas.js';
-import {HTML} from './HTML.js';
+import { EventHandler } from './EventHandler.js';
+import { Board } from './Board.js';
+import { BoardCanvas } from './BoardCanvas.js';
+import { HTML } from './HTML.js';
 
-import {$} from './utils.js';
-import {Config} from './Config.js';
+import { $ } from './utils.js';
+import { Config } from './Config.js';
 
 class Window {
 
@@ -278,6 +278,11 @@ class Window {
         HTML.generation.textContent = reset ? "0" : this.getBoard().getGeneration();
         HTML.livingCells.textContent = reset ? "0" : this.getBoard().getIsAlive();
         HTML.totalCells.textContent = reset ? "0" : this.getBoard().getTotalAlive();
+        if (reset) {
+            this.getBoard().setGeneration(0);
+            this.getBoard().getIsAlive(0);
+            this.getBoard().getTotalAlive(0);
+        }
     }
 
     setCellSizeZoomIn() {
