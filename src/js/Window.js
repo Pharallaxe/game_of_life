@@ -280,8 +280,8 @@ class Window {
         HTML.totalCells.textContent = reset ? "0" : this.getBoard().getTotalAlive();
         if (reset) {
             this.getBoard().setGeneration(0);
-            this.getBoard().getIsAlive(0);
-            this.getBoard().getTotalAlive(0);
+            this.getBoard().setIsAlive(0);
+            this.getBoard().setTotalAlive(0);
         }
     }
 
