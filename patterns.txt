@@ -6219,8 +6219,8 @@
 	.OO.OO.
 	.O.O.O.
 	OO...OO
-	
-:moose antlers 
+
+:moose-antlers
 	OO.....OO
 	O.......O
 	.OOO.OOO.
@@ -6276,7 +6276,7 @@
 	..O.O.O
 	.....OO
 
-:MW emulator Found by Robert Wainwright in June 1980. See also emulator and filter.
+:MW-emulator Found by Robert Wainwright in June 1980. See also emulator and filter.
 	.......O.......
 	..OO.O...O.OO..
 	..O.........O..
@@ -6293,7 +6293,7 @@
 	OOOOO.
 
 
-:MWSS out of the blue The following reaction, found by Peter Rott in November 1997, in which a LWSS passing by a p46 oscillator creates a MWSS travelling in the opposite direction. Together with some reactions found by Dieter Leithner, and an LWSS-turning reaction which Rott had found in November 1993 (but which was not widely known until Paul Callahan rediscovered it in June 1994) this can be used to prove that there exist gliderless guns for LWSS, MWSS and HWSS for every period that is a multiple of 46.
+:MWSS-out-of-the-blue The following reaction, found by Peter Rott in November 1997, in which a LWSS passing by a p46 oscillator creates a MWSS travelling in the opposite direction. Together with some reactions found by Dieter Leithner, and an LWSS-turning reaction which Rott had found in November 1993 (but which was not widely known until Paul Callahan rediscovered it in June 1994) this can be used to prove that there exist gliderless guns for LWSS, MWSS and HWSS for every period that is a multiple of 46.
 	O..O.................................
 	....O................................
 	O...O................................

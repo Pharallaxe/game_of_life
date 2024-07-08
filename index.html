@@ -125,16 +125,10 @@
 
         #arrayGridEnterInput.valid {
             background-color: #d4edda;
-            /* vert pâle */
         }
 
         #arrayGridEnterInput.invalid {
             background-color: #f8d7da;
-            /* rouge pâle */
-        }
-
-        #gridOutput {
-            line-height: 1.0;
         }
 
         .fixed-bottom-right {
@@ -146,7 +140,6 @@
 
         .toggle-icon {
             font-size: 1.5rem;
-            /* padding: 10px; */
             border-radius: 50%;
             background-color: #007bff;
             color: white;
@@ -168,12 +161,6 @@
                 height: auto;
                 padding: 5px;
             }
-        }
-
-        .scrollable-select {
-            overflow-y: auto;
-            max-height: 200px;
-            /* Ajustez cette valeur selon vos besoins */
         }
 
         .scrollable-select option {
@@ -214,11 +201,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 22%;
+        }
+
+        .patternDivContent label {
+            margin-right: 10px;
+            font-size: 14px;
         }
 
         .patternDivContent input {
+            -webkit-appearance: none; /* Préfixe pour Chrome/Safari */
+            -moz-appearance: none; /* Préfixe pour Firefox */
+            appearance: none;
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             text-align: center;
+            width: 100%;
         }
+
     </style>
 
 </head>
