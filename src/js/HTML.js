@@ -87,16 +87,13 @@ export class HTML {
     static patternSelect = $('#patternSelect');
     static patternPreview = $("#patternPreview")
     static applyPatternButton = $('#applyPatternButton');
-    static topPatternDiv = $('#topPatternDiv');
-    static bottomPatternDiv = $('#bottomPatternDiv');
-    static leftPatternDiv = $('#leftPatternDiv');
-    static rightPatternDiv = $('#rightPatternDiv');
     static patternTable = $('#patternTable');
     static patternDescription = $('#patternDescription');
     static topPatternInput = $('#topPatternInput');
     static bottomPatternInput = $('#bottomPatternInput');
     static leftPatternInput = $('#leftPatternInput');
     static rightPatternInput = $('#rightPatternInput');
+    static patternInput = [HTML.topPatternInput, HTML.bottomPatternInput, HTML.leftPatternInput, HTML.rightPatternInput]
 
     // Color
     static colorIcon = $('#colorIcon');

@@ -1,5 +1,5 @@
 import json
-ajout = 10
+ajout = 0
 
 
 def read_patterns_from_file(file_path):
