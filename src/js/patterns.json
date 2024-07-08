@@ -179849,7 +179849,7 @@
       ]
     },
     {
-      "name":"moose",
+      "name":"moose-antlers",
       "grid":[
         [
           1,
@@ -181107,7 +181107,7 @@
       ]
     },
     {
-      "name":"MW",
+      "name":"MW-emulator",
       "grid":[
         [
           0,
@@ -181276,7 +181276,7 @@
       ]
     },
     {
-      "name":"MWSS",
+      "name":"MWSS-out-of-the-blue",
       "grid":[
         [
           1,

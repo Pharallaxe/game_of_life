@@ -6220,7 +6220,7 @@
 	.O.O.O.
 	OO...OO
 
-:moose-antlers
+:moose-antlers test.
 	OO.....OO
 	O.......O
 	.OOO.OOO.
