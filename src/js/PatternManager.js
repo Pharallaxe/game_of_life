@@ -1,4 +1,4 @@
-import {HTML} from "./HTML";
+import { HTML } from "./HTML";
 import patternsData from './patterns.json';
 
 
@@ -12,16 +12,15 @@ export class PatternManager {
         this.#eventHandler = eventHandler;
         this.#patterns = patternsData.patterns;
         this.#config = {};
-        this._eventHandler = eventHandler;
     }
 
 
     getEventHandler() {
-        return this._eventHandler;
+        return this.#eventHandler;
     }
 
     setEventHandler(value) {
-        this._eventHandler = value;
+        this.#eventHandler = value;
     }
 
     getPatterns() {
@@ -97,7 +96,7 @@ export class PatternManager {
      * @returns {number[][]} Une nouvelle grille avec la bordure ajoutée.
      */
     createGridWithBorder(grid) {
-        const {T, B, L, R} = this.getConfig();
+        const { T, B, L, R } = this.getConfig();
         const width = grid[0].length + L + R;
 
         return [
@@ -181,8 +180,33 @@ export class PatternManager {
         if (selectedIndex < 0) return null;
 
         const selectedPattern = this.getPatterns()[selectedIndex];
+        // const grid = this.transformJsonToGrid(selectedPattern);
         return selectedPattern.grid;
     }
+
+    transformJsonToGrid(selectedPattern) {
+        const result = [];
+        for (let i = 0; i < selectedPattern.length; i++) {
+            const line = selectedPattern.grid[i];
+            console.log(line)
+            const transformedLine = [];
+            let count = 0;
+            for (let j = 0; j < line.length; j++) {
+                if (line[j] === 1) {
+                    count++;
+                } else if (count !== 0 && line[j] === 0) {
+                    transformedLine.push([j - count, count]);
+                    count = 0;
+                }
+            }
+            if (count !== 0) {
+                transformedLine.push([line.length - count, count]);
+            }
+            result.push(transformedLine);
+        }
+        return result;
+    }
+
 
     /**
      * Récupère l'objet complet du motif actuellement sélectionné dans le sélecteur.

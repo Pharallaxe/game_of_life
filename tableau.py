@@ -61,21 +61,39 @@ def parse_pattern(pattern_raw):
         return None
     
     gridStripped = [row.strip() for row in grid if len(row) > 1]
-    gridFormatted = [[0 if i == "." else 1 for i in y] for y in gridStripped]
 
-    
-    return {
+    json_object = {
         'name': nom,
-        'grid': gridFormatted
-    }
+        'length' : len(gridStripped[0]),
+        "grid": []
+        }
 
+    for line in gridStripped:
+        json_line = transform_line(line)
+        json_object["grid"].append(json_line)
+    
+    return json_object
+
+def transform_line(line):
+    result = []
+    count = 0
+    for i, char in enumerate(line):
+        if char == "O":            
+            count += 1
+        elif count != 0 and char == ".":
+            result.append([i, count])
+            count = 0
+    if count != 0:
+        result.append([i-count, count])
+    # print(result)
+    return result
 
 def main():
     """
     Point d'entrée principal du script.
     """
     # Lire les patterns à partir du fichier
-    patterns = read_patterns_from_file('patterns.txt')
+    patterns = read_patterns_from_file('fichier_ascii.txt')
     
     # Analyser chaque pattern et créer une liste de dictionnaires
     data = [parse_pattern(pattern) for pattern in patterns]
@@ -84,7 +102,7 @@ def main():
     final_data = {"patterns": data}
         
     # Écrire les données dans un fichier JSON
-    with open('./src/js/patterns.json', 'w') as file:
+    with open('./src/js/patterns_raccourci.json', 'w') as file:
         json.dump(final_data, file, indent=2, separators=(',', ':'))
 
 if __name__ == "__main__":
