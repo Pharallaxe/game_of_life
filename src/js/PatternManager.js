@@ -180,29 +180,28 @@ export class PatternManager {
         if (selectedIndex < 0) return null;
 
         const selectedPattern = this.getPatterns()[selectedIndex];
-        // const grid = this.transformJsonToGrid(selectedPattern);
-        return selectedPattern.grid;
+        // return selectedPattern.grid;
+
+        const grid = this.transformJsonToGrid(selectedPattern);
+        return grid;
     }
 
     transformJsonToGrid(selectedPattern) {
+        const length = selectedPattern.length;
+        const grid = selectedPattern.grid;
+        const gridHeight = grid.length;
+
         const result = [];
-        for (let i = 0; i < selectedPattern.length; i++) {
-            const line = selectedPattern.grid[i];
-            console.log(line)
-            const transformedLine = [];
-            let count = 0;
-            for (let j = 0; j < line.length; j++) {
-                if (line[j] === 1) {
-                    count++;
-                } else if (count !== 0 && line[j] === 0) {
-                    transformedLine.push([j - count, count]);
-                    count = 0;
+        for (let j = 0; j < gridHeight; j++) {
+            const line = new Array(length).fill(0);
+            const gridWidth = grid[j].length;
+            for (let i = 0; i < gridWidth; i++) {
+                let [index, number] = grid[j][i];
+                for (let k = 0; k < number ; k ++) {
+                    line[k + index] = 1;
                 }
             }
-            if (count !== 0) {
-                transformedLine.push([line.length - count, count]);
-            }
-            result.push(transformedLine);
+            result.push(line);
         }
         return result;
     }

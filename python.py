@@ -1,6 +1,33 @@
 import json
-ajout = 0
 
+def parse_pattern_array(pattern_raw):
+    """
+    Analyse un pattern brut pour extraire les informations pertinentes.
+    
+    Args:
+        pattern_raw (str): Le pattern brut.
+    
+    Returns:
+        dict: Un dictionnaire contenant le nom, la description et la grille du pattern.
+    """
+    patternSplited = pattern_raw.split("\n")
+    premiere = patternSplited[0]
+    nom = premiere[0:premiere.index(" ")]
+    print(nom)
+    description = premiere[premiere.index(" "):]
+    grid = patternSplited[1:]
+    
+    if not check_grid_length(grid):
+        return None
+    
+    gridStripped = [row.strip() for row in grid if len(row) > 1]
+    gridFormatted = [[0 if i == "." else 1 for i in y] for y in gridStripped]
+
+    
+    return {
+        'name': nom,
+        'grid': gridFormatted
+    }
 
 def read_patterns_from_file(file_path):
     """
@@ -61,14 +88,32 @@ def parse_pattern(pattern_raw):
         return None
     
     gridStripped = [row.strip() for row in grid if len(row) > 1]
-    gridFormatted = [[0 if i == "." else 1 for i in y] for y in gridStripped]
 
-    
-    return {
+    json_object = {
         'name': nom,
-        'grid': gridFormatted
-    }
+        'length' : len(gridStripped[0]),
+        "grid": []
+        }
 
+    for line in gridStripped:
+        json_line = transform_line(line)
+        json_object["grid"].append(json_line)
+    
+    return json_object
+
+def transform_line(line):
+    result = []
+    count = 0
+    for i, char in enumerate(line):
+        if char == "O":            
+            count += 1
+        elif count != 0 and char == ".":
+            result.append([i-count, count])
+            count = 0
+    if count != 0:
+        result.append([i-count + 1, count])
+    # print(result)
+    return result
 
 def main():
     """
@@ -85,7 +130,7 @@ def main():
         
     # Écrire les données dans un fichier JSON
     with open('./src/js/patterns.json', 'w') as file:
-        json.dump(final_data, file, indent=2, separators=(',', ':'))
+        json.dump(final_data, file, separators=(',', ':'))
 
 if __name__ == "__main__":
     main()
