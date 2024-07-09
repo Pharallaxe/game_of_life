@@ -27,6 +27,8 @@ class Window {
     #isPlaying;
     #enableDraw;
     #isDrawing;
+    #departAutomate;
+    #eventHandler;
 
 
     getBoard() {
@@ -43,6 +45,14 @@ class Window {
 
     setBoardCanvas(value) {
         this.#boardCanvas = value;
+    }
+
+    getEventHandler() {
+        return this.#eventHandler;
+    }
+
+    setEventHandler(value) {
+        this.#eventHandler = value;
     }
 
     getRowCanvas() {
@@ -181,10 +191,18 @@ class Window {
         this.#isDrawing = value;
     }
 
+    getDepartAutomate() {
+        return this.#departAutomate;
+    }
+
+    setDepartAutomate(value) {
+        this.#departAutomate = value;
+    }
 
     constructor() {
         this.#board = undefined;
         this.#boardCanvas = undefined;
+        this.#eventHandler = undefined;
         this.#rowCanvas = 20;                 // Le nombre de lignes par défaut pour un canvas
         this.#columnCanvas = 20;              // Le nombre de colonnes par défault pour un canvas
         this.#cellSize = 12;                  // La taille de cellule par défaut
@@ -202,6 +220,7 @@ class Window {
         this.#isPlaying = false;              // L'animation n'est pas activée
         this.#enableDraw = false;             // Le dessin n'est pas activé
         this.#isDrawing = false;              // ON n'est pas en train de dessiner
+        this.#departAutomate = "quasar-next"; // L'automate de départ.
 
         this.initialize();
     }
@@ -218,12 +237,11 @@ class Window {
 
     initialize() {
         this.verifyInputRules();
-        new EventHandler(this);
+        this.setEventHandler(new EventHandler(this));
         this.setBoard(new Board(this));
         this.resetCanvas();
         this.setBoardCanvas(new BoardCanvas(this));
-        this.getBoard().initPlaneur();
-        this.getBoardCanvas().drawGrid();
+        this.getEventHandler().getPatternManager().displayPrincipalAutomate();
         this.toggleDrawingEvents();
     }
 

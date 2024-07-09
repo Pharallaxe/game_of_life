@@ -5,6 +5,7 @@ import {PatternManager} from "./PatternManager.js";
 
 export class EventHandler {
     #app;
+    #patternManager;
 
     getApp() {
         return this.#app;
@@ -12,7 +13,16 @@ export class EventHandler {
 
     constructor(app) {
         this.#app = app;
+        this.#patternManager = undefined
         this.initialize();
+    }
+
+    getPatternManager() {
+        return this.#patternManager;
+    }
+
+    setPatternManager(value) {
+        this.#patternManager = value;
     }
 
     /**
@@ -490,8 +500,8 @@ export class EventHandler {
      ******************************************/
 
     initializePatternIcon() {
-        const patternManager = new PatternManager(this);
-        patternManager.init();
+        this.setPatternManager(new PatternManager(this))
+        this.getPatternManager().init();
     }
 
 

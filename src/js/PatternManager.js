@@ -1,4 +1,5 @@
-import { HTML } from "./HTML";
+import {log} from "neo-async";
+import {HTML} from "./HTML";
 import patternsData from './patterns.json';
 
 
@@ -11,7 +12,12 @@ export class PatternManager {
     constructor(eventHandler) {
         this.#eventHandler = eventHandler;
         this.#patterns = patternsData.patterns;
-        this.#config = {};
+        this.#config = {
+            "T": 5,
+            "B": 5,
+            "L": 5,
+            "R": 5
+        };
     }
 
 
@@ -96,7 +102,7 @@ export class PatternManager {
      * @returns {number[][]} Une nouvelle grille avec la bordure ajoutée.
      */
     createGridWithBorder(grid) {
-        const { T, B, L, R } = this.getConfig();
+        const {T, B, L, R} = this.getConfig();
         const width = grid[0].length + L + R;
 
         return [
@@ -181,9 +187,7 @@ export class PatternManager {
 
         const selectedPattern = this.getPatterns()[selectedIndex];
         // return selectedPattern.grid;
-
-        const grid = this.transformJsonToGrid(selectedPattern);
-        return grid;
+        return this.transformJsonToGrid(selectedPattern);
     }
 
     transformJsonToGrid(selectedPattern) {
@@ -197,7 +201,7 @@ export class PatternManager {
             const gridWidth = grid[j].length;
             for (let i = 0; i < gridWidth; i++) {
                 let [index, number] = grid[j][i];
-                for (let k = 0; k < number ; k ++) {
+                for (let k = 0; k < number; k++) {
                     line[k + index] = 1;
                 }
             }
@@ -205,7 +209,6 @@ export class PatternManager {
         }
         return result;
     }
-
 
     /**
      * Récupère l'objet complet du motif actuellement sélectionné dans le sélecteur.
@@ -215,6 +218,17 @@ export class PatternManager {
     getSelectedPattern() {
         const selectedIndex = HTML.patternSelect.selectedIndex - 1;
         return selectedIndex >= 0 ? this.getPatterns()[selectedIndex] : null;
+    }
+
+    displayPrincipalAutomate() {
+        this.getPatterns().forEach(pattern => {
+            if (pattern.name === this.getEventHandler().getApp().getDepartAutomate()) {
+                let grid = this.transformJsonToGrid(pattern);
+                grid = this.createGridWithBorder(grid);
+                this.applyPatternToGame(grid);
+            }
+        })
+        return 3;
     }
 
     /**
