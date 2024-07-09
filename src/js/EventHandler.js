@@ -175,6 +175,8 @@ export class EventHandler {
         this.initializePredefineRulesButton();
         this.initializeDocButton();
         this.initializeKeyboard();
+
+        this.initializeResizeWindow();
     }
 
     /******************************************
@@ -925,6 +927,24 @@ export class EventHandler {
                 HTML.docWindow.classList.remove('desactivate')
                 HTML.toggleDocIcon.className = 'bi bi-controller';
             }
+        });
+    }
+
+    initializeResizeWindow() {
+        window.addEventListener('resize', () => {
+
+            let zoom = this.getApp().getCellSize() + 1;
+            if (zoom > Config.MAX_CELL_SIZE) zoom = Config.MAX_CELL_SIZE;
+    
+            const canvasSize = HTML.canvasContainer.offsetWidth - 20
+    
+            // Mise à jour de la taille des cellules en fonction de la largeur.   
+            const currentMaxCellSize = Math.min(
+                Math.floor(canvasSize / this.getApp().getColumnCanvas()),
+                zoom)
+            this.getApp().setCellSize(currentMaxCellSize);
+            this.getApp().getBoardCanvas().setDimensionsCanvas();
+            this.getApp().getBoardCanvas().drawGrid();
         });
     }
 }
