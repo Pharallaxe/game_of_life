@@ -195,7 +195,7 @@ class Window {
         this.#weights = [.9, .1, 0, 0, 0];    // Les poids par défaut dans la création randomisée
         this.#border = false;                 // Les bordures du canvas ne sont pas activées.
         this.#history = false;                // L'historique n'est pas activé
-        this.#lines = false;                  // Les lignes ne sont pas activées.
+        this.#lines = true;                  // Les lignes ne sont pas activées.
         this.#saves = {};                     // Ensemble des sauvegardes
         this.#rapidity = 5;                      // Rapidité d'animation
         this.#step = 1;                       // Nombre de génération entre pas
