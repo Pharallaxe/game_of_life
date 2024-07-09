@@ -1,17 +1,4 @@
-
-	
-:Snarkmaker A single-channel stream of gliders that, when aimed to collide with an elbow block in a specific location, will perform a slow glider construction of a Snark, directly on the same lane as the incoming gliders. This allows a construction arm to add one or more lossless elbows, so that it can bend around multiple corners without an exponential increase in construction cost.
-
-The Snarkmaker recipe used in the first single-channel Demonoid, Orthogonoid, and spiral growth patterns contains 2,254 gliders. This could be considerably reduced with a customized search program.
-
-:SNG = second natural glider.
-
-:SODGame = Seeds of Destruction Game
-
-:sombrero One half of sombreros or siesta.
-
-:sombreros (p6) Found by Dave Buckingham in 1972. If the two halves are moved three spaces closer to one another then the period drops to 4, and the result is just a less compact form of Achim's p4. Compare also siesta.
-
+:sombreros Found by Dave Buckingham in 1972. If the two halves are moved three spaces closer to one another then the period drops to 4, and the result is just a less compact form of Achim's p4. Compare also siesta.
 	...OO........OO...
 	...O.O......O.O...
 	.....O......O.....
@@ -23,16 +10,8 @@ The Snarkmaker recipe used in the first single-channel Demonoid, Orthogonoid, an
 	.....O......O.....
 	...O.O......O.O...
 	...OO........OO...
-:soup A random initial pattern, either contained within a small area, or alternatively filling the whole Life universe.
 
-Finite soups probably have behaviors very different than infinite soups, but this is obviously unknown. Infinite soups may remain chaotic indefinitely since any reaction, no matter how rare, is bound to happen somewhere.
-
-Soups can have an average density, with results varying based on that. See sparse Life for a discussion of what can happen at a low density.
-
-Finite soups for sizes such as 16×16 (asymmetric) have been examined by the billions by scripts such as apgsearch to find interesting results. Many new oscillators and synthesis recipes have been discovered, as well as previously known rare patterns such as stabilized switch engines. In addition, soups are used to generate statistical census data, and to decide whether specific objects can be considered natural.
-
-Soups can be fully random, or they can be forced to be symmetric. The results for these two types of soups can differ since symmetric soups tend to create large symmetrical objects at a much higher rate. Shown below is an unusual mirror-symmetric soup that produces a pufferfish and nothing else.
-
+:soup A random initial pattern, either contained within a small area, or alternatively filling the whole Life universe. Finite soups probably have behaviors very different than infinite soups, but this is obviously unknown. Infinite soups may remain chaotic indefinitely since any reaction, no matter how rare, is bound to happen somewhere. Soups can have an average density, with results varying based on that. See sparse Life for a discussion of what can happen at a low density. Finite soups for sizes such as 16×16 (asymmetric) have been examined by the billions by scripts such as apgsearch to find interesting results. Many new oscillators and synthesis recipes have been discovered, as well as previously known rare patterns such as stabilized switch engines. In addition, soups are used to generate statistical census data, and to decide whether specific objects can be considered natural.Soups can be fully random, or they can be forced to be symmetric. The results for these two types of soups can differ since symmetric soups tend to create large symmetrical objects at a much higher rate. Shown below is an unusual mirror-symmetric soup that produces a pufferfish and nothing else.
 	OOOO..OO.OOO.O...O.OOO.OO..OOOO
 	.O.O.OO.O.............O.OO.O.O.
 	..OOO..O.O.O.......O.O.O..OOO..
@@ -49,10 +28,8 @@ Soups can be fully random, or they can be forced to be symmetric. The results fo
 	.O....O....O..OOO..O....O....O.
 	.OO.O...OOOOOOOOOOOOOOO...O.OO.
 	OOOO.OOO......O.O......OOO.OOOO
-:space dust A part of a spaceship or oscillator which looks like a random mix of ON and OFF cells. It is usually very difficult to find a glider synthesis for an object that consists wholly or partly of space dust. As examples, the 295P5H1V1, fly, and seal spaceships contain large amounts of space dust.
 
 :spacefiller Any pattern that grows at a quadratic rate by filling space with an agar. The first example was found in September 1993 by Hartmut Holzwart, following a suggestion by Alan Hensel. The diagram below shows a smaller spacefiller found by Tim Coe. See also Max. Spacefillers can be considered as breeders (more precisely, MMS breeders), but they are very different from ordinary breeders. The word "spacefiller" was suggested by Harold McIntosh and soon became the accepted term.
-
 	..................O........
 	.................OOO.......
 	............OOO....OO......
@@ -80,8 +57,8 @@ Soups can be fully random, or they can be forced to be symmetric. The results fo
 	......OO....OOO............
 	.......OOO.................
 	........O..................
-:space nonfiller Any pattern that expands indefinitely to affect every cell in the Life plane, but leaves an expanding region of vacuum at its center. Compare spacefiller; see also antstretcher. The first nonfiller was discovered by Jason Summers on 14 April 1999:
 
+:space nonfiller Any pattern that expands indefinitely to affect every cell in the Life plane, but leaves an expanding region of vacuum at its center. Compare spacefiller; see also antstretcher. The first nonfiller was discovered by Jason Summers on 14 April 1999.
 	...................OOO...............
 	..................O..O...............
 	............OOO......O....OOO........
@@ -113,8 +90,8 @@ Soups can be fully random, or they can be forced to be symmetric. The results fo
 	........OOO....O......OOO............
 	...............O..O..................
 	...............OOO...................
-:space rake The following p20 forwards glider rake, which was the first known rake. It consists of an ecologist with a LWSS added to turn the dying debris into gliders.
 
+:space rake The following p20 forwards glider rake, which was the first known rake. It consists of an ecologist with a LWSS added to turn the dying debris into gliders.
 	...........OO.....OOOO
 	.........OO.OO...O...O
 	.........OOOO........O
@@ -134,53 +111,15 @@ Soups can be fully random, or they can be forced to be symmetric. The results fo
 	....O................O
 	O...O............O..O.
 	.OOOO.................
-:spaceship Any finite pattern that reappears (without additions or losses) after a number of generations and displaced by a non-zero amount. By far the most natural spaceships are the glider, LWSS, MWSS and HWSS, followed by the Coe ship which has also evolved multiple times from random asymmetric soup starting conditions. See also the entries on individual spaceship speeds: c/2 spaceship, c/3 spaceship, c/4 spaceship, c/5 spaceship, c/6 spaceship, c/7 spaceship, c/10 spaceship, c/12 spaceship, 2c/5 spaceship, 2c/7 spaceship, 3c/7 spaceship, (2,1)c/6 spaceship, and 17c/45 spaceship.
-
-It is known that there exist spaceships travelling in all rational directions and at arbitrarily slow speeds (see universal constructor). Before 1989, however, the only known examples travelled at c/4 diagonally (gliders) or c/2 orthogonally (everything else).
-
-In 1989 Dean Hickerson started to use automated searches to look for new elementary spaceships, and had considerable success. Other people have continued these searches using tools such as lifesrc and gfind, and as a result we now have a great variety of elementary spaceships travelling at sixteen different velocities. The following table details the discovery of elementary spaceships with new velocities as of July 2018.
-
- -----------------------------------------------------------------
- Speed    Direction  First Discovery   Discoverer             Date
- -----------------------------------------------------------------
- c/4      diagonal   glider            Richard Guy            1970
- c/2      orthogonal LWSS              John Conway            1970
- c/3      orthogonal 25P3H1V0.1        Dean Hickerson     Aug 1989
- c/4      orthogonal 119P4H1V0         Dean Hickerson     Dec 1989
- c/12     diagonal   Cordership        Dean Hickerson     Apr 1991
- 2c/5     orthogonal 44P5H2V0          Dean Hickerson     Jul 1991
- c/5      orthogonal snail             Tim Coe            Jan 1996
- 2c/7     orthogonal weekender         David Eppstein     Jan 2000
- c/6      orthogonal dragon            Paul Tooke         Apr 2000
- c/5      diagonal   295P5H1V1         Jason Summers      Nov 2000
- c/6      diagonal   seal              Nicolay Beluchenko Sep 2005
- c/7      diagonal   lobster           Matthias Merzenich Aug 2011
- c/7      orthogonal loafer            Josh Ball          Feb 2013
- c/10     orthogonal copperhead        zdr                Mar 2016
- 3c/7     orthogonal spaghetti monster Tim Coe            Jun 2016
- (2,1)c/7 oblique    Sir Robin         Adam P. Goucher    Mar 2018
- -----------------------------------------------------------------
-Several infinite families of adjustable-velocity macro-spaceships have also been constructed, of which the first was Gabriel Nivasch's Caterpillar from December 2004. The macro-spaceship with the widest range of possible speeds is Michael Simkin's Caterloopillar from April 2016; in theory it supports any rational orthogonal speed strictly less than c<4. A somewhat similar design supporting any rational speed strictly less than c/2 has been shown to be feasible, but as of July 2018 no explicit examples have been constructed.
-
-A period p spaceship that displaces itself (m,n) during its period, where m>=n, is said to be of type (m,n)/p. It was proved by Conway in 1970 that p>=2m+2n. (This follows immediately from the easily-proved fact that a pattern cannot advance diagonally at a rate greater than one half diagonal step every other generation.)
-
-:Spaceships in Conway's Life A series of articles posted by David Bell to the newsgroup comp.theory.cell-automata during the period August-October 1992 that described many of the new spaceships found by himself, Dean Hickerson and Hartmut Holzwart. Bell produced an addendum covering more recent developments in 1996.
-
-:spaghetti monster The first 3c/7 spaceship, found by Tim Coe in June 2016. The spaceship travels orthogonally, has a minimum of 702 live cells and fits in a 27×137 bounding box.
-
-:spark A pattern that dies. The term is typically used to describe a collection of cells periodically thrown off by an oscillator or spaceship, but other dying patterns, particularly those consisting or only one or two cells (such as produced by certain glider collisions, for example), are also described as sparks. For examples of small sparks see unix and HWSS. Examples of much larger sparks are seen in Schick engine and twin bees shuttle spark.
 
 :spark coil (p2) Found in 1971.
-
 	OO....OO
 	O.O..O.O
 	..O..O..
 	O.O..O.O
 	OO....OO
-:sparker An oscillator or spaceship that produces sparks. These can be used to perturb other patterns without being themselves affected.
 
 :sparking eater One of two eaters found in April 1997 and November 1998 by Dean Hickerson using his dr search program, shown below to the left and right respectively. These both absorb gliders as a standard eater does, but also produce separated single-bit sparks at the upper right, which can be used to delete antiparallel gliders with different phases as shown.
-
 	..O.........OO........O..........OO.
 	O.O........OO.......O.O..........O.O
 	.OO..........O.......OO..........O..
@@ -192,11 +131,8 @@ A period p spaceship that displaces itself (m,n) during its period, where m>=n, 
 	.OO.....................O...........
 	.....................OOO............
 	.....................O..............
-The above mechanisms can be used to build intermitting glider guns. The left-hand eater produces a spark nine ticks after a glider impact, with the result that the period of the constituent guns can't be a multiple of 4. The right-hand eater produces the same spark ten ticks after impact, which allows p4N guns to be used.
-The separation of the spark also allows this reaction to perform other perturbations "around the corner" of some objects. For example, it was used by Jason Summers in 2004 to cap the ends of a row of ten AK47 reactions to form a much smaller period 94 glider gun than the original one. (This is now made obsolete by the AK94 gun.)
 
 :sparky A certain c/4 tagalong, shown here attached to the back of a spaceship.
-
 	..........O....................
 	..........O...............OO...
 	......OO.O.OOO..........OO...O.
@@ -210,12 +146,8 @@ The separation of the spark also allows this reaction to perform other perturbat
 	......OO.O.OOO..........OO...O.
 	..........O...............OO...
 	..........O....................
-:sparse Life This refers to the study of the evolution of a Life universe which starts off as a random soup of extremely low density. Such a universe is dominated at an early stage by blocks and blinkers (often referred to collectively as blonks) in a ratio of about 2:1. Much later it will be dominated by simple infinite growth patterns (presumably mostly switch engines). The long-term fate of a sparse Life universe is less certain. It may possibly become dominated by self-reproducing patterns (see universal constructor), but it is not at all clear that there is any mechanism for these to deal with all the junk produced by switch engines.
 
-:Spartan A pattern composed of subunits that can be easily constructed in any orientation, usually with a slow salvo. Generally this means that the pattern is a constellation of Spartan still lifes: block, tub, boat, hive, ship, loaf, eater1, or pond. Other small objects may sometimes be counted as Spartan, including period-2 oscillators - mainly blinkers, but also beacons or toads, which may occur as intermediate targets in slow salvo recipes. Most self-constructing patterns are Spartan or mostly Spartan, to simplify the process of self-construction.
-
-:speed booster Any mechanism which allows a signal (indicated by the presence or absence of a spaceship) to move faster than the spaceship could travel through empty space. The original speed booster is based on p30 technology, and is shown below:
-
+:speed booster Any mechanism which allows a signal (indicated by the presence or absence of a spaceship) to move faster than the spaceship could travel through empty space. The original speed booster is based on p30 technology, and is shown below.
 	....................O........................
 	.....................O.......................
 	...................OOO.......................
@@ -239,21 +171,8 @@ The separation of the spark also allows this reaction to perform other perturbat
 	..O.............O.......O.O..O..OO...........
 	OOO.............O...O.....OOO................
 	..................O.O........................
-Here the top glider is boosted by passing through two inline inverters, emerging 5 cells further along than the unboosted glider at the left.
-The fastest speed boosters are the telegraph and p1 telegraph, which can transfer a orthogonal signal at the speed of light, although their bit rate is rather slow.
 
-Diagonal speed boosters have also been built using 2c/3 wires or other stable components. See stable pseudo-Heisenburp.
-
-The star gate seems like it can transfer a signal faster than the speed of light. The illusion is explained in Fast Forward Force Field.
-
-:speed of light The greatest speed at which any effect can propagate; in Life, a speed of one cell per generation. Usually denoted c.
-
-:S-pentomino Conway's name for the following pentomino, which rapidly dies.
-
-	..OO
-	OOO.
-:spider (c/5 orthogonally, p5) This is the smallest known c/5 spaceship, and was found by David Bell in April 1997. Its side sparks have proved very useful in constructing c/5 puffers, including rakes. See also PPS.
-
+:spider This is the smallest known c/5 spaceship, and was found by David Bell in April 1997. Its side sparks have proved very useful in constructing c/5 puffers, including rakes. See also PPS.
 	......O...OOO.....OOO...O......
 	...OO.OOOOO.OO...OO.OOOOO.OO...
 	.O.OO.O.....O.O.O.O.....O.OO.O.
@@ -261,8 +180,8 @@ The star gate seems like it can transfer a signal faster than the speed of light
 	....OOO.....OO...OO.....OOO....
 	.O..O.OOO.............OOO.O..O.
 	...O.......................O...
-:spiral (p1) Found by Robert Wainwright in 1971.
 
+:spiral Found by Robert Wainwright in 1971.
 	OO....O
 	.O..OOO
 	.O.O...
@@ -270,14 +189,8 @@ The star gate seems like it can transfer a signal faster than the speed of light
 	...O.O.
 	OOO..O.
 	O....OO
-:spiral growth A self-constructing pattern built by Dave Greene in August 2014 that uses four universal constructors (UCs) arranged in a diamond to build four more UCs in a slightly larger diamond. This was the first B3/S23 pattern that exhibited spiral growth. Much smaller versions have now been constructed using the single-channel construction toolkit.
 
-:splitter A signal converter that accepts a single input signal and produces two or more output signals, usually of the same type as the input. An older term for this is fanout, or "fanout device".
-
-A sub-category is the one-time splitter, which is not technically a converter because it can only be used once. One-time splitters are usually small constellations that produce two or more clean gliders when struck by a single glider. In other words, they are multi-glider seeds. These are important for constructing self-destruct circuitry in self-constructing spaceships.
-
-The following combination, a syringe attached to an SE7T14 converter combined with an NW31 converter, is one of the smallest known glider splitters as of July 2018. Another small splitter with a 90-degree colour-changing output is shown under reflector.
-
+:splitter A signal converter that accepts a single input signal and produces two or more output signals, usually of the same type as the input. An older term for this is fanout, or "fanout device". A sub-category is the one-time splitter, which is not technically a converter because it can only be used once. One-time splitters are usually small constellations that produce two or more clean gliders when struck by a single glider. In other words, they are multi-glider seeds. These are important for constructing self-destruct circuitry in self-constructing spaceships. The following combination, a syringe attached to an SE7T14 converter combined with an NW31 converter, is one of the smallest known glider splitters as of July 2018. Another small splitter with a 90-degree colour-changing output is shown under reflector.
 	..........OO...........O......OO....................
 	..........OO..........O.O....O..O...................
 	......................O.O...O.OOO...O...............
@@ -308,12 +221,8 @@ The following combination, a syringe attached to an SE7T14 converter combined wi
 	OOO.................................................
 	..O.................................................
 	.O..................................................
-:SPPS (c/5 orthogonally, p30) The symmetric PPS. The original PPS found by David Bell in May 1998. Compare APPS.
-
-:sqrtgun Any glider-emitting pattern which emits its nth glider at a time asymptotically proportional to n2. The first examples were constructed by Dean Hickerson around 1991. See also quadratic filter, exponential filter, recursive filter.
 
 :squaredance The p2 agar formed by tiling the plane with the following pattern. Found by Don Woods in 1971.
-
 	OO......
 	....OO..
 	..O....O
@@ -322,18 +231,8 @@ The following combination, a syringe attached to an SE7T14 converter combined wi
 	OO......
 	...O..O.
 	...O..O.
-:squirter = pipsquirter
 
-:S-spiral = big S
-
-:stabilized switch engine A single switch engine which survives indefinitely by interacting with the appropriate exhaust such that it prevents the engine from ever being destroyed.
-
-The only known types of stabilized switch engines were found by Charles Corderman soon after he discovered the switch engine itself. There is a p288 block-laying type (the more common of the two) and the p384 glider-producing type. These two puffers are the most natural infinite growth patterns in Life. As of June 2018 they are the basis for every infinite growth pattern ever seen to occur from a random asymmetric soup, even after trillions of census results by apgsearch and similar projects.
-
-Patterns giving rise to block-laying switch engines can be seen under infinite growth, and one giving rise to a glider-producing switch engine is shown under time bomb.
-
-Here is the block-laying type showing its distinctive zig-zag trail of blocks.
-
+:stabilized switch engine A single switch engine which survives indefinitely by interacting with the appropriate exhaust such that it prevents the engine from ever being destroyed. The only known types of stabilized switch engines were found by Charles Corderman soon after he discovered the switch engine itself. There is a p288 block-laying type (the more common of the two) and the p384 glider-producing type. These two puffers are the most natural infinite growth patterns in Life. As of June 2018 they are the basis for every infinite growth pattern ever seen to occur from a random asymmetric soup, even after trillions of census results by apgsearch and similar projects. Patterns giving rise to block-laying switch engines can be seen under infinite growth, and one giving rise to a glider-producing switch engine is shown under time bomb. Here is the block-laying type showing its distinctive zig-zag trail of blocks.
 	..O.........................................................
 	.O.O........................................................
 	............................................................
@@ -394,27 +293,13 @@ Here is the block-laying type showing its distinctive zig-zag trail of blocks.
 	............................................................
 	......................................OO....................
 	......................................OO....................
-:stable A pattern is said to be stable if it is a parent of itself. Stable objects are oscillators with period 1 (p1), and are generally called still lifes.
 
-:stable pseudo-Heisenburp A multi-stage converter constructed by Dave Greene in January 2007, using a complex recipe found by Noam Elkies to insert a signal into a 2c/3 wire. The wire's high transmission speed allows a signal from a highway robber to catch up to a salvo of gliders. Ultimately the mechanism restores the key glider, which was destroyed by the highway robber in the first stage of the converter, to its exact original position in the salvo.
-
-Much smaller stable pseudo-Heisenburp devices have since been designed that use simple 0-degree glider seed constellations instead of a 2c/3 wire.
-
-These patterns are labeled "pseudo-Heisenburp", because a true Heisenburp device does not even temporarily damage or affect a passing glider, yet can still produce an output signal in response. However, it is impossible to construct a stable device that can accomplish this for gliders. True stable Heisenburp devices are possible with many other types of spaceships, but not with gliders which have no usable side sparks to initiate an output signal.
-
-:staged recovery A type of signal-processing circuit where the initial reaction between catalysts an incoming signal results in an imperfect recovery. A catalyst is damaged, destroyed completely as in a bait reaction, or one or more objects are left behind that must be cleaned up before the circuit can be reused. In any of these three cases, output signals from the circuit must be used to complete the cleanup. In theory the cleanup process might itself be dirty, requiring additional cleanup stages. In rare cases this might theoretically allow the construction of special-purpose circuits with a lower recovery time than would otherwise be possible, but in practice this kind of situation does not commonly arise.
-
-An example is the record-breaking (at the time) 487-tick reflector constructed by Adam P. Goucher on 12 April 2009. 487 ticks was a slight improvement over the repeat time of the Silver reflector. The reflector featured a standard Callahan G-to-H, with cleanup by an internal dirty glider reflector found by Dieter Leithner many years before. This in turn was cleaned up by the usual ungainly Herschel plumbing attached to the G-to-H's output. The dirty glider reflector is not actually fully recovered before a second p487 signal enters the full reflector. However, it has been repaired by the time the internal reflector is actually needed again, so the cycle can be successfully repeated at p487 instead of p497.
-
-:stairstep hexomino (stabilizes at time 63) The following predecessor of the blockade.
-
+:stairstep-hexomino The following predecessor of the blockade.
 	..OO
 	.OO.
 	OO..
-:stamp collection A collection of oscillators (or perhaps other Life objects) in a single diagram, displaying the exhibits much like stamps in a stamp album. The classic examples are by Dean Hickerson (see http://conwaylife.com/ref/DRH/stamps.html).
 
-Many stamp collections contain "fonts" made of single cells (which cleanly die) to annotate the objects or to draw boxes around them. For example, here is a stamp collection which shows all the ways that two gliders can create a loaf or an eater:
-
+:stamp-collection A collection of oscillators (or perhaps other Life objects) in a single diagram, displaying the exhibits much like stamps in a stamp album. The classic examples are by Dean Hickerson. Many stamp collections contain "fonts" made of single cells (which cleanly die) to annotate the objects or to draw boxes around them. For example, here is a stamp collection which shows all the ways that two gliders can create a loaf or an eater.
 	.O......O.O.....O....O.O.O...................O.
 	............................................O..
 	.O.....O...O...O.O...O......................OOO
@@ -438,12 +323,8 @@ Many stamp collections contain "fonts" made of single cells (which cleanly die) 
 	O......O.O.O....O....O......O..O...........O...
 	..........................................OO...
 	O.O.O..O...O....O....O.O.O..O...O.........O.O..
-Alternatively, stamp collections can use LifeHistory for their annotations, but this requires a more sophisticated Life program to handle. Numbers, or more rarely letters, are sometimes constructed from stable components such as blocks or snakes, but their readability is somewhat limited by placement constraints.
 
-:standard spaceship A glider, LWSS, MWSS or HWSS. These have all been known since 1970.
-
-:star (p3) Found by Hartmut Holzwart, February 1993.
-
+:star Found by Hartmut Holzwart, February 1993.
 	.....O.....
 	....OOO....
 	..OOO.OOO..
@@ -455,16 +336,8 @@ Alternatively, stamp collections can use LifeHistory for their annotations, but 
 	..OOO.OOO..
 	....OOO....
 	.....O.....
-:star gate A device by Dieter Leithner (October 1996) for transporting a LWSS faster than the speed of light. The key reaction is the Fast Forward Force Field.
 
-:stator The cells of an oscillator that are always on. Compare rotor. (The stator is sometimes taken to include also some of those cells which are always off.) The stator is divided into the bushing and the casing.
-
-By analogy, the cells of an eater that remain on even when the eater is eating are considered to constitute the stator of the eater. This is not always well-defined, because an eater can have more than one eating action.
-
-:statorless A statorless oscillator is one in which no cell is permanently on - that is, the stator is empty, or in other words the oscillator has the maximum possible volatility. See the volatility entry for examples of this type of oscillator at different periods. Statorless oscillators can be constructed for any sufficiently large period, using universal constructor technology.
-
-:statorless p5 (p5) Found by Josh Ball, June 2016. The first and only known statorless period 5 oscillator.
-
+:statorless-p5 Found by Josh Ball, June 2016. The first and only known statorless period 5 oscillator.
 	O.............O
 	.OO.........OO.
 	O....OO.OO....O
@@ -479,10 +352,8 @@ By analogy, the cells of an eater that remain on even when the eater is eating a
 	O....OO.OO....O
 	.OO.........OO.
 	O.............O
-:step Another term for a generation or tick. This term is particularly used in describing conduits. For example, a 64-step conduit is one through which the active object takes 64 generations to pass.
 
-:stillater (p3) Found by Robert Wainwright, September 1985. This is one of only three essentially different p3 oscillators with only three cells in the rotor. The others are 1-2-3 and cuphook.
-
+:stillater Found by Robert Wainwright, September 1985. This is one of only three essentially different p3 oscillators with only three cells in the rotor. The others are 1-2-3 and cuphook.
 	...O....
 	..O.O.OO
 	..O.OO.O
@@ -491,16 +362,8 @@ By analogy, the cells of an eater that remain on even when the eater is eating a
 	.O.O..O.
 	..O..O..
 	...OO...
-:still life Any stable pattern, usually assumed to be finite and nonempty. For the purposes of enumerating still lifes this definition is, however, unsatisfactory because, for example, any pair of blocks would count as a still life, and there would therefore be an infinite number of 8-bit still lifes.
 
-For this reason a stricter definition is often used, counting a stable pattern as a strict still life only if its islands cannot be divided into two or more nonempty sets both of which are stable in their own right. If such a subdivision can be made, the pattern can be referred to as a constellation. If its cells form a single cluster it is also, more specifically, either a pseudo still life or a quasi still life.
-
-In rare cases above a certain size threshold, a pattern may be divisible into three or four stable nonempty subsets but not into two. See the 32-bit triple pseudo (32 bits) and the 34-bit quad pseudo for examples.
-
-All still lifes up to 18 bits have been shown to be glider constructible. It is an open question whether all still lifes can be incrementally constructed using glider collisions. For a subset of small still lifes that have been found to be especially useful in self-constructing circuitry, see also Spartan.
-
-The smallest still life is the block. Arbitrarily large still lifes are easy to construct, for example by extending a canoe or barge. The maximum density of a large still life is 1/2, which can be achieved by an arbitrarily large patch of zebra stripes or chicken wire, among many other options. See density for more precise limits.
-
+:still life Any stable pattern, usually assumed to be finite and nonempty. For the purposes of enumerating still lifes this definition is, however, unsatisfactory because, for example, any pair of blocks would count as a still life, and there would therefore be an infinite number of 8-bit still lifes. For this reason a stricter definition is often used, counting a stable pattern as a strict still life only if its islands cannot be divided into two or more nonempty sets both of which are stable in their own right. If such a subdivision can be made, the pattern can be referred to as a constellation. If its cells form a single cluster it is also, more specifically, either a pseudo still life or a quasi still life. In rare cases above a certain size threshold, a pattern may be divisible into three or four stable nonempty subsets but not into two. See the 32-bit triple pseudo (32 bits) and the 34-bit quad pseudo for examples. All still lifes up to 18 bits have been shown to be glider constructible. It is an open question whether all still lifes can be incrementally constructed using glider collisions. For a subset of small still lifes that have been found to be especially useful in self-constructing circuitry, see also Spartan. The smallest still life is the block. Arbitrarily large still lifes are easy to construct, for example by extending a canoe or barge. The maximum density of a large still life is 1/2, which can be achieved by an arbitrarily large patch of zebra stripes or chicken wire, among many other options. See density for more precise limits.
 	...O..O..O..O..O..O...
 	.OOOOOOOOOOOOOOOOOOOO.
 	O....................O
@@ -526,8 +389,8 @@ The smallest still life is the block. Arbitrarily large still lifes are easy to 
 	O....................O
 	.OOOOOOOOOOOOOOOOOOOO.
 	...O..O..O..O..O..O...
+
 :still life tagalong A tagalong which takes the form of a still life in at least one phase. An example is shown below.
-
 	..OO...............
 	.OO.OO.............
 	..OOOO.............
@@ -545,8 +408,8 @@ The smallest still life is the block. Arbitrarily large still lifes are easy to 
 	O.......OO.........
 	O...O..............
 	OOOO...............
-:stop and go A pattern by Dean Hickerson in which a period 46 shuttle converts a glider into a block on one oscillation, and then converts the block back into a glider on the next oscillation. The glider is reflected back onto its own path, but with a delay.
 
+:stop and go A pattern by Dean Hickerson in which a period 46 shuttle converts a glider into a block on one oscillation, and then converts the block back into a glider on the next oscillation. The glider is reflected back onto its own path, but with a delay.
 	........................................O.
 	.......................................O..
 	OO..............OO.........OO..........OOO
@@ -558,8 +421,8 @@ The smallest still life is the block. Arbitrarily large still lifes are easy to 
 	.............OOOOO........................
 	OO...............OO.......................
 	OO..............OO........................
-:stop and restart A type of signal circuit where an input signal is converted into a stationary object, which is then re-activated by a secondary input signal. This can be used either as a memory device storing one bit of information, or as a simple delay mechanism. In the following January 2016 example by Martin Grant, a ghost Herschel marks the output signal location, and a "ghost beehive" marks the location of the intermediate still life.
 
+:stop and restart A type of signal circuit where an input signal is converted into a stationary object, which is then re-activated by a secondary input signal. This can be used either as a memory device storing one bit of information, or as a simple delay mechanism. In the following January 2016 example by Martin Grant, a ghost Herschel marks the output signal location, and a "ghost beehive" marks the location of the intermediate still life.
 	........................................................O.
 	.......................................................O..
 	.......................................................OOO
@@ -619,54 +482,8 @@ The smallest still life is the block. Arbitrarily large still lifes are easy to 
 	...O..........O...........................................
 	OOO............OOO........................................
 	O................O........................................
-The eater1 in the lower left corner catches the restart glider if no input signal has come in to create the beehive. This eater could be removed if it is useful to have both a "0" and a "1" output for a memory cell mechanism.
-The catch and throw technology in a Caterpillar is a somewhat similar idea. See also stop and go and reanimation.
 
-:stream A line of identical objects (usually spaceships), each of which is moving in a direction parallel to the line, generally on the same lane. In many uses the stream is periodic. For example, the new gun produces a period 46 glider stream. The stream produced by a pseudo-random glider generator can have a very high period. Compare with wave. See also single-channel for a common use of non-periodic glider streams.
-
-:stretcher Any pattern that grows by stretching a wick or agar. See wickstretcher and spacefiller.
-
-:strict still life A still life that is either a single connected polyplet, or is arranged such that a stable smaller pattern cannot be formed by removing one or more of its islands. For example, beehive with tail is a strict still life because it is connected, and table on table is a strict still life because neither of the tables are stable by themselves. See also triple pseudo, quad pseudo.
-
-Still lifes have been enumerated by Conway (4-7 bits), Robert Wainwright (8-10 bits), Dave Buckingham (11-13 bits), Peter Raynham (14 bits), Mark Niemiec (15-24 bits), and Simon Ekström and Nathaniel Johnston (25-32 bits). The resulting figures are shown below; see also https://oeis.org/A019473. The most recent search by Nathaniel Johnston has also confirmed that the triple pseudo pattern found by Gabriel Nivasch is the only such still life with 32 bits or less. It is therefore included in the pseudo still life count and not in the table below.
-
-	--------------
-	Bits    Number
-	--------------
-	 4           2
-	 5           1
-	 6           5
-	 7           4
-	 8           9
-	 9          10
-	10          25
-	11          46
-	12         121
-	13         240
-	14         619
-	15        1353
-	16        3286
-	17        7773
-	18       19044
-	19       45759
-	20      112243
-	21      273188
-	22      672172
-	23     1646147
-	24     4051711
-	25     9971377
-	26    24619307
-	27    60823008
-	28   150613157
-	29   373188952
-	30   926068847
-	31  2299616637
-	32  5716948683
-	--------------
-As the number of bits increases, the strict still life count goes up exponentially by approximately O(2.46n). By comparison, the rate for pseudo still life}s is about O(2.56n) while for quasi still lifes it's around O(3.04n).
-
-:strict volatility A term suggested by Noam Elkies in August 1998 for the proportion of cells involved in a period n oscillator which themselves oscillate with period n. For prime n this is the same as the ordinary volatility. Periods with known strictly-volatile oscillators include 1, 2, 3, 5, 6, 8, 13, 15, 22, 30, 33, and 177. Examples include figure-8, Kok's galaxy, smiley, and pentadecathlon. A composite example is the following p22, found by Nicolay Beluchenko on 4 March 2009:
-
+:strict-volatility A term suggested by Noam Elkies in August 1998 for the proportion of cells involved in a period n oscillator which themselves oscillate with period n. For prime n this is the same as the ordinary volatility. Periods with known strictly-volatile oscillators include 1, 2, 3, 5, 6, 8, 13, 15, 22, 30, 33, and 177. Examples include figure-8, Kok's galaxy, smiley, and pentadecathlon. A composite example is the following p22, found by Nicolay Beluchenko on 4 March 2009.
 	...........OO...
 	..........O.O...
 	..O.....O....O..
@@ -683,10 +500,8 @@ As the number of bits increases, the strict still life count goes up exponential
 	..O....O.....O..
 	...O.O..........
 	...OO...........
-:super beehive = honeycomb
 
-:superfountain (p4) A p4 sparker which produces a 1-cell spark that is separated from the rest of the oscillator by two clear rows of cells. The first superfountain was found by Noam Elkies in February 1998. In January 2006 Nicolay Beluchenko found the much smaller one shown below. See also fountain.
-
+:superfountain A p4 sparker which produces a 1-cell spark that is separated from the rest of the oscillator by two clear rows of cells. The first superfountain was found by Noam Elkies in February 1998. In January 2006 Nicolay Beluchenko found the much smaller one shown below. See also fountain.
 	...........O...........
 	.......................
 	.......................
@@ -705,14 +520,8 @@ As the number of bits increases, the strict still life count goes up exponential
 	...O..O.O.O.O.O.O..O...
 	....O.O.OO...OO.O.O....
 	.....O...........O.....
-:superlinear growth Growth faster than any rate proportional to T, where T is the number of ticks that a pattern has been run. This term usually applies to a pattern's population growth, rather than diametric growth or bounding-box growth. For example, breeders' and spacefillers' population asymptotically grows faster than any linear-growth pattern. It may also be used to describe the rate of increase in the number of subpatterns present in a pattern, such as when describing a replicator's rate of reproduction. Due to limits enforced by the speed of light, no pattern's population can grow at an asymptotic rate faster than quadratic growth. See switch-engine ping-pong for the lowest-population superlinear growth pattern as of July 2018, along with a list of the record-holders.
 
-:superstring An infinite orthogonal row of cells stabilized on one side so that it moves at the speed of light, often leaving debris behind. The first examples were found in 1971 by Edward Fitzgerald and Robert Wainwright. Superstrings were studied extensively by Peter Rott during 1992-1994, and he found examples with many different periods. (But no odd periods. In August 1998 Stephen Silver proved that odd-period superstrings are impossible.)
-
-Sometimes a finite section of a superstring can be made to run between two tracks ("waveguides"). This gives a fuse which can be made as wide as desired. The first example was found by Tony Smithurst and uses tubs. (This is shown below. The superstring itself is p4 with a repeating section of width 9 producing one blinker per period and was one of those discovered in 1971. With the track in place, however, the period is 8. This track can also be used with a number of other superstrings.) Shortly after seeing this example, in March 1997 Peter Rott found another superstring track consisting of boats. At present these are the only two waveguides known. Both are destroyed by the superstring as it moves along. It would be interesting to find one that remains intact.
-
-See titanic toroidal traveler for another example of a superstring.
-
+:superstring An infinite orthogonal row of cells stabilized on one side so that it moves at the speed of light, often leaving debris behind. The first examples were found in 1971 by Edward Fitzgerald and Robert Wainwright. Superstrings were studied extensively by Peter Rott during 1992-1994, and he found examples with many different periods. (But no odd periods. In August 1998 Stephen Silver proved that odd-period superstrings are impossible.) Sometimes a finite section of a superstring can be made to run between two tracks ("waveguides"). This gives a fuse which can be made as wide as desired. The first example was found by Tony Smithurst and uses tubs. (This is shown below. The superstring itself is p4 with a repeating section of width 9 producing one blinker per period and was one of those discovered in 1971. With the track in place, however, the period is 8. This track can also be used with a number of other superstrings.) Shortly after seeing this example, in March 1997 Peter Rott found another superstring track consisting of boats. At present these are the only two waveguides known. Both are destroyed by the superstring as it moves along. It would be interesting to find one that remains intact.
 	.OO..........................................................
 	O..O...O...O...O...O...O...O...O...O...O...O...O...O...O...O.
 	....O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O
@@ -734,10 +543,8 @@ See titanic toroidal traveler for another example of a superstring.
 	....O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O
 	O..O...O...O...O...O...O...O...O...O...O...O...O...O...O...O.
 	.OO..........................................................
-:support Those parts of an object which are only present in order to keep the rest of the object (such an engine or an edge spark) working correctly. These can be components of the object, or else accompanying objects used to perturb the object. In many cases there is a wide variation of support possible for an engine. The arms in many puffers are an example of support.
 
-:surprise (p3) Found by Dave Buckingham, November 1972.
-
+:surprise Found by Dave Buckingham, November 1972.
 	...O....OO
 	...OOO..O.
 	.OO...O.O.
@@ -747,8 +554,8 @@ See titanic toroidal traveler for another example of a superstring.
 	.O.O...OO.
 	.O..OOO...
 	OO....O...
-:SW1T43 A Herschel-to-glider converter that produces a tandem glider useful in the tee reaction. It is classified as a "G3" converter because its two gliders are three lanes apart.
 
+:SW1T43-A Herschel-to-glider converter that produces a tandem glider useful in the tee reaction. It is classified as a "G3" converter because its two gliders are three lanes apart.
 	.......OO........
 	.......O.........
 	.....O.O.........
@@ -767,11 +574,9 @@ See titanic toroidal traveler for another example of a superstring.
 	...........O..O..
 	.........O...OO..
 	.........OO......
-Besides the southwest-travelling glider on lane 1, the converter also emits the Herschel's standard first natural glider, SW-2. The converter's full standard name is therefore "HSW1T43_SW-2T21". See NW31 for an explanation of H-to-G naming conventions.
-:SW-2 The simplest type of H-to-G converter, where the converter's effect is simply to suppress a Herschel cleanly after allowing its first natural glider to escape. The name should be read as "SW minus two", where -2 is a glider lane number. The complete designation is SW-2T21. See NW31T120 for a discussion of the standard naming conventions used for these converters.
 
-An unlimited number of converters have the SW-2T21 classification. The variants most often used consist of just one or two small still life catalysts.
 
+:SW-2 The simplest type of H-to-G converter, where the converter's effect is simply to suppress a Herschel cleanly after allowing its first natural glider to escape. The name should be read as "SW minus two", where -2 is a glider lane number. The complete designation is SW-2T21. See NW31T120 for a discussion of the standard naming conventions used for these converters. An unlimited number of converters have the SW-2T21 classification. The variants most often used consist of just one or two small still life catalysts.
 	...................................OO.....
 	...................................O......
 	.................................O.O......
@@ -816,10 +621,8 @@ An unlimited number of converters have the SW-2T21 classification. The variants 
 	O.O......................O.O............O.
 	OOO......................OOO..............
 	..O........................O..............
-:SW-2T21 = SW-2
 
-:swan (c/4 diagonally, p4) A diagonal spaceship producing some useful sparks. Found by Tim Coe in February 1996.
-
+:swan A diagonal spaceship producing some useful sparks. Found by Tim Coe in February 1996.
 	.O..........OO..........
 	OOOOO......OO...........
 	O..OO........O.......OO.
@@ -832,14 +635,8 @@ An unlimited number of converters have the SW-2T21 classification. The variants 
 	........O......O........
 	........................
 	...........O............
-:swimmer = switch engine.
 
-:swimmer lane = switch engine channel.
-
-:switch A signal-carrying circuit that can send output signals to two or more different locations, depending on the state of the mechanism. These may be toggle circuits, where the state of the switch changes after each use, or permanent switches that retain the same state through many uses until a change is made with a separate signal.
-
-More generally, any circuit may be referred to as a switch, if it can alter its output based on stored information. For example, the following simple mechanism based on an eater2 was discovered by Emerson J. Perkins in 2007. It either reflects or absorbs an incoming signal, depending on the presence or absence of a nearby block. The block is removed if a reflection occurs.
-
+:switch A signal-carrying circuit that can send output signals to two or more different locations, depending on the state of the mechanism. These may be toggle circuits, where the state of the switch changes after each use, or permanent switches that retain the same state through many uses until a change is made with a separate signal. More generally, any circuit may be referred to as a switch, if it can alter its output based on stored information. For example, the following simple mechanism based on an eater2 was discovered by Emerson J. Perkins in 2007. It either reflects or absorbs an incoming signal, depending on the presence or absence of a nearby block. The block is removed if a reflection occurs.
 	...O.....................O....................
 	....O...................O.O...................
 	..OOO...................O.O...................
@@ -868,12 +665,8 @@ More generally, any circuit may be referred to as a switch, if it can alter its 
 	.................O.OO.O..O.OO..............O..
 	..........OO............OO.O.OOO............O.
 	..........OO...................O..............
-The switching signal here is a glider produced by a high-clearance syringe variant found by Matthias Merzenich. The syringe is not technically part of the switch mechanism; any standard Herschel source can deliver the signal to the block factory (the two eater1s on the right side of the pattern). Alternate converter mechanisms could also be used to place the block.
 
-An earlier example of the same type of one-time switch mechanism, also mediated by a block, can be found in the NW34T204 H-to-G. See also bistable switch for a very robust and versatile toggle switch with two input lanes and four possible outputs.
-
-:switchable gun A gun that includes a mechanism to turn the output stream off and on with simple signals, often gliders. A small example is Dieter Leithner's switchable LWSS gun from July 8, 1995. The ON signal enters from the northeast, and the OFF signal from the northwest:
-
+:switchable gun A gun that includes a mechanism to turn the output stream off and on with simple signals, often gliders. A small example is Dieter Leithner's switchable LWSS gun from July 8, 1995. The ON signal enters from the northeast, and the OFF signal from the northwest.
 	.................OO...........................................
 	.................O..O.........................................
 	..............................................................
@@ -919,44 +712,14 @@ An earlier example of the same type of one-time switch mechanism, also mediated 
 	.....................O...................O....................
 	.....................................O...O....................
 	.....................................O.O......................
-:switch engine The following pattern discovered by Charles Corderman in 1971, which is a glide symmetric unstable puffer which moves diagonally at a speed of c/12 (8 cells every 96 generations).
 
+:switch-engine The following pattern discovered by Charles Corderman in 1971, which is a glide symmetric unstable puffer which moves diagonally at a speed of c/12 (8 cells every 96 generations).
 	.O.O..
 	O.....
 	.O..O.
 	...OOO
-The exhaust is dirty and unfortunately catches up and destroys the switch engine before it runs 13 full periods. Corderman found several ways to stabilize the switch engine to produce puffers, using either one or two switch engines in tandem. See stabilized switch engine and ark.
 
-No spaceships were able to be made from switch engines until Dean Hickerson found the first one in April 1991 (see Cordership). Switch engine technology is now well-advanced, producing many c/12 diagonal spaceships, puffers, and rakes of many periods.
-
-Small polyominoes exist whose evolution results in a switch engine. See nonomino switch engine predecessor.
-
-Several three-glider collisions produce dirty reactions that produce a stabilized switch engine along with other ash, making infinite growth. Until recently the only known syntheses for clean unstabilized switch engines used four or more gliders. There are several such recipes. In the reaction shown below no glider arrives from the direction that the switch engine will travel to, making it easier to repeat the reaction:
-
-	OOO................
-	..O................
-	.O.................
-	...................
-	.......OO..........
-	......OO...........
-	........O..........
-	...................
-	...................
-	...................
-	...................
-	...................
-	...................
-	...................
-	..OO...............
-	.O.O...............
-	...O...............
-	...................
-	................OOO
-	................O..
-	.................O.
-Running the above for 20 ticks completes a kickback reaction with the top two gliders, resulting in the three-glider switch engine recipe discovered by Luka Okanishi on 12 March 2017.
-:switch engine channel Two lines of boats (or other suitable objects, such as tub with tails) arranged so that a switch engine can travel between them, in the following manner:
-
+:switch-engine-channel Two lines of boats (or other suitable objects, such as tub with tails) arranged so that a switch engine can travel between them, in the following manner:
 	..............OO................
 	.............O.O................
 	..............O.................
@@ -989,36 +752,8 @@ Running the above for 20 ticks completes a kickback reaction with the top two gl
 	.........O......................
 	........O.O.....................
 	........OO......................
-David Bell used this in June 2005 to construct a "bobsled" oscillator, in which a switch engine factory sends switch engines down a channel, at the other end of which they are deleted.
-:switch engine chute = switch engine channel
-
-:switch-engine ping-pong A very large (210515×183739) quadratic growth pattern found by Michael Simkin in October 2014. Currently this is the smallest starting population (23 cells) known to result in a quadratic population growth rate. Previous record-holders include Jaws, mosquito1, mosquito2, mosquito3, mosquito4, mosquito5, teeth, catacryst, metacatacryst, Gotts dots, wedge, 26-cell quadratic growth, 25-cell quadratic growth, and 24-cell quadratic growth.
-
-:symmetric Any object which can be rotated and/or flipped over an axis and still maintain the same shape. Many common small objects such as the block, beehive, pond, loaf, clock, and blinker are symmetric. Some larger symmetric objects are Kok's galaxy, Achim's p16, cross, Eureka, and the pulsar.
-
-Large symmetric objects can easily be created by placing multiple copies of any finite object together in a symmetrical way. Unless the individual objects interact significantly, this is considered trivial and is not considered further here (e.g., two LWSSs travelling together a hundred cells apart).
-
-There are two kinds of symmetry. Odd symmetry occurs when an object's line of reflection passes through the center of a line of cells. Objects with odd symmetry have an odd number of columns or rows, and can have a gutter. Even symmetry occurs when the line of reflection follows the boundary between two lines of cells. Objects with even symmetry have an even number of columns or rows.
-
-Because the Life universe and its rules are symmetric, all symmetric objects must remain symmetric throughout their evolution. Most non-symmetric objects keep their non-symmetry as they evolve, but some can become symmetric, especially if they result in a single object. Here is a slightly more complicated example where two gliders interact to form a blockade:
-
-	..O.........
-	O.O.........
-	.OO........O
-	.........OO.
-	..........OO
-Many useful objects are symmetric along an orthogonal axis. This commonly occurs by placing two copies of an object side by side to change the behaviour of the objects due to the inhibition or killing of new cells at their gutter interface. Examples of this are twin bees shuttle, centinal, and the object shown in puffer. Other useful symmetric objects are created by perturbing a symmetric object using nearby oscillators or spaceships in a symmetric manner. Examples of this are Schick engine, blinker ship, and hivenudger.
-
-Many spaceships found by search programs are symmetric because the search space for such objects is much smaller than for non-symmetrical spaceships. Examples include dart, 60P5H2V0, and 119P4H1V0.
-
-:synchronized Indicates that precise relative timing is required for two or more input signals entering a circuit, or two or more sets of gliders participating in a glider synthesis. Compare asynchronous. See also salvo and slow glider construction.
-
-:synchronous = synchronized
-
-:synthesis = glider synthesis
 
 :syringe A small stable converter found by Tanner Jacobi in March 2015, accepting a glider as input and producing an output Herschel As of June 2018 it is the smallest known converter of this type, so it is very often used to handle input gliders in complex signal circuitry, as described in Herschel circuit. A second glider can safely follow the first any time after 78 ticks, but overclocking also allows the syringe to work at a repeat time of 74 or 75 ticks. If followed by a dependent conduit a simple eater2 can be used instead of the large welded catalyst shown here. A ghost Herschel marks the output location.
-
 	....O.............................
 	.....O............................
 	...OOO............................
@@ -1048,22 +783,17 @@ Many spaceships found by search programs are symmetric because the search space 
 	..........OO...........O..........
 
 :table The following induction coil.
-
 	OOOO
 	O..O
-:table on table (p1)
 
+:table-on-table 
 	O..O
 	OOOO
 	....
 	OOOO
 	O..O
-:tag = tagalong
 
-:tagalong An object which is not a spaceship in its own right, but which can be attached to one or more spaceships to form a larger spaceship. For examples see Canada goose, fly, pushalong, sidecar and sparky. See also Schick engine, which consists of a tagalong attached to two LWSS (or similar).
-
-The following c/4 spaceship (Nicolay Beluchenko, February 2004) has two wings, either of which can be considered as a tagalong. But if either wing is removed, then the remaining wing becomes an essential component of the spaceship, and so is no longer a tagalong.
-
+:tagalong An object which is not a spaceship in its own right, but which can be attached to one or more spaceships to form a larger spaceship. For examples see Canada goose, fly, pushalong, sidecar and sparky. See also Schick engine, which consists of a tagalong attached to two LWSS (or similar). The following c/4 spaceship (Nicolay Beluchenko, February 2004) has two wings, either of which can be considered as a tagalong. But if either wing is removed, then the remaining wing becomes an essential component of the spaceship, and so is no longer a tagalong.
 	.......................O.......................
 	.......................O.......................
 	......................O.O......................
@@ -1088,16 +818,8 @@ The following c/4 spaceship (Nicolay Beluchenko, February 2004) has two wings, e
 	..OO.O.OOO...........................OOO.O.OO..
 	.O...O.O...............................O.O...O.
 	.O...OO.................................OO...O.
-:tail spark A spark at the back of a spaceship. For example, the 1-bit spark at the back of a LWSS, MWSS or HWSS in their less dense phases.
 
-:tame To perturb a dirty reaction using other patterns so as to make it clean and hopefully useful. Or to make a reaction work which would otherwise fail due to unwanted products which interfere with the reaction.
-
-:taming See tame.
-
-:tandem glider Two gliders travelling on parallel lanes at a fixed spacetime offset, usually as a single signal in a Herschel transceiver. See also glider pair.
-
-:Tanner's p46 (p46) An oscillator found by Tanner Jacobi on 20 October 2017. This oscillator hassles an evolving pi-heptomino to produce an phi spark. The spark is very accessible and is able to perturb many things.
-
+:Tanner's-p46 An oscillator found by Tanner Jacobi on 20 October 2017. This oscillator hassles an evolving pi-heptomino to produce an phi spark. The spark is very accessible and is able to perturb many things.
 	..............O...........
 	...OO.......OO.OO.........
 	...OO.......OO.OO.....O.OO
@@ -1111,21 +833,14 @@ The following c/4 spaceship (Nicolay Beluchenko, February 2004) has two wings, e
 	............O.OO.OO.O.....
 	............O.............
 	...........OO.............
-The snakes can be replaced with eaters to form a slightly smaller version, as shown in the p46 MWSS gun in gliderless
-The period of this new oscillator is the same as the old twin bees shuttle, and so this is able to expand the known p46 technology. For example, a p46 glider gun can be made from a Tanner's p46 and just one of the twin bees shuttles.
-
-Acting on their own, two copies of Tanner's p46 placed at right angles to each other with their sparks interacting can produce two different p46 glider guns and a gliderless p46 MWSS gun. See p46 gun and gliderless for two of these. These are the first p46 guns found which do not use a twin bees shuttle at all.
-
-:target A necessary component of a slow salvo recipe used by a single-arm universal constructor. A target usually consists of a single object, or sometimes a small constellation of common still lifes and/or oscillators. See intermediate target. If no hand target is available, a construction arm may be unable to construct anything, unless recipes are available to generate targets directly from the elbow.
 
 :teardrop The following induction coil, or the formation of two beehives that it evolves into after 20 generations. (Compare butterfly, where the beehives are five cells further apart.)
-
 	OOO.
 	O..O
 	O..O
 	.OO.
-:technician (p5) Found by Dave Buckingham, January 1973.
 
+:technician Found by Dave Buckingham, January 1973.
 	.....O.....
 	....O.O....
 	....OO.....
@@ -1138,12 +853,8 @@ Acting on their own, two copies of Tanner's p46 placed at right angles to each o
 	....OOO....
 	......O.O..
 	.......OO..
-:technician finished product = technician
 
-:technology The collective set of known reactions exploiting one subset of the Life universe. Examples of these subsets include glider synthesis, period 30 glider streams, c/3 spaceships, sparkers, Herschel conduits, and slow salvos. As new reactions and objects are found, over time any particular technology becomes more versatile and complete. Many Life experts like to concentrate on particular technologies.
-
-:tee A head-on collision between three gliders, producing a perpendicular output glider that can be used to construct closely spaced glider salvos, or to inject a glider into an existing stream. There are several workable recipes. One of the more useful is the following, because the tandem glider can be generated by a small Herschel converter, SW1T43:
-
+:tee A head-on collision between three gliders, producing a perpendicular output glider that can be used to construct closely spaced glider salvos, or to inject a glider into an existing stream. There are several workable recipes. One of the more useful is the following, because the tandem glider can be generated by a small Herschel converter, SW1T43.
 	...............O.
 	..............O..
 	..............OOO
@@ -1153,33 +864,19 @@ Acting on their own, two copies of Tanner's p46 placed at right angles to each o
 	.OO..............
 	O.O..............
 	..O..............
-:teeth A 65-cell quadratic growth pattern found by Nick Gotts in March 2000. This (and a related 65-cell pattern which Gotts found at about the same time) beat the record previously held by mosquito5 for smallest population known to have superlinear growth, but was later superseded by catacryst. See switch-engine ping-pong for the lowest-population superlinear growth pattern as of July 2018, along with a list of the record-holders.
 
-:telegraph A pattern created by Jason Summers in February 2003. It transmits and receives information using a rare type of reburnable fuse, a lightspeed wire made from a chain of beehives, at the rate of 1440 ticks per bit. The rate of travel of signals through the entire transceiver device can be increased to any speed strictly less than the speed of light by increasing the length of the beehive chain appropriately.
-
-"Telegraph" may also refer to any device that sends and receives lightspeed signals; see also p1 telegraph, high-bandwidth telegraph.
-
-:ternary reaction Any reaction between three objects. In particular, a reaction in which two gliders from one stream and one glider from a crossing stream of the same period annihilate each other. This can be used to combine two glider guns of the same period to produce a new glider gun with double the period.
-
-:test tube baby (p2)
-
+:test-tube-baby 
 	OO....OO
 	O.O..O.O
 	..O..O..
 	..O..O..
 	...OO...
-:tetraplet Any 4-cell polyplet.
 
 :tetromino Any 4-cell polyomino. There are five such objects, shown below. The first is the block, the second is the T-tetromino and the remaining three rapidly evolve into beehives.
-
 	OO......OOO......OOOO......OOO......OO.
 	OO.......O...................O.......OO
-:The Online Life-Like CA Soup Search A distributed search effort set up by Nathaniel Johnston in 2009, using a Python script running in Golly. Results included a collection of the longest-lived 20×20 soups, as well as a census of over 174 billion ash objects. It has since been superseded by Catagolue.
-
-:The Recursive Universe A popular science book by William Poundstone (1985) dealing with the nature of the universe, illuminated by parallels with the game of Life. This book brought to a wider audience many of the results that first appeared in LifeLine. It also outlines the proof of the existence of a universal constructor in Life first given in Winning Ways.
 
 :thumb A spark-like protrusion which flicks out in a manner resembling a thumb being flicked. Below on the left is a p9 thumb sparker found by Dean Hickerson in October 1998. On the right is a p4 example found by David Eppstein in June 2000.
-
 	.......O..............O.....
 	...OO...O.........OO...O....
 	...O.....O.OO.....O.....O...
@@ -1191,35 +888,27 @@ Acting on their own, two copies of Tanner's p46 placed at right angles to each o
 	......O..OO........O.OOOO...
 	......OO...........O.O..O...
 	....................O.......
-:thunderbird (stabilizes at time 243)
 
+:thunderbird 
 	OOO
 	...
 	.O.
 	.O.
 	.O.
-:tick = generation
 
-:tic tac toe = octagon II
-
-:tie A term used in naming certain still lifes (and the stator part of certain oscillators). It indicates that the object consists of two smaller objects joined point to point, as in ship tie boat.
-
-:time bomb The following pattern by Doug Petrie, which is really just a glider-producing switch engine in disguise. See infinite growth for some better examples of a similar nature.
-
+:time-bomb The following pattern by Doug Petrie, which is really just a glider-producing switch engine in disguise. See infinite growth for some better examples of a similar nature.
 	.O...........OO
 	O.O....O......O
 	.......O....O..
 	..O..O...O..O..
 	..OO......O....
 	...O...........
-:titanic toroidal traveler The superstring with the following repeating segment. The front part becomes p16, but the eventual fate of the detached back part is unknown.
 
+:titanic-toroidal-traveler The superstring with the following repeating segment. The front part becomes p16, but the eventual fate of the detached back part is unknown.
 	OOOOOO
 	OOO...
-:TL = traffic light
 
-:T-nosed p4 (p4) Found by Robert Wainwright in October 1989. See also filter.
-
+:T-nosed-p4 Found by Robert Wainwright in October 1989. See also filter.
 	.....O.....
 	.....O.....
 	....OOO....
@@ -1232,8 +921,8 @@ Acting on their own, two copies of Tanner's p46 placed at right angles to each o
 	.OO.O.O.OO.
 	O..OO.OO..O
 	OO.......OO
-:T-nosed p5 (p5) Found by Nicolay Beluchenko in April 2005.
 
+:T-nosed-p5 Found by Nicolay Beluchenko in April 2005.
 	.....OO...............OO.OO.....O........
 	..O..O.........OO.O.OOO.OO......O........
 	.O.O.O.....O....O.O.OOO......OO.O........
@@ -1251,8 +940,8 @@ Acting on their own, two copies of Tanner's p46 placed at right angles to each o
 	.O.O.O.....O....O.O.OOO......OO.O........
 	..O..O.........OO.O.OOO.OO......O........
 	.....OO...............OO.OO.....O........
-:T-nosed p6 (p6) Found by Achim Flammenkamp in September 1994. There is also a much larger and fully symmetric version found by Flammenkamp in August 1994.
 
+:T-nosed-p6 Found by Achim Flammenkamp in September 1994. There is also a much larger and fully symmetric version found by Flammenkamp in August 1994.
 	......OO...OO......
 	......O.O.O.O......
 	.......O...O.......
@@ -1264,14 +953,12 @@ Acting on their own, two copies of Tanner's p46 placed at right angles to each o
 	.......O...O.......
 	......O.O.O.O......
 	......OO...OO......
-:toad (p2) Found by Simon Norton, May 1970. This is the second most common oscillator, although blinkers are more than a hundred times as frequent. See also killer toads. A toad can be used as a 90-degree one-time turner.
 
+:toad Found by Simon Norton, May 1970. This is the second most common oscillator, although blinkers are more than a hundred times as frequent. See also killer toads. A toad can be used as a 90-degree one-time turner.
 	.OOO
 	OOO.
-The protruding cells at the edges can perturb some reactions by encouraging and then suppressing births on successive ticks. For example, a toad can replace the northwest eater in the Callahan G-to-H converter, allowing it to be packed one diagonal cell closer to other circuits.
 
 :toad-flipper A toad hassler that works in the manner of the following example. Two domino sparkers, here pentadecathlons, apply their sparks to the toad in order to flip it over. When the sparks are applied again it is flipped back. Either or both domino sparkers can be moved down two spaces from the position shown and the toad-flipper will still work, but because of symmetry there are really only two different types. Compare toad-sucker.
-
 	.O..............O.
 	.O..............O.
 	O.O............O.O
@@ -1282,8 +969,8 @@ The protruding cells at the edges can perturb some reactions by encouraging and 
 	O.O......O.....O.O
 	.O..............O.
 	.O..............O.
-:toad-sucker A toad hassler that works in the manner of the following example. Two domino sparkers, here pentadecathlons, apply their sparks to the toad in order to shift it. When the sparks are applied again it is shifted back. Either or both domino sparkers can be moved down two spaces from the position shown and the toad-sucker will still work, but because of symmetry there are really only three different types. Compare toad-flipper.
 
+:toad-sucker A toad hassler that works in the manner of the following example. Two domino sparkers, here pentadecathlons, apply their sparks to the toad in order to shift it. When the sparks are applied again it is shifted back. Either or both domino sparkers can be moved down two spaces from the position shown and the toad-sucker will still work, but because of symmetry there are really only three different types. Compare toad-flipper.
 	.O................
 	.O..............O.
 	O.O.............O.
@@ -1295,8 +982,8 @@ The protruding cells at the edges can perturb some reactions by encouraging and 
 	.O.............O.O
 	.O..............O.
 	................O.
-:toaster (p5) Found by Dean Hickerson, April 1992.
 
+:toaster Found by Dean Hickerson, April 1992.
 	....O......OO..
 	...O.O.OO..O...
 	...O.O.O.O.O...
@@ -1309,10 +996,8 @@ The protruding cells at the edges can perturb some reactions by encouraging and 
 	...O.O.O.O.O...
 	...O.O.OO..O...
 	....O......OO..
-:toggleable gun Any gun that can be turned off or turned on by the same external signal - the simplest possible switching mechanism. An input signal causes the gun to stop producing gliders. Another input signal from the same source restores the gun to its original function. Compare switchable gun.
 
-Here's a small example by Dean Hickerson from September 1996:
-
+:toggleable gun Any gun that can be turned off or turned on by the same external signal - the simplest possible switching mechanism. An input signal causes the gun to stop producing gliders. Another input signal from the same source restores the gun to its original function. Compare switchable gun. Here's a small example by Dean Hickerson from September 1996.
 	..............OO..............O..
 	..............O.O.............O.O
 	..............O...............OO.
@@ -1327,9 +1012,8 @@ Here's a small example by Dean Hickerson from September 1996:
 	O..O........................aaa..
 	............................a....
 	.............................a...
-In the figure above, glider B and an LWSS are about to send a glider NW. Glider A will delete the next glider after B, turning off the output stream. But if the device were already off, B wouldn't be present and A would instead delete the leading LWSS, turning the device back on.
-:toggle circuit Any signal-processing circuit that switches back and forth between two possible states or outputs. An early example is the boat-bit. More recent discoveries include the semi-Snarks, which alternate between reflecting and absorbing input gliders. The following B-to-G converter sends alternate glider outputs in opposite directions.
 
+:toggle circuit Any signal-processing circuit that switches back and forth between two possible states or outputs. An early example is the boat-bit. More recent discoveries include the semi-Snarks, which alternate between reflecting and absorbing input gliders. The following B-to-G converter sends alternate glider outputs in opposite directions.
 	...........OO....................................OO....
 	......OO..O.O...............................OO..O.O....
 	......O...O....O............................O...O....O.
@@ -1367,16 +1051,8 @@ In the figure above, glider B and an LWSS are about to send a glider NW. Glider 
 	OO.O.......O..........................OO.O.......O.....
 	O.OO......OOO.........................O.OO......OOO....
 	.........OO..O.................................OO..O...
-:TOLLCASS Acronym for The Online Life-Like CA Soup Search.
-
-:toolkit A set of Life reactions and mechanisms that can be used to solve any problem in a specific pre-defined class of problems: glider timing adjustment, salvo creation, seed construction, etc. See also universal toolkit, technology.
-
-:torus As applies to Life, usually means a finite Life universe which takes the form of an m × n rectangle with the bottom edge considered to be joined to the top edge and the left edge joined to the right edge, so that the universe is topologically a torus. There are also other less obvious ways of obtaining a toroidal universe.
-
-See also Klein bottle. Every object in a torus universe obviously either dies or becomes a still life or oscillator.
 
 :total aperiodic Any finite pattern which evolves in such a way that no cell in the Life plane is eventually periodic. The first example was found by Bill Gosper in November 1997. A few days later he found the following much smaller example consisting of three copies of a p12 backrake by Dave Buckingham.
-
 	.........................................O.................
 	........................................OOO................
 	.......................................OO.O.....O..........
@@ -1434,17 +1110,13 @@ See also Klein bottle. Every object in a torus universe obviously either dies or
 	O....O.........O...........................................
 	.....O.....................................................
 	....O......................................................
-:T-pentomino Conway's name for the following pentomino, which is a common parent of the T-tetromino.
 
+:T-pentomino Conway's name for the following pentomino, which is a common parent of the T-tetromino.
 	OOO
 	.O.
 	.O.
-:track A path made out of conduits, often ending where it begins so that the active signal object is cycled forever, forming an oscillator or a gun.
-
-This term has also been used to refer to the lane on which a glider or spaceship travels. The concept is very similar, but a reference to a "track" now usually implies a non-trivial supporting conduit.
 
 :tractor beam A stream of spaceships that can draw an object towards the source of the stream. The example below shows a tractor beam pulling a loaf; this was used by Dean Hickerson to construct a sawtooth.
-
 	.....................O..O......................
 	.....OOOO...........O..............OOOO........
 	.....O...O..........O...O..........O...O.......
@@ -1453,8 +1125,8 @@ This term has also been used to refer to the lane on which a glider or spaceship
 	O..O........OO.OO..........OO.OO..........OO.OO
 	O.O..........OO.............OOOO...........OO..
 	.O...........................OO................
-:traffic circle (p100)
 
+:traffic-circle 
 	.....................OO....OO...................
 	.....................O.O..O.O...................
 	.......................O..O.....................
@@ -1503,8 +1175,8 @@ This term has also been used to refer to the lane on which a glider or spaceship
 	.....................O..O.......................
 	...................O.O..O.O.....................
 	...................OO....OO.....................
-:traffic jam Any traffic light hassler, such as traffic circle. The term is also applied to the following reaction, used in most traffic light hasslers, in which two traffic lights interact in such a way as to reappear after 25 generations with an extra 6 spaces between them. See traffic lights extruder for a way to make this reaction extensible.
 
+:traffic-jam Any traffic light hassler, such as traffic circle. The term is also applied to the following reaction, used in most traffic light hasslers, in which two traffic lights interact in such a way as to reappear after 25 generations with an extra 6 spaces between them. See traffic lights extruder for a way to make this reaction extensible.
 	..OOO...........
 	...........OOO..
 	O.....O.........
@@ -1513,8 +1185,8 @@ This term has also been used to refer to the lane on which a glider or spaceship
 	.........O.....O
 	..OOO...........
 	...........OOO..
-:traffic light (p2) A common formation of four blinkers.
 
+:traffic-light A common formation of four blinkers.
 	..OOO..
 	.......
 	O.....O
@@ -1522,10 +1194,8 @@ This term has also been used to refer to the lane on which a glider or spaceship
 	O.....O
 	.......
 	..OOO..
-:traffic lights extruder A growing pattern constructed by Jason Summers in October 2006, which slowly creates an outward-growing chain of traffic lights. The growth occurs in waves which travel through the chain from one end to the other. It can be thought of as a complex fencepost for a wick that does not need a wickstretcher.
 
-The following illustrates the reaction used, in which a newly created traffic light at the left eventually pushes the rightmost one slightly to the right.
-
+:traffic lights extruder A growing pattern constructed by Jason Summers in October 2006, which slowly creates an outward-growing chain of traffic lights. The growth occurs in waves which travel through the chain from one end to the other. It can be thought of as a complex fencepost for a wick that does not need a wickstretcher.The following illustrates the reaction used, in which a newly created traffic light at the left eventually pushes the rightmost one slightly to the right.
 	......................O.......................O....
 	......................O.......................O....
 	.........OOO..........O..........OOO..........O....
@@ -1535,8 +1205,8 @@ The following illustrates the reaction used, in which a newly created traffic li
 	.......O.....O........O........O.....O........O....
 	......................O.......................O....
 	.........OOO..........O..........OOO..........O....
-:trans-beacon on table (p2)
 
+:trans-beacon-on-table 
 	....OO
 	.....O
 	..O...
@@ -1544,39 +1214,30 @@ The following illustrates the reaction used, in which a newly created traffic li
 	......
 	OOOO..
 	O..O..
-:trans-boat with tail (p1)
 
+:trans-boat-with-tail 
 	OO...
 	O.O..
 	.O.O.
 	...O.
 	...OO
-:transceiver = Herschel transceiver.
 
-:trans-loaf with tail (p1)
-
+:trans-loaf-with-tail 
 	.O....
 	O.O...
 	O..O..
 	.OO.O.
 	....O.
 	....OO
-:transmitter = Herschel transmitter.
 
-:transparent In signal circuitry, a term used for a catalyst that is completely destroyed by the passing signal, then rebuilt. Often (though not always) the active reaction passes directly through the area occupied by the transparent catalyst, then rebuilds the catalyst behind itself, as in the transparent block reaction. See also transparent lane.
-
-:transparent block reaction A certain reaction between a block and a Herschel predecessor in which the block reappears in its original place some time later, the reaction having effectively passed through it. This reaction was found by Dave Buckingham in 1988. It has been used in some Herschel conduits, and in the gunstars. Because the reaction involves a Herschel predecessor rather than an actual Herschel, the following diagram shows instead a B-heptomino (which by itself would evolve into a block and a Herschel).
-
+:transparent-block-reaction A certain reaction between a block and a Herschel predecessor in which the block reappears in its original place some time later, the reaction having effectively passed through it. This reaction was found by Dave Buckingham in 1988. It has been used in some Herschel conduits, and in the gunstars. Because the reaction involves a Herschel predecessor rather than an actual Herschel, the following diagram shows instead a B-heptomino (which by itself would evolve into a block and a Herschel).
 	O.............
 	OO..........OO
 	.OO.........OO
 	OO............
-:transparent debris effect A mechanism where a Herschel or other active reaction completely destroys a catalyst in a particular location in a conduit. After passing through or past that location, the same reaction then recreates the catalyst in exactly its original position. This type of catalysis is surprisingly common in signal circuitry. For an example, see transparent block reaction.
 
-The transparent object is most often a very common still life such as a block or beehive. Rarer objects are not unknown; for example, a transparent loaf was found by Stephen Silver in October 1997, in a very useful elementary conduit making up part of a Herschel receiver. However, not surprisingly, rarer objects are much less likely to reappear in exactly the correct location and orientation, so transparent reactions involving them are much more difficult to find, on average.
 
-:transparent lane A path through a signal-producing circuit that can be used to merge signal streams. The signal is usually a standard spaceship such as a glider. It can either be produced by the circuit, or it can come from elsewhere, passing safely through on the same lane without interacting with the circuit. A good example is the NW31 converter, which has two glider outputs on transparent lanes:
-
+:transparent-lane A path through a signal-producing circuit that can be used to merge signal streams. The signal is usually a standard spaceship such as a glider. It can either be produced by the circuit, or it can come from elsewhere, passing safely through on the same lane without interacting with the circuit. A good example is the NW31 converter, which has two glider outputs on transparent lanes.
 	OO.......................
 	.O.......................
 	.O.O.....................
@@ -1601,10 +1262,8 @@ The transparent object is most often a very common still life such as a block or
 	.........................
 	.............OO..........
 	.............OO..........
-The optional third output shown in NW31 is non-transparent, because the upper eater1 catalyst would get in the way of a passing glider on the same lane.
 
 :tremi-Snark A colour-preserving period-multiplying signal conduit found by Tanner Jacobi on 7 September 2017, producing one output glider for every three input gliders. It uses the same block-to-pre-honeyfarm bait reaction as the Snark, and so has the same 43-tick recovery time. Compare semi-Snark.
-
 	.O............................
 	..O...........................
 	OOO...........................
@@ -1655,7 +1314,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	..OO..O
 	.....OO
 
-:trigger A signal, usually a single glider, that collides with a seed constellation to produce a relatively rare still life or oscillator, or an output spaceship or other signal. The constellation is destroyed or damaged in the process; compare circuit, reflector. Here a pair of trigger gliders strike a dirty seed constellation assembled by Chris Cain in March 2015, to launch a three-engine Cordership:
+:trigger A signal, usually a single glider, that collides with a seed constellation to produce a relatively rare still life or oscillator, or an output spaceship or other signal. The constellation is destroyed or damaged in the process; compare circuit, reflector. Here a pair of trigger gliders strike a dirty seed constellation assembled by Chris Cain in March 2015, to launch a three-engine Cordership.
 	....................................................OO.
 	................................................OO..OO.
 	................................................OO.....
@@ -1731,7 +1390,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	...O...O...O....
 	...O...O...O....
 
-:triple pseudo The following pattern, found by Gabriel Nivasch in July 2001. It is unique among 32-bit still lifes in that it can be broken down into three stable pieces but not into two. The term may also refer to any larger stable pattern with the same property. See also quad pseudo.
+:triple pseudo The following pattern, found by Gabriel Nivasch in July 2001. It is unique among 32-bit still lifes in that it can be broken down into three stable pieces but not into two. The term may also refer to any larger stable pattern with the same property.
 	......OO
 	..O.O..O
 	.O.OO.O.
@@ -1748,7 +1407,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	OO......OOO......OO.......O.O.......O.
 	.....................................O
 
-:tripole (p2) The barberpole of length 3.
+:tripole The barberpole of length 3.
 	OO....
 	O.O...
 	......
@@ -1869,12 +1528,12 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	OOO
 	.O.
 
-:tub
+:tub 
 	.O.
 	O.O
 	.O.
 
-:tubber (p3) Found by Robert Wainwright before June 1972.
+:tubber Found by Robert Wainwright before June 1972.
 	....O.O......
 	....OO.O.....
 	.......OOO...
@@ -1928,7 +1587,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	...OOOO.O......
 	....OO.........
 
-:tub with tail (p1) The following 8-cell still life. See eater for a use of this object.
+:tub-with-tail The following 8-cell still life. See eater for a use of this object.
 	.O...
 	O.O..
 	.O.O.
@@ -1942,7 +1601,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	..O...O..
 	..OO.OO..
 
-:tumbling T-tetson (p8) A T-tetromino hassled by two figure-8s. Found by Robert Wainwright.
+:tumbling-T-tetson A T-tetromino hassled by two figure-8s. Found by Robert Wainwright.
 	.OOO.................
 	O..................OO
 	O...O............O.OO
@@ -1995,7 +1654,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	..O..O..................................................
 	..OO....................................................
 
-:turning-toads  Found by Dean Hickerson, October 1989.
+:turning-toads Found by Dean Hickerson, October 1989.
 	..............OO.....OO.....OO.....OO.....OO..............
 	.......O.....O......O......O......O......O................
 	......OO...O....O.O....O.O....O.O....O.O....O.O.O.OO......
@@ -2052,14 +1711,14 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	.............................O.O...............OO
 	..............................OO.................
 
-:twinhat (p1) See also hat and sesquihat.
+:twinhat See also hat and sesquihat.
 	..O...O..
 	.O.O.O.O.
 	.O.O.O.O.
 	OO.O.O.OO
 	....O....
 
-:twirling T-tetsons II (p60) Found by Robert Wainwright. This is a pre-pulsar hassled by killer toads.
+:twirling-T-tetsons-II Found by Robert Wainwright. This is a pre-pulsar hassled by killer toads.
 	.......OO...OO..........
 	......O.......O.........
 	.........O.O............
@@ -2176,7 +1835,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	..................OO.O.O...OO.O.O.OO...O.O.OO..................
 	..................O.OO.OO......O......OO.OO.O..................
 
-:very long house The following induction coil.
+:very-long-house The following induction coil.
 	.OOOOO.
 	O..O..O
 	OO...OO
@@ -2381,7 +2040,7 @@ The optional third output shown in NW31 is non-transparent, because the upper ea
 	.O.O
 	..OO
 
-:with the grain A term used for negative spaceships travelling in zebra stripes agar, parallel to the stripes, and also for with-the-grain grey ships. Below are three small examples of "negative spaceships" found by Gabriel Nivasch in July 1999, travelling with the grain through a stabilized finite segment of zebra stripes agar:
+:with-the-grain A term used for negative spaceships travelling in zebra stripes agar, parallel to the stripes, and also for with-the-grain grey ships. Below are three small examples of "negative spaceships" found by Gabriel Nivasch in July 1999, travelling with the grain through a stabilized finite segment of zebra stripes agar:
 	.O..O..O..O..O..O..O..O..O..O..O..O..O..O..O..O..O..O.
 	.OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.
 	......................................................
