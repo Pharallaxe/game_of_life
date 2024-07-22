@@ -1,4 +1,3 @@
-import {log} from "neo-async";
 import {HTML} from "./HTML";
 import patternsData from './patterns.json';
 

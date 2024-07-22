@@ -1,9 +1,6 @@
 class Config {
     static DEAD = 0;
     static ALIVE1 = 1;
-    static ALIVE2 = 2;
-    static ALIVE3 = 3;
-    static ALIVE4 = 4;
     static WALL = 9;
 }
 
