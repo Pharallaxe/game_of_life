@@ -240,7 +240,7 @@
                 <nav class="navbar navbar-expand-sm navbar-light bg-light border">
                     <div class="d-flex flex-column gap-2 container-fluid align-items-start ">
 
-                        <!-- Icon List -->
+                        <!-- Liste d'icones -->
                         <div>
                             <div class="d-flex icon-bar flex-wrap gap-1">
 
@@ -503,12 +503,12 @@
                     </div>
                 </nav>
 
-                <!-- Canvas Container -->
+                <!-- Container canvas-->
                 <div id="gameLife" class="game-life canvas-container">
                     <canvas id="gameCanvas"></canvas>
                 </div>
 
-                <!-- Status Bar -->
+                <!-- Bar de statut -->
                 <div class="status-bar border d-flex flex-column flex-sm-row justify-content-center align-items-center">
                     <div class="d-flex flex-column flex-sm-row text-center">
                         <p class="mb-0 mx-sm-3 my-2">| Génération : <span id="generation">0</span> |</p>
@@ -521,7 +521,7 @@
 
         <!-- Modales -->
 
-        <!-- Configurer Modal -->
+        <!-- Modale Configurer -->
         <div class="modal fade" id="configurerModal" tabindex="-1" aria-labelledby="configurerModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -568,7 +568,7 @@
             </div>
         </div>
 
-        <!-- Calibrer Poids Modal -->
+        <!-- Modale Calibrer Poids -->
         <div class="modal fade" id="weightModal" tabindex="-1" aria-labelledby="weightModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -624,7 +624,7 @@
             </div>
         </div>
 
-        <!-- Grid Enter Modal -->
+        <!-- Modale Grid Enter -->
         <div class="modal fade" id="gridEnterModal" tabindex="-1" aria-labelledby="gridEnterModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -656,7 +656,7 @@
             </div>
         </div>
 
-        <!-- Grid Exit Modal -->
+        <!-- Modale Grid Exit -->
         <div class="modal fade" id="gridExitModal" tabindex="-1" aria-labelledby="gridExitModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -676,7 +676,7 @@
             </div>
         </div>
 
-        <!-- Load Modal -->
+        <!-- Modale Load -->
         <div class="modal fade" id="loadModal" tabindex="-1" aria-labelledby="loadModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -703,7 +703,7 @@
             </div>
         </div>
 
-        <!-- Save Modal -->
+        <!-- Modale Save -->
         <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -730,7 +730,7 @@
             </div>
         </div>
 
-        <!-- Définir Règles Modal -->
+        <!-- Modale Définir Règles -->
         <div class="modal fade" id="patternModal" tabindex="-1" aria-labelledby="patternModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -775,7 +775,7 @@
             </div>
         </div>
 
-        <!-- Définir Règles Modal -->
+        <!-- Définir Règles -->
         <div class="modal fade" id="defineRulesModal" tabindex="-1" aria-labelledby="defineRulesModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -882,7 +882,7 @@
             </div>
         </div>
 
-        <!-- Predefines Modal -->
+        <!-- Predefines -->
         <div class="modal fade" id="predefineRulesModal" tabindex="-1" aria-labelledby="predefineRulesModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -990,7 +990,7 @@
                         </button>
                     </h3>
                     <div id="collapseNew" class="accordion-collapse collapse" aria-labelledby="headingNew"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ce bouton ouvre une fenêtre pour configurer une nouvelle simulation du jeu de la vie.
                                 Vous
@@ -1011,7 +1011,7 @@
                         </button>
                     </h3>
                     <div id="collapseSave" class="accordion-collapse collapse" aria-labelledby="headingSave"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ce bouton ouvre une fenêtre pour enregistrer la grille visible sous forme de tableau
                                 de chiffres dans le Local Storage en tant que valeur d'une clef, dont vous donnez le
@@ -1030,7 +1030,7 @@
                         </button>
                     </h3>
                     <div id="collapseLoad" class="accordion-collapse collapse" aria-labelledby="headingLoad"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ce bouton ouvre une fenêtre pour charger l'une des différentes grilles sauvegardées
                                 en Local Storage.</p>
@@ -1048,7 +1048,7 @@
                         </button>
                     </h3>
                     <div id="collapseEntry" class="accordion-collapse collapse" aria-labelledby="headingEntry"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ouvre une fenêtre dans laquelle on peut entrer un rectangle de chiffres
                                 composés de 0, 1, 2, 3, 4 et 9. En cliquant sur appliquer vous pouvez transformer
@@ -1067,7 +1067,7 @@
                         </button>
                     </h3>
                     <div id="collapseCopy" class="accordion-collapse collapse" aria-labelledby="headingCopy"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Copie la grille présente dans le canvas dans le presse-papier. Il est possible ensuite
                                 de coller cette grille là où vous le souhaitez.</p>
@@ -1085,7 +1085,7 @@
                         </button>
                     </h3>
                     <div id="collapseLexicon" class="accordion-collapse collapse" aria-labelledby="headingLexicon"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Donne accès à une liste d'automates. Cette liste a été créée à partir d'un script Python
                                 analysant le contenu du lexique ConwayLife</p>
@@ -1117,7 +1117,7 @@
                         </button>
                     </h3>
                     <div id="collapseStep" class="accordion-collapse collapse" aria-labelledby="headingStep"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Fait un saut dans le temps en ajoutant X génération. Le nombre de génération est
                                 réglable avec le bouton suivant.</p>
@@ -1135,7 +1135,7 @@
                         </button>
                     </h3>
                     <div id="collapseJump" class="accordion-collapse collapse" aria-labelledby="headingJump"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ouvre un menu pour personnaliser le nombre de générations que l'on saute à chaque
                                 clic sur le bouton "pas à pas". Plus le nombre de générations est grand, plus cela peut
@@ -1186,7 +1186,7 @@
                         </button>
                     </h3>
                     <div id="collapsePlay" class="accordion-collapse collapse" aria-labelledby="headingPlay"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p><i class="bi bi-play-fill border border-dark p-1 rounded me-2"></i>Lance la
                                 simulation, permettant de voir les cellules évoluer en temps réel.</p>
@@ -1207,7 +1207,7 @@
                         </button>
                     </h3>
                     <div id="collapseRapidity" class="accordion-collapse collapse" aria-labelledby="headingRapidity"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ouvre un menu pour ajuster la vitesse de la simulation.</p>
                             <p>Vous pouvez sélectionner la vitesse d'exécution. par exemple x1, x2, x5, etc.</p>
@@ -1249,7 +1249,7 @@
                         </button>
                     </h3>
                     <div id="collapseColor" class="accordion-collapse collapse" aria-labelledby="headingColor"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ovre un petit menu pour sélectionner la couleur des cellules.</p>
                             <p><i class="bi bi-palette-fill border border-dark p-1 rounded me-2 blue"></i> Choisir les
@@ -1277,7 +1277,7 @@
                         </button>
                     </h3>
                     <div id="collapseDraw" class="accordion-collapse collapse" aria-labelledby="headingDraw"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ce bouton permet de dessiner ou d'effacer des cellules directement sur la grille.</p>
                         </div>
@@ -1294,7 +1294,7 @@
                         </button>
                     </h3>
                     <div id="collapseTrash" class="accordion-collapse collapse" aria-labelledby="headingTrash"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ce bouton supprime toutes les cellules vivantes sur la grille.</p>
                         </div>
@@ -1311,7 +1311,7 @@
                         </button>
                     </h3>
                     <div id="collapseGrid" class="accordion-collapse collapse" aria-labelledby="headingGrid"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Ce bouton ouvre une fenêtre modale pour configurer une nouvelle simulation du jeu
                                 de la vie. Vous pouvez choisir les dimensions de la grille et les règles initiales.</p>
@@ -1329,7 +1329,7 @@
                         </button>
                     </h3>
                     <div id="collapseBorder" class="accordion-collapse collapse" aria-labelledby="headingBorder"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Active ou désactive les bordures des cellules, permettant de voir plus
                                 clairement la délimitation des cellules.</p>
@@ -1347,7 +1347,7 @@
                         </button>
                     </h3>
                     <div id="collapseHistory" class="accordion-collapse collapse" aria-labelledby="headingHistory"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Active le variateur de couleur afin d'identifier les cellules qui sont présentes
                                 depuis bien plus longtemps que les autres.</p>
@@ -1365,7 +1365,7 @@
                         </button>
                     </h3>
                     <div id="collapseArrow" class="accordion-collapse collapse" aria-labelledby="headingArrow"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Permet de déplacer la vue de la grille dans les directions haut, bas, gauche,
                                 droite.</p>
@@ -1395,7 +1395,7 @@
                         </button>
                     </h3>
                     <div id="collapseZoom" class="accordion-collapse collapse" aria-labelledby="headingZoom"
-                        data-bs-parent="#helpAccordion">
+                        >
                         <div class="accordion-body">
                             <p>Permet d'effectuer un zoom sur le canvas.</p>
                             <p><i class="bi bi-zoom-in border border-dark p-1 rounded me-2"></i>Augmente la taille des
@@ -1418,7 +1418,7 @@
                         </button>
                     </h3>
                     <div id="collapseDefineRules" class="accordion-collapse collapse"
-                        aria-labelledby="headingDefineRules" data-bs-parent="#helpAccordion">
+                        aria-labelledby="headingDefineRules" >
                         <div class="accordion-body">
                             <p>Ouvre une fenêtre qui va permettre de définir les règles du jeu de la vie : les une sont
                                 les règles de naissance d'une cellule, les autres les règles de survie.</p>
@@ -1437,7 +1437,7 @@
                         </button>
                     </h3>
                     <div id="collapsePredefineRules" class="accordion-collapse collapse"
-                        aria-labelledby="headingPredefineRules" data-bs-parent="#helpAccordion">
+                        aria-labelledby="headingPredefineRules" >
                         <div class="accordion-body">
                             <p>Ouvre une fenêtre qui va permettre de choisir des règles prédéfinies du jeu de la vie.
                                 Pour exemple, B3/S23 indique les règles suivantes</p>
